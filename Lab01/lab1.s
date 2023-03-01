@@ -25,15 +25,18 @@ main:
 	@ c,d,e in r2,r3,r4 respectively 
 
 	@ ---------------------
-
+	
+	@ Store the reg 
 	ldr r6, [r0, #36]
 	ldr r7, [r0, #12]
 	ldr r8, [r1, #4]
 	mov r5, #6
 
+	@ get the subtraction part
 	add r2, r2, r3
 	sub r2, r2, r4
 
+	@ calculations
 	add r9, r5, r6
 	add r9, r9, r8
 	sub r9, r9, r7
