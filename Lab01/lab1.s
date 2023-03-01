@@ -26,21 +26,20 @@ main:
 
 	@ ---------------------
 
+	ldr r6, [r0, #36]
+	ldr r7, [r0, #12]
+	ldr r8, [r1, #4]
+	mov r5, #6
+
 	add r2, r2, r3
 	sub r2, r2, r4
-	mov r4, #6
-	sub r2, r4, r2
 
-	ldr r3, [r0, #36]
-	add r2, r2, r3
+	add r9, r5, r6
+	add r9, r9, r8
+	sub r9, r9, r7
+	sub r9, r9, r2
+	str r9, [r1, #16]
 
-	ldr r3, [r0, #12]
-	sub r2, r2, r3
-
-	ldr r3, [r1, #4]
-	add r2, r2, r3
-	
-	str r2, [r1, #16]
 
 	@ ---------------------
 	
