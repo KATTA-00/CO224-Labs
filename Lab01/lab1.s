@@ -26,26 +26,25 @@ main:
 
 	@ ---------------------
 	
-	@ Store the reg from memory
+	@ load the r6, r7 and r8 from the values of a[9], a[3] and b[1]
 	ldr r6, [r0, #36]
 	ldr r7, [r0, #12]
 	ldr r8, [r1, #4]
-	@ move the value
+	@ move the value 6 to r5
 	mov r5, #6
 
-	@ get the subtraction part
+	@ get the subtraction part -> (c + d e)
 	add r2, r2, r3
 	sub r2, r2, r4
 
-	@ calculations
+	@ r9 = r5 + r6 - r7 + r8 – r2
 	add r9, r5, r6
 	add r9, r9, r8
 	sub r9, r9, r7
 	sub r9, r9, r2
 
-	@store the value to memory
+	@store the value of r9 to memory b[4]
 	str r9, [r1, #16]
-
 
 	@ ---------------------
 	
