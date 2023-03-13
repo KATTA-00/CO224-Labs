@@ -45,8 +45,8 @@ main:
 			b exit
 
 			else:
-				and r3, r0, r1
-				add r5, r5, r3
+				and r2, r0, r1
+				add r5, r5, r2
 
 			exit:
 
