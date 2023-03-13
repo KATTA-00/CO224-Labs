@@ -26,46 +26,39 @@ main:
 	@ ---------------------
 
 	mov r5, #0
-	mov r0, #0
 
-	loop1:
+	mov r0, #0
+	outerLoop:
 		cmp r0, #10
-		bge exit
+		bge exitOuter
 
 		mov r1, #5
-
-		loop2:
+		innerLoop:
 			cmp r1, #15
-			bge next
+			bge exitInner
 
-			
 			add r2, r0, r1
 			cmp r2, #10
 			bge else
 
 			add r5, r5, r0, lsl #1
-			b exitIf
+			b exit
 
 			else:
 				and r3, r0, r1
 				add r5, r5, r3
 
-
-			exitIf:
+			exit:
 
 			add r1, r1, #1
-			b loop2
+			b innerLoop
 
-
-		next:
+		exitInner:
 
 		add r0, r0, #1
-		b loop1
+		b outerLoop
 
-
-	exit:	
-	
-	
+	exitOuter:	
 	
 	@ ---------------------
 	
