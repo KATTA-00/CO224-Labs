@@ -25,36 +25,50 @@ main:
 
 	@ ---------------------
 
+	@ initailize r0 ad 0
 	mov r5, #0
 
+	@ r0 -> i and initialize it 0
 	mov r0, #0
 	outerLoop:
+		@ compare r0 and 10
 		cmp r0, #10
+		@ if r0 >= 10, exit the outer loop
 		bge exitOuter
 
+		@ r1 -> j and initialize it 5
 		mov r1, #5
 		innerLoop:
+			@ compare r1 and 15
 			cmp r1, #15
+			@ if r1 >= 15, exit the inner loop
 			bge exitInner
 
+			@ get i + j and store in r2
 			add r2, r0, r1
+			@ compare r2 and 10
 			cmp r2, #10
+			@ if i + j >= 10, go to else label
 			bge else
 
+			@ if i + j < 10
 			add r5, r5, r0, lsl #1
 			b exit
 
 			else:
+				@ sum+=i*2
 				and r2, r0, r1
 				add r5, r5, r2
 
 			exit:
 
+			@ increment j by 1
 			add r1, r1, #1
 			b innerLoop
 
 		exitInner:
 
+		@ increment i by 1
 		add r0, r0, #1
 		b outerLoop
 
