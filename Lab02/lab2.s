@@ -49,24 +49,14 @@ main:
 			@ compare r2 and 10
 			cmp r2, #10
 
+			@ if i + j < 10
+			@ sum+=i*2
 			addlt r5, r5, r0, lsl #1
 
-			addge r2, r0, r1
+			@ if i + j >= 10
+			@ sum+=(i&j)
+			andge r2, r0, r1
 			addge r5, r5, r2
-
-			@ @ if i + j >= 10, go to else label
-			@ bge else
-
-			@ @ if i + j < 10
-			@ add r5, r5, r0, lsl #1
-			@ b exit
-
-			@ else:
-			@ 	@ sum+=i*2
-			@ 	and r2, r0, r1
-			@ 	add r5, r5, r2
-
-			@ exit:
 
 			@ increment j by 1
 			add r1, r1, #1
