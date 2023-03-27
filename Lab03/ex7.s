@@ -7,15 +7,38 @@
 @ Write YOUR CODE HERE	
 
 @ ---------------------	
+
 Fibonacci:
+	sub sp, sp, #12
+	str lr, [sp, #0]
+	str r0, [sp, #4]
 
+	cmp r0, #2
+	bgt else
 
+	mov r0, #1
 
+	add sp, sp, #12
+	mov pc, lr
 
+	else :
+		
+		sub r0, r0, #1
+		bl Fibonacci
 
+		str r0, [sp, #8]
 
+		ldr r0, [sp, #4]
+		sub r0, r0, #2
+		bl Fibonacci
 
+		ldr r12, [sp, #8]
 
+		add r0, r0, r12
+
+		ldr lr, [sp, #0]
+		add sp, sp, #12
+		mov pc, lr
 
 
 
