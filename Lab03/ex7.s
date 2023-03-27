@@ -13,6 +13,12 @@ Fibonacci:
 	str lr, [sp, #0]
 	str r0, [sp, #4]
 
+
+	cmp r0, #0
+	moveq r0, #0
+	addeq sp, sp, #12
+	moveq pc, lr
+
 	cmp r0, #2
 	bgt else
 
@@ -39,8 +45,6 @@ Fibonacci:
 		ldr lr, [sp, #0]
 		add sp, sp, #12
 		mov pc, lr
-
-
 
 @ ---------------------
 	
