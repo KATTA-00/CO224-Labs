@@ -7,16 +7,30 @@
 @ Write YOUR CODE HERE	
 
 @ ---------------------	
+
 gcd:
 
+	loop:
+		cmp r1, #0
+		beq exit
 
+		mov r12, r0
+		mov r0, r1
 
+		module:
+			cmp r12, #0
+			blt get
 
+			sub r12, r12, r0
+			b module
 
+		get:
+			add r12, r12, r0
+			mov r1, r12
+			b loop
 
-
-
-
+	exit:
+		mov pc, lr
 
 
 @ ---------------------	
