@@ -9,10 +9,11 @@
 @ ---------------------	
 
 gcd:
-    bl my_print
     sub sp, sp, #4
     str lr, [sp, #0]
 
+    bl my_print
+    
     cmp r1, #0
     beq else
 
