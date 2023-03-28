@@ -9,6 +9,7 @@
 @ ---------------------	
 
 gcd:
+    bl my_print
     sub sp, sp, #4
     str lr, [sp, #0]
 
@@ -37,8 +38,35 @@ gcd:
     mov pc, lr
 
     else:
+        ldr lr, [sp, #0]
         add sp, sp, #4
         mov pc, lr
+
+
+my_print:
+
+    sub sp, sp, #20
+    str r0, [sp, #0]
+    str r1, [sp, #4]
+    str r2, [sp, #8]
+    str lr, [sp, #12]
+    str r12, [sp, #16]
+    
+    mov r12, r1
+
+	mov r1, r0
+	mov r2, r12
+    ldr r0, =my_format
+	bl printf
+
+    ldr r0, [sp, #0]
+    ldr r1, [sp, #4]
+    ldr r2, [sp, #8]
+    ldr lr, [sp, #12]
+    ldr r12, [sp, #16]
+
+    add sp, sp, #20
+    mov pc, lr
 	
 
 @ ---------------------	
@@ -75,4 +103,6 @@ main:
 
 	.data	@ data memory
 format: .asciz "gcd(%d,%d) = %d\n"
+my_format: .asciz "%d %d\n"
+
 

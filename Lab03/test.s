@@ -27,6 +27,7 @@ mypow:
 
     exit:
         mov r12, r0
+        ldr lr, [sp, #0]
         add sp, sp, #4
         mov pc, lr
 
