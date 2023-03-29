@@ -59,3 +59,4 @@ main:
 
 	.data	@ data memory
 format: .asciz "%d^%d is %d\n"
+

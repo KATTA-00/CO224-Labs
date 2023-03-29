@@ -80,3 +80,4 @@ main:
 
 	.data	@ data memory
 format: .asciz "F_%d is %d\n"
+
