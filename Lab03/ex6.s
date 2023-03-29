@@ -9,24 +9,18 @@
 @ ---------------------	
 
 fact:
-	sub sp, sp, #4
-	str r4, [sp, #0]
-
-	mov r4, r0
+	mov r12, r0
 	mov r0, #1
 
 	loop :
-		cmp r4, #1
+		cmp r12, #1
 		blt exit
 
-		mul r0, r4, r0
-		sub r4, r4, #1
+		mul r0, r12, r0
+		sub r12, r12, #1
 		b loop
 
-	exit:
-		ldr r4, [sp, #0]
-		add sp, sp, #4
-
+	exit :
 		mov pc, lr
 
 
