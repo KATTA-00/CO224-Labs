@@ -1,14 +1,12 @@
 
+    .text
 
-.text
-
-.global main
+    .global main
 
 main:
     @ allocate the stack
     sub sp, sp, #208
     str lr, [sp, #204]
-
 
     @ print enter num
     ldr r0, =formatGetNumMsg
@@ -31,7 +29,6 @@ main:
     loop: 
         cmp r5, r4
         bge exit
-
 
         @ print get string
         ldr r0, =formatGetString
@@ -57,10 +54,6 @@ main:
 
     b exit
 
-    @ print enter num
-    ldr r0, =format
-    bl printf
-
     @ invalid input
     invalid:
         ldr r0, =formatInvalid
@@ -77,6 +70,7 @@ main:
 
  @ function to get the reverse
 printReverse:
+    @ preserve the variables
     sub sp, sp, #12
     str lr, [sp, #0]
     str r4, [sp, #4]
@@ -85,33 +79,34 @@ printReverse:
     mov r4, #0
     mov r5, r0
 
-    loop2:
+    @ get the length of the string
+    getLength:
         ldrb r12, [r5, r4]
         cmp r12, #0
-        beq myPrint
+        beq loopPrint
 
         add r4, r4, #1
-        b loop2
+        b getLength
 
-    myPrint:
+    @ loop the string from end and print char
+    loopPrint:
         sub r4, r4, #1
-        loop3:
-            cmp r4, #0
-            blt exitFn
 
-            ldr r0, =formatChar
-            ldrb r1, [r5, r4]
-            bl printf
+        ldr r0, =formatChar
+        ldrb r1, [r5, r4]
+        bl printf
 
-            sub r4, r4, #1
-            b loop3
+        cmp r4, #0
+        blt exitFn
 
-    
+        b loopPrint
+
+    @ exit after printing full string
     exitFn:
         ldr r0, =formatEndln
         bl printf
 
-    
+    @ stack handling (pop lr from the stack) and return
     ldr lr, [sp, #0]
     ldr r4, [sp, #4]
     ldr r5, [sp, #8]
@@ -119,17 +114,13 @@ printReverse:
     mov pc, lr
 
 
-
-.data
+    .data
 formatGetNumMsg: .asciz "Enter the number of strings :\n"
 formatGetNum: .asciz "%d"
-formatInvalid: .asciz "Invalid number\n"
 formatGetString: .asciz "Enter the input string %d :\n"
 formats: .asciz "%s"
-formatp: .asciz "%c\n"
 formatOutput: .asciz "Output string %d is :\n"
 formatChar: .asciz "%c"
 formatEndln: .asciz "\n"
-
-format:.asciz "%d\n"
+formatInvalid: .asciz "Invalid number\n"
 
