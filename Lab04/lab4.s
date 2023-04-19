@@ -18,6 +18,11 @@ main:
     bl scanf
     ldr r4, [sp, #200]
 
+    @ get the \n value
+    ldr r0, =formatC
+    add r1, sp, #200
+    bl scanf
+
     @ compaer with 0
     cmp r4, #0
     beq exit
@@ -26,7 +31,8 @@ main:
     @ counter
     mov r5, #0
 
-    loop: 
+    loop: K
+        @ compare values
         cmp r5, r4
         bge exit
 
@@ -116,43 +122,14 @@ printReverse:
     add sp, sp, #12
     mov pc, lr
 
-@ myScan: 
-@     sub sp, sp, #4
-@     str lr, [sp, #0]
-
-@     mov r12, r0
-
-@     scanLoop:
-@         ldr r0, =formatChar
-@         mov r2, r12
-@         bl scanf
-
-@         ldrb r3, [r12, #0]
-        
-@         ldr r0, =formatChar
-@         mov r1, r3
-@         bl printf
-
-@         cmp r3, #0
-@         beq exitScan
-
-@         add r12, r12, #1
-@         b scanLoop
-
-@     exitScan:
-
-@     ldr lr, [sp, #0]
-@     add sp, sp, #4
-@     mov pc, lr
-
 
     .data
 formatGetNumMsg: .asciz "Enter the number of strings :\n"
 formatGetNum: .asciz "%d"
 formatGetString: .asciz "Enter the input string %d :\n"
-formats: .asciz "%s"
+formats: .asciz "%[^\n]%*c"
 formatOutput: .asciz "Output string %d is :\n"
-formatChar: .asciz "%c%c"
 formatEndln: .asciz "\n"
 formatInvalid: .asciz "Invalid number\n"
+formatC: .asciz "%c"
 

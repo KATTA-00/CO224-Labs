@@ -14,6 +14,7 @@ Fibonacci:
 	str lr, [sp, #0]
 	str r0, [sp, #4]
 
+	# for user input 0
 	cmp r0, #0
 	moveq r0, #0
 	addeq sp, sp, #12
