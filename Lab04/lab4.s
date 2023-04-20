@@ -31,7 +31,7 @@ main:
     @ counter
     mov r5, #0
 
-    loop: K
+    loop: 
         @ compare values
         cmp r5, r4
         bge exit
