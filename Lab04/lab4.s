@@ -18,11 +18,6 @@ main:
     bl scanf
     ldr r4, [sp, #200]
 
-    @ get the \n value
-    ldr r0, =formatC
-    add r1, sp, #200
-    bl scanf
-
     @ compaer with 0
     cmp r4, #0
     beq exit
@@ -45,9 +40,6 @@ main:
         ldr r0, =formats
         mov r1, sp
         bl scanf
-
-        @ mov r0, sp
-        @ bl myScan
 
         @ print the string for output
         ldr r0, =formatOutput
@@ -101,7 +93,7 @@ printReverse:
     loopPrint:
         sub r4, r4, #1
 
-        ldr r0, =formatChar
+        ldr r0, =formatC
         ldrb r1, [r5, r4]
         bl printf
 
@@ -122,12 +114,11 @@ printReverse:
     add sp, sp, #12
     mov pc, lr
 
-
     .data
 formatGetNumMsg: .asciz "Enter the number of strings :\n"
 formatGetNum: .asciz "%d"
 formatGetString: .asciz "Enter the input string %d :\n"
-formats: .asciz "%[^\n]%*c"
+formats: .asciz "%*c%[^\n]"
 formatOutput: .asciz "Output string %d is :\n"
 formatEndln: .asciz "\n"
 formatInvalid: .asciz "Invalid number\n"
