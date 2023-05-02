@@ -18,6 +18,10 @@ main:
     bl scanf
     ldr r4, [sp, #200]
 
+    @ invalid input
+    cmp r0, #1
+    bne invalid
+
     @ compaer with 0
     cmp r4, #0
     beq exit
