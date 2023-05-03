@@ -11,10 +11,12 @@ module tb;
     reg_file file(IN,OUT1,OUT2,INADDRESS,OUT1ADDRESS,OUT2ADDRESS, WRITE, CLK, RESET);
 
     initial begin
-        IN = 0; INADDRESS = 0; OUT1ADDRESS = 0; OUT2ADDRESS = 0; WRITE = 0; CLK = 0; RESET = 0;
+        IN = 0; INADDRESS = 0; OUT1ADDRESS = 0; OUT2ADDRESS = 1; WRITE = 0; CLK = 0; RESET = 0;
 
         #3
         WRITE = 1;
+        IN = 10;
+        RESET = 1;
 
     end
 

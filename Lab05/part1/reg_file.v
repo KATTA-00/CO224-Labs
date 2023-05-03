@@ -9,7 +9,7 @@ module reg_file(IN,OUT1,OUT2,INADDRESS,OUT1ADDRESS,OUT2ADDRESS, WRITE, CLK, RESE
 
     reg [7:0] register0, register1, register2, register3, register4, register5, register6, register7;
 
-    always @(OUT1ADDRESS, OUT2ADDRESS, register0, register1, register2, register3, register4, register5, register6, register7) begin
+    always @(OUT1ADDRESS, register0, register1, register2, register3, register4, register5, register6, register7) begin
         
         case(OUT1ADDRESS)
 
@@ -26,6 +26,10 @@ module reg_file(IN,OUT1,OUT2,INADDRESS,OUT1ADDRESS,OUT2ADDRESS, WRITE, CLK, RESE
 
         endcase
 
+    end
+
+    always @(OUT2ADDRESS, register0, register1, register2, register3, register4, register5, register6, register7) begin
+        
         case(OUT2ADDRESS)
 
             3'b000: #2 OUT2 = register0;
@@ -45,6 +49,7 @@ module reg_file(IN,OUT1,OUT2,INADDRESS,OUT1ADDRESS,OUT2ADDRESS, WRITE, CLK, RESE
 
     always @(posedge CLK) begin
         
+        if (WRITE && ~RESET) begin
         case(INADDRESS)
 
             3'b000: #1 register0 = IN;
@@ -59,6 +64,7 @@ module reg_file(IN,OUT1,OUT2,INADDRESS,OUT1ADDRESS,OUT2ADDRESS, WRITE, CLK, RESE
             default #1 register0 = 0;
 
         endcase
+        end
 
         if (RESET) begin
             register0 = 0;
@@ -72,18 +78,5 @@ module reg_file(IN,OUT1,OUT2,INADDRESS,OUT1ADDRESS,OUT2ADDRESS, WRITE, CLK, RESE
         end
 
     end
-
-    // reg [7:0][7:0] registers;
-
-    // assign #1 OUT1 = registers[0][7:0];
-    // assign #1 OUT2 = registers[1][7:0];
-
-    // always @(posedge CLK) begin
-        
-    //     if (WRITE) #2 registers[0][7:0] = IN;
-
-    //     if (RESET) registers[7:0][7:0] = 0;
-
-    // end
 
 endmodule
