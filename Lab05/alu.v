@@ -19,6 +19,8 @@ module alu(DATA1, DATA2, RESULT, SELECT);
 
 endmodule
 
+
+// forward module
 module ALU_FORWARD(DATA2, RESULT);
 
     input [7:0] DATA2;
@@ -28,6 +30,8 @@ module ALU_FORWARD(DATA2, RESULT);
 
 endmodule
 
+
+// adder module
 module ALU_ADD(DATA1, DATA2, RESULT);
 
     input [7:0] DATA1, DATA2;
@@ -37,6 +41,8 @@ module ALU_ADD(DATA1, DATA2, RESULT);
 
 endmodule
 
+
+// and module
 module ALU_AND(DATA1, DATA2, RESULT);
 
     input [7:0] DATA1, DATA2;
@@ -46,6 +52,8 @@ module ALU_AND(DATA1, DATA2, RESULT);
 
 endmodule
 
+
+// or module
 module ALU_OR(DATA1, DATA2, RESULT);
 
     input [7:0] DATA1, DATA2;
@@ -55,6 +63,8 @@ module ALU_OR(DATA1, DATA2, RESULT);
 
 endmodule
 
+
+// mux module
 module MUX(forward_result, add_result, and_result, or_result, RESULT, SELECT);
 
     input [7:0] forward_result, add_result, and_result, or_result;
