@@ -21,7 +21,9 @@ module alu_tb;
         #5 DATA2 = 0;
         #5 DATA2 = 1;
 
-        SELECT = 1;
+
+        #5 SELECT = 1;
+        
 
         #5 DATA1 = 5; DATA2 = 5;
         #5 DATA2 = 4;
