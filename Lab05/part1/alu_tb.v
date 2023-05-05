@@ -6,6 +6,7 @@ module alu_tb;
     reg [2:0] SELECT;
     wire [7:0] RESULT;
 
+
     alu ALU(DATA1, DATA2, RESULT, SELECT);
 
     initial begin
