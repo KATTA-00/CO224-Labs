@@ -29,6 +29,7 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
     reg [7:0] register0, register1, register2, register3, register4, register5, register6, register7;
 
     // always block for change the OUT1, in a change of OUT1ADDRESS or register values
+    // with a 2 time unit delay
     always @(OUT1ADDRESS, register0, register1, register2, register3, register4, register5, register6, register7) begin
         
         // selectt the appropriate reg numbers
@@ -50,6 +51,7 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
     end
 
     // always block for chnage the OUT1, in a change of OUT2ADDRESS or register values
+    // with a 2 time unit delay
     always @(OUT2ADDRESS, register0, register1, register2, register3, register4, register5, register6, register7) begin
         
         // selectt the appropriate reg numbers
