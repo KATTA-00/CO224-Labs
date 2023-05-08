@@ -1,3 +1,5 @@
+// CO224 - Lab05 PART-1
+// GROUP - 11
 
 // REGISTER FILE module
 // 8x8 register file that can store 8-bit binary numbers

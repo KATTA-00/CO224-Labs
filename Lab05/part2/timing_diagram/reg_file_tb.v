@@ -2,7 +2,7 @@
 // Design: Register File of Simple Processor
 // Author: Kisaru Liyanage
 
-`include "test1.v"
+`include "test2.v"
 
 module reg_file_tb;
     

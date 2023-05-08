@@ -1,20 +1,30 @@
+// CO224 - Lab05 PART-1
+// GROUP - 11
+
 // Computer Architecture (CO224) - Lab 05
 // Design: Register File of Simple Processor
 
+// include register module
 `include "reg_file.v"
 
+// test bench for register file
 module reg_file_tb;
     
+    // declare registers
     reg [7:0] WRITEDATA;
     reg [2:0] WRITEREG, READREG1, READREG2;
     reg CLK, RESET, WRITEENABLE; 
+    // declare wires
     wire [7:0] REGOUT1, REGOUT2;
     
+    // make a instance of the regfile
     reg_file regfile(WRITEDATA, REGOUT1, REGOUT2, WRITEREG, READREG1, READREG2, WRITEENABLE, CLK, RESET);
 
+    // add a monitor to observe
     initial
     $monitor($time, "WRITEDATA = %d | REGOUT1 = %d, REGOUT2 = %d | WRITEREG =  %d, READREG1 = %d, READREG2 = %d | WRITEENABLE = %d, CLK = %d, RESET %d",WRITEDATA, REGOUT1, REGOUT2, WRITEREG, READREG1, READREG2, WRITEENABLE, CLK, RESET);
        
+    // change the values and check the outputs
     initial
     begin
         CLK = 1'b1;
