@@ -1,7 +1,23 @@
+// CO224 - Lab05 PART-1
+// GROUP - 11
 
 // ALU module 
-// get two inputs as DATA1 and DATA2 
+// 8-bit ALU unit, that can operate with two 8-bit numbers to generate the result
 // give the relevant output to RESULT respect to SELECT 
+// Input:
+//      DATA1, DATA2, SELECT
+// Output:
+//      RESULT
+// Operations:
+//      FORWARD - forward the data in DATA2 into RESULT 
+//      ADD     - add DATA1 and DATA2, give the addiction to RESULT
+//      AND     - and DATA1 and DATA2, give the result to RESULT     
+//      OR      - or DATA1 and DATA2, give the result to RESULT  
+// SELECTION CODE:
+//      FOEWARD - 000   
+//      ADD     - 001
+//      AND     - 010   
+//      OR      - 011
 module alu(DATA1, DATA2, RESULT, SELECT);
 
     // initailize input ports
@@ -34,7 +50,7 @@ endmodule
 
 // FORWARD module
 // used to foward the 8 bit DATA2 directly to output of the module
-// Inputs - DATA2
+// Inputs  - DATA2
 // Outputs - RESULT
 module ALU_FORWARD(DATA2, RESULT);
 
@@ -69,7 +85,7 @@ endmodule
 
 // AND module
 // bitwise AND the give two 8 bit numbers and output a 8 bit number
-// Inout - DATA1, DATA2
+// Inout  - DATA1, DATA2
 // Output - RESULT
 module ALU_AND(DATA1, DATA2, RESULT);
 
@@ -87,7 +103,7 @@ endmodule
 
 // OR module
 // bitwise OR the give two 8 bit numbers and output a 8 bit number
-// Inout - DATA1, DATA2
+// Inout  - DATA1, DATA2
 // Output - RESULT
 module ALU_OR(DATA1, DATA2, RESULT);
 
@@ -106,8 +122,8 @@ endmodule
 // MUX module
 // select a inputs for the inputs
 // map it to the ouput reference to the selection bits
-// Inputs - forward_result, add_result, and_result, or_result, SELECT
-// Outputs -RESULT
+// Inputs  - forward_result, add_result, and_result, or_result, SELECT
+// Outputs - RESULT
 module MUX(forward_result, add_result, and_result, or_result, RESULT, SELECT);
 
     // initailize input ports
