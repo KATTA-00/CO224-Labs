@@ -8,13 +8,13 @@
 //     INADDRESS, OUT1ADDRESS, OUT2ADDRESS, IN, WRITE, CLK, RESET
 // OUTPUT ports:
 //     OUT1, OUT2
-// Reading - for given register numbers(OUT1ADDRESS, OUT2ADDRESS), 
-//           OUT1 and OUT2 will output the stored value asynchronously
-//           reading delay - 2 time unit
+// Reading  - for given register numbers(OUT1ADDRESS, OUT2ADDRESS), 
+//            OUT1 and OUT2 will output the stored value asynchronously
+//            reading delay - 2 time unit
 // Writting - to a given register numbers(INADDRESS),
 //            IN data will write synchronously when a positive clk edge and WRITE is enable
 //            writting delay - 1 time unit
-// Reset - when reset is enable, all the register values will reset to 0 in a positive clk edge
+// Reset    - when reset is enable, all the register values will reset to 0 in a positive clk edge
 module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET);
 
     // declare input ports
