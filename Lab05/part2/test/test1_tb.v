@@ -16,7 +16,7 @@ module tb;
         #3
         WRITE = 1;
         IN = 10;
-        RESET = 1;
+        RESET = 0;
 
     end
 
