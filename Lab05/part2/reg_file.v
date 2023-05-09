@@ -5,9 +5,11 @@
 // 8x8 register file that can store 8-bit binary numbers
 // register numbers are 0-7
 // INPUT ports: 
-//     INADDRESS, OUT1ADDRESS, OUT2ADDRESS, IN, WRITE, CLK, RESET
+//     INADDRESS, OUT1ADDRESS, OUT2ADDRESS : 3-bit
+//     IN : 8-bit
+//     WRITE, CLK, RESET : 1-bit
 // OUTPUT ports:
-//     OUT1, OUT2
+//     OUT1, OUT2 : 8-bit
 // Reading  - for given register numbers(OUT1ADDRESS, OUT2ADDRESS), 
 //            OUT1 and OUT2 will output the stored value asynchronously
 //            reading delay - 2 time unit
@@ -25,55 +27,16 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
     // declare output ports
     output [7:0] OUT1, OUT2;
     
-    // declare registers to store output values
-    reg [7:0] OUT1, OUT2;
-    
     // declare the 8-bit, 8 registers
     reg [7:0] registers [7:0];
 
-    // always block for change the OUT1, in a change of OUT1ADDRESS or register values
+    // assign block for change the OUT1, in a change of OUT1ADDRESS or register values
     // with a 2 time unit delay
-    always @(OUT1ADDRESS, registers[0],registers[1],registers[2],registers[3],registers[4],registers[5],registers[6],registers[7]) begin
-        
-        // selectt the appropriate reg numbers
-        case(OUT1ADDRESS)
+    assign #2 OUT1 = registers[OUT1ADDRESS];
 
-            3'b000: #2 OUT1 = registers[0]; // map register0 to OUT1
-            3'b001: #2 OUT1 = registers[1]; // map register1 to OUT1
-            3'b010: #2 OUT1 = registers[2]; // map register2 to OUT1
-            3'b011: #2 OUT1 = registers[3]; // map register3 to OUT1
-            3'b100: #2 OUT1 = registers[4]; // map register4 to OUT1
-            3'b101: #2 OUT1 = registers[5]; // map register5 to OUT1
-            3'b110: #2 OUT1 = registers[6]; // map register6 to OUT1
-            3'b111: #2 OUT1 = registers[7]; // map register7 to OUT1
-
-            default:  #2 OUT1 = 0; // default value 
-
-        endcase
-
-    end
-
-    // always block for chnage the OUT1, in a change of OUT2ADDRESS or register values
+    // assign block for chnage the OUT1, in a change of OUT2ADDRESS or register values
     // with a 2 time unit delay
-    always @(OUT2ADDRESS, registers[0],registers[1],registers[2],registers[3],registers[4],registers[5],registers[6],registers[7]) begin
-        
-        // selectt the appropriate reg numbers
-        case(OUT2ADDRESS)
-
-            3'b000: #2 OUT2 = registers[0]; // map register0 to OUT2
-            3'b001: #2 OUT2 = registers[1]; // map register1 to OUT2
-            3'b010: #2 OUT2 = registers[2]; // map register2 to OUT2
-            3'b011: #2 OUT2 = registers[3]; // map register3 to OUT2
-            3'b100: #2 OUT2 = registers[4]; // map register4 to OUT2
-            3'b101: #2 OUT2 = registers[5]; // map register5 to OUT2
-            3'b110: #2 OUT2 = registers[6]; // map register6 to OUT2
-            3'b111: #2 OUT2 = registers[7]; // map register7 to OUT2
-
-            default:  #2 OUT2 = 0; // default value 
-
-        endcase
-
-    end
+    assign #2 OUT2 = registers[OUT2ADDRESS];
 
     // always block for check for a positive clk edge
     // to write a reg or reset registers
@@ -84,6 +47,7 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
         if (WRITE && ~RESET) begin
             
             // select the appropriate reg numbers
+            // writting takes 1 time unit time
             case(INADDRESS)
 
                 3'b000: #1 registers[0] = IN; // write IN to register0
@@ -98,6 +62,8 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
                 default #1 registers[0] = IN; // default value
 
             endcase
+
+            //#1 registers[INADDRESS] = IN;
         end
 
         // if RESET is enable
