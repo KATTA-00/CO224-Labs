@@ -45,20 +45,7 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
         if (WRITE && ~RESET) begin
             
             // select the appropriate reg numbers
-            case(INADDRESS)
-
-                3'b000: #1 registers[0] = IN; // write IN to register0
-                3'b001: #1 registers[1] = IN; // write IN to register1
-                3'b010: #1 registers[2] = IN; // write IN to register2
-                3'b011: #1 registers[3] = IN; // write IN to register3
-                3'b100: #1 registers[4] = IN; // write IN to register4
-                3'b101: #1 registers[5] = IN; // write IN to register5
-                3'b110: #1 registers[6] = IN; // write IN to register6
-                3'b111: #1 registers[7] = IN; // write IN to register7
-                
-                default #1 registers[0] = 0; // default value
-
-            endcase
+            #1 registers[INADDRESS] = IN;
         end
 
         // if RESET is enable
