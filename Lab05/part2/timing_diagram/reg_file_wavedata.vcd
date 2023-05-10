@@ -1,5 +1,5 @@
 $date
-	Tue May 09 22:02:25 2023
+	Wed May 10 09:41:43 2023
 $end
 $version
 	Icarus Verilog
@@ -23,10 +23,10 @@ $var wire 8 * IN [7:0] $end
 $var wire 3 + INADDRESS [2:0] $end
 $var wire 8 , OUT1 [7:0] $end
 $var wire 3 - OUT1ADDRESS [2:0] $end
-$var wire 8 . OUT2 [7:0] $end
-$var wire 3 / OUT2ADDRESS [2:0] $end
+$var wire 3 . OUT2ADDRESS [2:0] $end
 $var wire 1 & RESET $end
 $var wire 1 ( WRITE $end
+$var reg 8 / OUT2 [7:0] $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
@@ -54,7 +54,7 @@ $end
 #4
 0#
 b100 %
-b100 /
+b100 .
 b0 $
 b0 -
 1&
@@ -62,7 +62,7 @@ b0 -
 1#
 #10
 b0 !
-b0 .
+b0 /
 b0 "
 b0 ,
 0&
@@ -121,7 +121,7 @@ b100 +
 1#
 #51
 b110 !
-b110 .
+b110 /
 b1111 '
 b1111 *
 #52
@@ -130,7 +130,7 @@ b1111 *
 1#
 #59
 b1111 !
-b1111 .
+b1111 /
 #60
 0#
 #61

@@ -56,6 +56,7 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
         // set all the register values to 0
         if (RESET) begin        
             
+            #1 // one time unit delay for resetting
             // loop through all the registers
             for (integer i=0; i<8; i=i+1) begin
                 registers[i] = 0;   // assign 0 to the registers
