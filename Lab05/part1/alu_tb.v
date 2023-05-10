@@ -35,7 +35,7 @@ module alu_tb;
 
         // FORWARD functionality
         #5
-        SELECT = 3'b000; 6
+        SELECT = 3'b000; 
         DATA1 = 8'b0000_0010; 
         DATA2 = 8'b0000_0001;
         
