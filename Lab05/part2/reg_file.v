@@ -54,15 +54,13 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
 
         // if RESET is enable
         // set all the register values to 0
-        if (RESET) begin
-            registers[0] = 0; // 0 to register0
-            registers[1] = 0; // 0 to register1
-            registers[2] = 0; // 0 to register2
-            registers[3] = 0; // 0 to register3
-            registers[4] = 0; // 0 to register4
-            registers[5] = 0; // 0 to register5
-            registers[6] = 0; // 0 to register6
-            registers[7] = 0; // 0 to register7
+        if (RESET) begin        
+            
+            // loop through all the registers
+            for (integer i=0; i<8; i=i+1) begin
+                registers[i] = 0;   // assign 0 to the registers
+            end
+
         end
 
     end
