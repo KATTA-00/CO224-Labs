@@ -1,5 +1,5 @@
 $date
-	Thu May 11 14:28:39 2023
+	Thu May 11 17:50:31 2023
 $end
 $version
 	Icarus Verilog
@@ -8,34 +8,46 @@ $timescale
 	1s
 $end
 $scope module test_tb $end
-$var wire 32 ! PC [31:0] $end
-$var wire 8 " OUT [7:0] $end
-$var reg 1 # CLK $end
-$var reg 8 $ DATA [7:0] $end
-$var reg 32 % INSTRUCTION [31:0] $end
-$var reg 1 & RESET $end
+$var wire 1 ! WRITEENABLE $end
+$var wire 32 " PC [31:0] $end
+$var wire 8 # OUT [7:0] $end
+$var wire 1 $ IMMEDIATE_SELECT $end
+$var wire 1 % COMP_SELECT $end
+$var wire 3 & ALUOP [2:0] $end
+$var reg 1 ' CLK $end
+$var reg 8 ( DATA [7:0] $end
+$var reg 32 ) INSTRUCTION [31:0] $end
+$var reg 8 * OPCODE [7:0] $end
+$var reg 1 + RESET $end
 $scope module CPU $end
-$var wire 1 # CLK $end
-$var wire 32 ' INSTRUCTION [31:0] $end
-$var wire 1 & RESET $end
-$var wire 32 ( PC [31:0] $end
+$var wire 1 ' CLK $end
+$var wire 32 , INSTRUCTION [31:0] $end
+$var wire 1 + RESET $end
+$var wire 32 - PC [31:0] $end
 $scope module p $end
-$var wire 1 # CLK $end
-$var wire 1 & RESET $end
-$var wire 32 ) adder_out [31:0] $end
-$var reg 32 * PC [31:0] $end
-$var reg 32 + PC_NEXT [31:0] $end
+$var wire 1 ' CLK $end
+$var wire 1 + RESET $end
+$var wire 32 . adder_out [31:0] $end
+$var reg 32 / PC [31:0] $end
+$var reg 32 0 PC_NEXT [31:0] $end
 $scope module pc_adder $end
-$var wire 32 , PC [31:0] $end
-$var wire 32 - adder_out [31:0] $end
+$var wire 32 1 PC [31:0] $end
+$var wire 32 2 adder_out [31:0] $end
 $upscope $end
 $upscope $end
+$upscope $end
+$scope module c $end
+$var wire 8 3 OPCODE [7:0] $end
+$var reg 3 4 ALUOP [2:0] $end
+$var reg 1 % COMP_SELECT $end
+$var reg 1 $ IMMEDIATE_SELECT $end
+$var reg 1 ! WRITEENABLE $end
 $upscope $end
 $scope module m $end
-$var wire 8 . DATA1 [7:0] $end
-$var wire 8 / DATA2 [7:0] $end
-$var wire 1 0 SELECT $end
-$var reg 8 1 OUTPUT [7:0] $end
+$var wire 8 5 DATA1 [7:0] $end
+$var wire 8 6 DATA2 [7:0] $end
+$var wire 1 7 SELECT $end
+$var reg 8 8 OUTPUT [7:0] $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
@@ -44,66 +56,73 @@ $dumpall
 $end
 #0
 $dumpvars
-b10 1
-00
-b10 /
-b1 .
-bx -
-b0 ,
-bx +
-b0 *
+b10 8
+07
+b10 6
+b1 5
+bx 4
+bx 3
+bx 2
+b0 1
+bx 0
+b0 /
+bx .
+b0 -
+bx ,
+x+
+bx *
 bx )
-b0 (
-bx '
-x&
-bx %
-bx $
-0#
-b10 "
-b0 !
+bx (
+0'
+bx &
+x%
+x$
+b10 #
+b0 "
+x!
 $end
 #1
-b1 +
-b1 )
-b1 -
+b1 0
+b1 .
+b1 2
 #5
-1#
-#6
-b1 !
-b1 (
-b1 *
-b1 ,
-#7
-b10 +
-b10 )
-b10 -
-#8
-b10 $
-#10
-0#
-#15
-1#
-#16
-b10 !
 b10 (
-b10 *
-b10 ,
-#17
-b11 +
-b11 )
-b11 -
+#10
+b0 *
+b0 3
+#11
+b0 &
+b0 4
+1$
+0%
+1!
+#15
+b1 *
+b1 3
+#16
+0$
 #20
-0#
+b10 *
+b10 3
+#21
+b1 &
+b1 4
 #25
-1#
-#26
-b11 !
-b11 (
 b11 *
-b11 ,
-#27
-b100 +
-b100 )
-b100 -
+b11 3
+#26
+1%
 #30
-0#
+b100 *
+b100 3
+#31
+b10 &
+b10 4
+0%
+#35
+b101 *
+b101 3
+#36
+b11 &
+b11 4
+#40

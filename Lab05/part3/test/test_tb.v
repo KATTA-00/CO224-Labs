@@ -10,26 +10,39 @@ module test_tb;
     reg [7:0] DATA;
     wire [7:0] OUT;
 
+    wire WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT;
+    wire [2:0] ALUOP;
+    reg [7:0] OPCODE;
+
 
     cpu CPU(PC, INSTRUCTION, CLK, RESET);
 
 
     mux m(8'd1, 8'd2, 1'd0, OUT);
 
-    always
-    #5 CLK = ~CLK;
+    control_unit c(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, ALUOP);
+
+    // always
+    // #5 CLK = ~CLK;
 
     initial
-    #30 $finish;
+    #40 $finish;
 
     initial begin
         CLK = 0;
-        $monitor($time, " %b %b %b %b %b %b", CLK, PC, INSTRUCTION, RESET, DATA, OUT);
+        $monitor($time, " %b %b %b %b %b %b >>%b - %b %b %b %b", CLK, PC, INSTRUCTION, RESET, DATA, OUT, OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, ALUOP);
 
         $dumpfile("test.vcd");
 		$dumpvars(0, test_tb);
 
-        #8 DATA = 2;
+        #5 DATA = 2;
+
+        #5 OPCODE = 8'b00000000;
+        #5 OPCODE = 8'b00000001;
+        #5 OPCODE = 8'b00000010;
+        #5 OPCODE = 8'b00000011;
+        #5 OPCODE = 8'b00000100;
+        #5 OPCODE = 8'b00000101;
 
     end
 
