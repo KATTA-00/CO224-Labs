@@ -1,21 +1,3 @@
-
-module cpu(PC, INSTRUCTION, CLK, RESET);
-
-    input CLK, RESET;
-    input [31:0] INSTRUCTION;
-
-    output [31:0] PC;
-
-    pc p(RESET, CLK, PC);
-
-endmodule
-
-// module control_unit;
-
-
-
-// endmodule
-
 module pc(RESET, CLK, PC);
 
     input RESET, CLK;
