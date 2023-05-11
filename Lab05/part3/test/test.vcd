@@ -1,5 +1,5 @@
 $date
-	Thu May 11 14:05:10 2023
+	Thu May 11 14:28:39 2023
 $end
 $version
 	Icarus Verilog
@@ -9,25 +9,33 @@ $timescale
 $end
 $scope module test_tb $end
 $var wire 32 ! PC [31:0] $end
-$var reg 1 " CLK $end
-$var reg 32 # INSTRUCTION [31:0] $end
-$var reg 1 $ RESET $end
+$var wire 8 " OUT [7:0] $end
+$var reg 1 # CLK $end
+$var reg 8 $ DATA [7:0] $end
+$var reg 32 % INSTRUCTION [31:0] $end
+$var reg 1 & RESET $end
 $scope module CPU $end
-$var wire 1 " CLK $end
-$var wire 32 % INSTRUCTION [31:0] $end
-$var wire 1 $ RESET $end
-$var wire 32 & PC [31:0] $end
+$var wire 1 # CLK $end
+$var wire 32 ' INSTRUCTION [31:0] $end
+$var wire 1 & RESET $end
+$var wire 32 ( PC [31:0] $end
 $scope module p $end
-$var wire 1 " CLK $end
-$var wire 1 $ RESET $end
-$var wire 32 ' adder_out [31:0] $end
-$var reg 32 ( PC [31:0] $end
-$var reg 32 ) PC_NEXT [31:0] $end
+$var wire 1 # CLK $end
+$var wire 1 & RESET $end
+$var wire 32 ) adder_out [31:0] $end
+$var reg 32 * PC [31:0] $end
+$var reg 32 + PC_NEXT [31:0] $end
 $scope module pc_adder $end
-$var wire 32 * PC [31:0] $end
-$var wire 32 + adder_out [31:0] $end
+$var wire 32 , PC [31:0] $end
+$var wire 32 - adder_out [31:0] $end
 $upscope $end
 $upscope $end
+$upscope $end
+$scope module m $end
+$var wire 8 . DATA1 [7:0] $end
+$var wire 8 / DATA2 [7:0] $end
+$var wire 1 0 SELECT $end
+$var reg 8 1 OUTPUT [7:0] $end
 $upscope $end
 $upscope $end
 $enddefinitions $end
@@ -36,58 +44,66 @@ $dumpall
 $end
 #0
 $dumpvars
+b10 1
+00
+b10 /
+b1 .
+bx -
+b0 ,
 bx +
 b0 *
 bx )
 b0 (
 bx '
-b0 &
+x&
 bx %
-x$
-bx #
-0"
+bx $
+0#
+b10 "
 b0 !
 $end
 #1
-b1 )
-b1 '
 b1 +
+b1 )
+b1 -
 #5
-1"
+1#
 #6
 b1 !
-b1 &
 b1 (
 b1 *
+b1 ,
 #7
-b10 )
-b10 '
 b10 +
+b10 )
+b10 -
+#8
+b10 $
 #10
-0"
+0#
 #15
-1"
+1#
 #16
 b10 !
-b10 &
 b10 (
 b10 *
+b10 ,
 #17
-b11 )
-b11 '
 b11 +
+b11 )
+b11 -
 #20
-0"
+0#
 #25
-1"
+1#
 #26
 b11 !
-b11 &
 b11 (
 b11 *
+b11 ,
 #27
-b100 )
-b100 '
 b100 +
+b100 )
+b100 -
 #30
-0"
+0#
