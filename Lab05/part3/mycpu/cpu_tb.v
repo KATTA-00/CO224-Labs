@@ -2,11 +2,14 @@
 // Design: Testbench of Integrated CPU of Simple Processor
 // Author: Isuru Nawinne
 
+`include "cpu.v"
+
 module cpu_tb;
 
     reg CLK, RESET;
     wire [31:0] PC;
-    wire [31:0] INSTRUCTION;
+    // wire [31:0] INSTRUCTION;
+    reg [31:0] INSTRUCTION;
     
     /* 
     ------------------------
@@ -23,7 +26,7 @@ module cpu_tb;
     //       (make sure you include the delay for instruction fetching here)
 
     always @(PC) begin
-
+        #2
         INSTRUCTION[31:24] = instr_mem[PC-1];
         INSTRUCTION[23:16] = instr_mem[PC-2];
         INSTRUCTION[15:8] = instr_mem[PC-3];
@@ -36,9 +39,9 @@ module cpu_tb;
         // Initialize instruction memory with the set of instructions you need execute on CPU
         
         // METHOD 1: manually loading instructions to instr_mem
-        //{instr_mem[10'd3], instr_mem[10'd2], instr_mem[10'd1], instr_mem[10'd0]} = 32'b00000000000001000000000000000101;
-        //{instr_mem[10'd7], instr_mem[10'd6], instr_mem[10'd5], instr_mem[10'd4]} = 32'b00000000000000100000000000001001;
-        //{instr_mem[10'd11], instr_mem[10'd10], instr_mem[10'd9], instr_mem[10'd8]} = 32'b00000010000001100000010000000010;
+        // {instr_mem[10'd3], instr_mem[10'd2], instr_mem[10'd1], instr_mem[10'd0]} = 32'b00000000000001000000000000000101;
+        // {instr_mem[10'd7], instr_mem[10'd6], instr_mem[10'd5], instr_mem[10'd4]} = 32'b00000000000000100000000000001001;
+        // {instr_mem[10'd11], instr_mem[10'd10], instr_mem[10'd9], instr_mem[10'd8]} = 32'b00000010000001100000010000000010;
         
         // METHOD 2: loading instr_mem content from instr_mem.mem file
         $readmemb("instr_mem.mem", instr_mem);
@@ -64,15 +67,20 @@ module cpu_tb;
         // TODO: Reset the CPU (by giving a pulse to RESET signal) to start the program execution
         
         // finish simulation after some time
-        #500
+        #100
         $finish;
         
     end
     
     // clock signal generation
     always
-        #4 CLK = ~CLK;
+    #4 CLK = ~CLK;
 
+    initial begin
+        $monitor($time, " %b %b %b %b", PC, INSTRUCTION, CLK, RESET);
+        #200 RESET = 1; 
+        #5 RESET = 0;
+    end
         
 
 endmodule

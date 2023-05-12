@@ -1,0 +1,283 @@
+$date
+	Fri May 12 00:52:50 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module cpu_tb $end
+$var wire 32 ! INSTRUCTION [31:0] $end
+$var wire 32 " PC [31:0] $end
+$var reg 1 # CLK $end
+$var reg 1 $ RESET $end
+$scope module CPU $end
+$var wire 1 # CLK $end
+$var wire 32 % INSTRUCTION [31:0] $end
+$var wire 1 $ RESET $end
+$var wire 1 & WRITEENABLE $end
+$var wire 8 ' REGOUT2 [7:0] $end
+$var wire 8 ( REGOUT1 [7:0] $end
+$var wire 32 ) PC [31:0] $end
+$var wire 8 * MUX1 [7:0] $end
+$var wire 1 + IMMEDIATESELECT $end
+$var wire 1 , COMPSELECT $end
+$var wire 8 - COMPOUT [7:0] $end
+$var wire 8 . ALURESULT [7:0] $end
+$var wire 3 / ALUOP [2:0] $end
+$var wire 8 0 ALUIN [7:0] $end
+$scope module Alu $end
+$var wire 8 1 or_result [7:0] $end
+$var wire 8 2 forward_result [7:0] $end
+$var wire 8 3 and_result [7:0] $end
+$var wire 8 4 add_result [7:0] $end
+$var wire 3 5 SELECT [0:2] $end
+$var wire 8 6 RESULT [7:0] $end
+$var wire 8 7 DATA2 [7:0] $end
+$var wire 8 8 DATA1 [7:0] $end
+$scope module alu_add $end
+$var wire 8 9 RESULT [7:0] $end
+$var wire 8 : DATA2 [7:0] $end
+$var wire 8 ; DATA1 [7:0] $end
+$upscope $end
+$scope module alu_and $end
+$var wire 8 < RESULT [7:0] $end
+$var wire 8 = DATA2 [7:0] $end
+$var wire 8 > DATA1 [7:0] $end
+$upscope $end
+$scope module alu_forward $end
+$var wire 8 ? RESULT [7:0] $end
+$var wire 8 @ DATA2 [7:0] $end
+$upscope $end
+$scope module alu_or $end
+$var wire 8 A RESULT [7:0] $end
+$var wire 8 B DATA2 [7:0] $end
+$var wire 8 C DATA1 [7:0] $end
+$upscope $end
+$scope module mux $end
+$var wire 8 D add_result [7:0] $end
+$var wire 8 E and_result [7:0] $end
+$var wire 8 F forward_result [7:0] $end
+$var wire 8 G or_result [7:0] $end
+$var wire 3 H SELECT [2:0] $end
+$var reg 8 I RESULT [7:0] $end
+$upscope $end
+$upscope $end
+$scope module Control_Unit $end
+$var wire 8 J OPCODE [7:0] $end
+$var reg 3 K ALUOP [2:0] $end
+$var reg 1 , COMP_SELECT $end
+$var reg 1 + IMMEDIATE_SELECT $end
+$var reg 1 & WRITEENABLE $end
+$upscope $end
+$scope module Mux1 $end
+$var wire 1 , SELECT $end
+$var wire 8 L DATA2 [7:0] $end
+$var wire 8 M DATA1 [7:0] $end
+$var reg 8 N OUTPUT [7:0] $end
+$upscope $end
+$scope module Mux2 $end
+$var wire 8 O DATA1 [7:0] $end
+$var wire 8 P DATA2 [7:0] $end
+$var wire 1 + SELECT $end
+$var reg 8 Q OUTPUT [7:0] $end
+$upscope $end
+$scope module Pc $end
+$var wire 1 # CLK $end
+$var wire 1 $ RESET $end
+$var wire 32 R adder_out [31:0] $end
+$var reg 32 S PC [31:0] $end
+$var reg 32 T PC_NEXT [31:0] $end
+$scope module pc_adder $end
+$var wire 32 U PC [31:0] $end
+$var wire 32 V adder_out [31:0] $end
+$upscope $end
+$upscope $end
+$scope module Reg_File $end
+$var wire 1 # CLK $end
+$var wire 8 W IN [7:0] $end
+$var wire 3 X INADDRESS [2:0] $end
+$var wire 8 Y OUT1 [7:0] $end
+$var wire 3 Z OUT1ADDRESS [2:0] $end
+$var wire 8 [ OUT2 [7:0] $end
+$var wire 3 \ OUT2ADDRESS [2:0] $end
+$var wire 1 $ RESET $end
+$var wire 1 & WRITE $end
+$scope begin $ivl_for_loop0 $end
+$var integer 32 ] i [31:0] $end
+$upscope $end
+$upscope $end
+$scope module Two_Comp $end
+$var wire 8 ^ DATA [7:0] $end
+$var wire 8 _ OUT [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx _
+bx ^
+bx ]
+bx \
+bx [
+bx Z
+bx Y
+bx X
+bx W
+bx V
+bx U
+bx T
+bx S
+bx R
+bx Q
+bx P
+bx O
+bx N
+bx M
+bx L
+bx K
+bx J
+bx I
+bx H
+bx G
+bx F
+bx E
+bx D
+bx C
+bx B
+bx A
+bx @
+bx ?
+bx >
+bx =
+bx <
+bx ;
+bx :
+bx 9
+bx 8
+bx 7
+bx 6
+bx 5
+bx 4
+bx 3
+bx 2
+bx 1
+bx 0
+bx /
+bx .
+bx -
+x,
+x+
+bx *
+bx )
+bx (
+bx '
+x&
+bx %
+0$
+0#
+bx "
+bx !
+$end
+#1
+b0 "
+b0 )
+b0 S
+b0 U
+#2
+b100 T
+b100 R
+b100 V
+#3
+b1 J
+b1 X
+b11 Z
+b10 \
+b10 P
+b1000000010000001100000010 !
+b1000000010000001100000010 %
+#4
+b0 /
+b0 5
+b0 H
+b0 K
+0+
+0,
+1&
+1#
+#5
+b100 "
+b100 )
+b100 S
+b100 U
+#6
+b1000 T
+b1000 R
+b1000 V
+#7
+bx J
+bx X
+bx Z
+bx \
+bx P
+bx !
+bx %
+#8
+0#
+#12
+1#
+#13
+b1000 "
+b1000 )
+b1000 S
+b1000 U
+#14
+b1100 T
+b1100 R
+b1100 V
+#16
+0#
+#20
+1#
+#21
+b1100 "
+b1100 )
+b1100 S
+b1100 U
+#22
+b10000 T
+b10000 R
+b10000 V
+#24
+0#
+#28
+1#
+#29
+b10000 "
+b10000 )
+b10000 S
+b10000 U
+#30
+b10100 T
+b10100 R
+b10100 V
+#32
+0#
+#36
+1#
+#37
+b10100 "
+b10100 )
+b10100 S
+b10100 U
+#38
+b11000 T
+b11000 R
+b11000 V
+#40
+0#
