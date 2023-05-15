@@ -23,8 +23,4 @@ module mux(DATA1, DATA2, SELECT, OUTPUT);
 
     end
 
-    always @(DATA1, DATA2, SELECT, OUTPUT)
-    $display($time, " >> %d %d %d %d", DATA1, DATA2, SELECT, OUTPUT);
-    
-
 endmodule

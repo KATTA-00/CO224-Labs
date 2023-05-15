@@ -31,7 +31,6 @@ module cpu_tb;
         INSTRUCTION[23:16] = instr_mem[PC-2];
         INSTRUCTION[15:8] = instr_mem[PC-3];
         INSTRUCTION[7:0] = instr_mem[PC-4];
-
     end
     
     initial
@@ -77,7 +76,7 @@ module cpu_tb;
     #4 CLK = ~CLK;
 
     initial begin
-        $monitor($time, " %b %b %b %b", PC, INSTRUCTION, CLK, RESET);
+        $monitor($time, " %b %b", PC, INSTRUCTION);
         #200 RESET = 1; 
         #5 RESET = 0;
     end

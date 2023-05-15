@@ -27,8 +27,8 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
 
     alu Alu(REGOUT1, ALUIN, ALURESULT, ALUOP);
 
-    always @(INSTRUCTION, ALUIN, IMMEDIATESELECT)
-    $display($time, " %d %d %d", INSTRUCTION[7:0], ALUIN, IMMEDIATESELECT);
+    // always @(INSTRUCTION, ALUIN, IMMEDIATESELECT)
+    // $display($time, " %d %d %d", INSTRUCTION[7:0], ALUIN, IMMEDIATESELECT);
     
 
 endmodule

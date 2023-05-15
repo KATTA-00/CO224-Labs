@@ -14,7 +14,7 @@ module mux(DATA1, DATA2, SELECT, OUTPUT);
     input SELECT;
     output reg [7:0] OUTPUT;
 
-    always @(SELECT) begin 
+    always @(DATA1, DATA2, SELECT) begin 
 
         if (SELECT) 
             OUTPUT = DATA2;
