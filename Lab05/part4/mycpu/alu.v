@@ -22,13 +22,14 @@
 //      AND     - 010   
 //      OR      - 011
 
-module alu(DATA1, DATA2, RESULT, SELECT);
+module alu(DATA1, DATA2, RESULT, SELECT, ZERO);
 
     // initailize input ports
     input [7:0] DATA1, DATA2;
     input [0:2] SELECT;
     // initailize output ports
     output [7:0] RESULT;
+    output ZERO;
 
     // make wires for connect each module's outputs to the mux
     wire [7:0] forward_result, add_result, and_result, or_result;
@@ -43,6 +44,8 @@ module alu(DATA1, DATA2, RESULT, SELECT);
     ALU_ADD alu_add(DATA1, DATA2, add_result);
     ALU_AND alu_and(DATA1, DATA2, and_result);
     ALU_OR alu_or(DATA1, DATA2, or_result);
+
+    
 
     // instantiation of the mux
     // connect all the the module's output to the mux 

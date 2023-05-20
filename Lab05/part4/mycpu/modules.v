@@ -24,3 +24,13 @@ module mux(DATA1, DATA2, SELECT, OUTPUT);
     end
 
 endmodule
+
+module pc_adder(DATA1, DATA2, RESULT);
+
+    input [31:0] DATA1;
+    input [7:0] DATA2;
+    output [31:0] RESULT;
+
+    assign #2 RESULT = DATA1 + DATA2 * 4;
+
+endmodule
