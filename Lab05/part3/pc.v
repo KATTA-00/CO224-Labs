@@ -1,3 +1,5 @@
+
+
 module pc(RESET, CLK, PC);
 
     input RESET, CLK;
@@ -20,7 +22,6 @@ module pc(RESET, CLK, PC);
             #1 PC = 32'b00000000000000000000000000000100;
         else
             #1 PC = PC_NEXT;
-
     end 
 
 endmodule

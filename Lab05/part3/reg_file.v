@@ -4,12 +4,14 @@
 // REGISTER FILE module
 // 8x8 register file that can store 8-bit binary numbers
 // register numbers are 0-7
+
 // INPUT ports: 
 //     INADDRESS, OUT1ADDRESS, OUT2ADDRESS : 3-bit
 //     IN : 8-bit
 //     WRITE, CLK, RESET : 1-bit
 // OUTPUT ports:
 //     OUT1, OUT2 : 8-bit
+
 // Reading  - for given register numbers(OUT1ADDRESS, OUT2ADDRESS), 
 //            OUT1 and OUT2 will output the stored value asynchronously
 //            reading delay - 2 time unit
@@ -17,6 +19,7 @@
 //            IN data will write synchronously when a positive clk edge and WRITE is enable
 //            writting delay - 1 time unit
 // Reset    - when reset is enable, all the register values will reset to 0 in a positive clk edge
+
 module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET);
 
     // declare input ports
@@ -65,5 +68,9 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
         end
 
     end
+
+    // always @(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET, registers[0], registers[1], registers[2], registers[3], registers[4], registers[5], registers[6], registers[7])
+    // $display($time, " %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d",IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET, registers[0], registers[1], registers[2], registers[3], registers[4], registers[5], registers[6], registers[7]);
+
 
 endmodule

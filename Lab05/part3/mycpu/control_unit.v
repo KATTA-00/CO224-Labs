@@ -1,3 +1,9 @@
+// CO224 - Lab05 PART-3
+// GROUP - 11
+
+// Control Unit
+// To decode the OpCode and make the control signals
+
 module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, ALUOP);
 
     input [7:0] OPCODE;

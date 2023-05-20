@@ -1,3 +1,6 @@
+// CO224 - Lab05 PART-3
+// GROUP - 11
+
 // Computer Architecture (CO224) - Lab 05
 // Design: Testbench of Integrated CPU of Simple Processor
 // Author: Isuru Nawinne
@@ -37,13 +40,9 @@ module cpu_tb;
     begin
         // Initialize instruction memory with the set of instructions you need execute on CPU
         
-        // METHOD 1: manually loading instructions to instr_mem
-        // {instr_mem[10'd3], instr_mem[10'd2], instr_mem[10'd1], instr_mem[10'd0]} = 32'b00000000000001000000000000000101;
-        // {instr_mem[10'd7], instr_mem[10'd6], instr_mem[10'd5], instr_mem[10'd4]} = 32'b00000000000000100000000000001001;
-        // {instr_mem[10'd11], instr_mem[10'd10], instr_mem[10'd9], instr_mem[10'd8]} = 32'b00000010000001100000010000000010;
-        
-        // METHOD 2: loading instr_mem content from instr_mem.mem file
+        // loading instr_mem content from instr_mem.mem file
         $readmemb("instr_mem.mem", instr_mem);
+
     end
     
     /* 
@@ -58,12 +57,15 @@ module cpu_tb;
     
         // generate files needed to plot the waveform using GTKWave
         $dumpfile("cpu_wavedata.vcd");
-		$dumpvars(0, cpu_tb);
+		$dumpvars(3, cpu_tb,  cpu_tb.mycpu.Reg_File.registers[0], cpu_tb.mycpu.Reg_File.registers[1], cpu_tb.mycpu.Reg_File.registers[2], cpu_tb.mycpu.Reg_File.registers[3], cpu_tb.mycpu.Reg_File.registers[4], cpu_tb.mycpu.Reg_File.registers[5], cpu_tb.mycpu.Reg_File.registers[6], cpu_tb.mycpu.Reg_File.registers[7]);
         
         CLK = 1'b0;
         RESET = 1'b0;
         
         // TODO: Reset the CPU (by giving a pulse to RESET signal) to start the program execution
+        RESET = 1'b1;
+        #5
+        RESET = 1'b0;
         
         // finish simulation after some time
         #100
@@ -75,11 +77,9 @@ module cpu_tb;
     always
     #4 CLK = ~CLK;
 
-    initial begin
-        $monitor($time, " %b %b", PC, INSTRUCTION);
-        #200 RESET = 1; 
-        #5 RESET = 0;
-    end
+    // initial begin
+    //     $monitor($time, " %b %b", PC, INSTRUCTION);
+    // end
         
 
 endmodule

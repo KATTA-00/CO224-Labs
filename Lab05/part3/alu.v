@@ -4,20 +4,24 @@
 // ALU module 
 // 8-bit ALU unit, that can operate with two 8-bit numbers to generate the result
 // give the relevant output to RESULT respect to SELECT 
+
 // Input:
 //      DATA1, DATA2, SELECT
 // Output:
 //      RESULT
+
 // Operations:
 //      FORWARD - forward the data in DATA2 into RESULT 
 //      ADD     - add DATA1 and DATA2, give the addiction to RESULT
 //      AND     - and DATA1 and DATA2, give the result to RESULT     
 //      OR      - or DATA1 and DATA2, give the result to RESULT  
+
 // SELECTION CODE:
 //      FOEWARD - 000   
 //      ADD     - 001
 //      AND     - 010   
 //      OR      - 011
+
 module alu(DATA1, DATA2, RESULT, SELECT);
 
     // initailize input ports
