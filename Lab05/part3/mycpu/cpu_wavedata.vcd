@@ -1,5 +1,5 @@
 $date
-	Sat May 20 09:30:09 2023
+	Sat May 20 10:59:03 2023
 $end
 $version
 	Icarus Verilog
@@ -194,13 +194,6 @@ bx #
 0"
 bx !
 $end
-#1
-b0 !
-b0 )
-b0 B
-#2
-b100 C
-b100 A
 #4
 1"
 #5

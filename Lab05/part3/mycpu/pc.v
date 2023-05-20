@@ -10,9 +10,6 @@ module pc(RESET, CLK, PC);
 
     pc_add pc_adder(PC, adder_out);
 
-    initial
-    #1 PC = 0;
-
     always @(adder_out)
     PC_NEXT = adder_out;
 
@@ -25,6 +22,7 @@ module pc(RESET, CLK, PC);
     end 
 
 endmodule
+
 
 module pc_add(PC, adder_out);
 
