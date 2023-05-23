@@ -8,19 +8,19 @@
 `include "control_unit.v"
 `include "modules.v"
 
-
+//cpu module
 module cpu(PC, INSTRUCTION, CLK, RESET);
 
     input CLK, RESET;
-    input [31:0] INSTRUCTION;
+    input [31:0] INSTRUCTION; // instruction array
 
-    output [31:0] PC;
+    output [31:0] PC; // address of the current executing instruction
 
-    wire [2:0] ALUOP;
-    wire WRITEENABLE, COMPSELECT, IMMEDIATESELECT;
-    wire [7:0] ALURESULT, REGOUT2, REGOUT1, COMPOUT, MUX1, ALUIN;
+    wire [2:0] ALUOP; //select bit of ALU
+    wire WRITEENABLE, COMPSELECT, IMMEDIATESELECT; // control signals
+    wire [7:0] ALURESULT, REGOUT2, REGOUT1, COMPOUT, MUX1, ALUIN; // 
 
-
+    //initialization of sub modules
     pc Pc(RESET, CLK, PC);
     control_unit Control_Unit(INSTRUCTION[31:24], WRITEENABLE, COMPSELECT, IMMEDIATESELECT, ALUOP);
     reg_file Reg_File(ALURESULT, REGOUT1, REGOUT2, INSTRUCTION[18:16], INSTRUCTION[10:8], INSTRUCTION[2:0], WRITEENABLE, CLK,RESET);
