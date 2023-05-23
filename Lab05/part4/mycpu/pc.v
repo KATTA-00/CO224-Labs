@@ -1,5 +1,4 @@
 
-
 module pc(PC_TO, RESET, CLK, PC, PC_NEXT);
 
     input RESET, CLK;

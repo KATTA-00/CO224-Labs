@@ -45,6 +45,7 @@ module alu(DATA1, DATA2, RESULT, SELECT, ZERO);
     ALU_AND alu_and(DATA1, DATA2, and_result);
     ALU_OR alu_or(DATA1, DATA2, or_result);
 
+    // get the zero signal
     ZERO_SIGNAL zero_signal(add_result, ZERO);
     
 
