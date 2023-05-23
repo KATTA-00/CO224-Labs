@@ -30,10 +30,10 @@ module cpu_tb;
 
     always @(PC) begin
         #2
-        INSTRUCTION[31:24] = instr_mem[PC-1];
-        INSTRUCTION[23:16] = instr_mem[PC-2];
-        INSTRUCTION[15:8] = instr_mem[PC-3];
-        INSTRUCTION[7:0] = instr_mem[PC-4];
+        INSTRUCTION[31:24] = instr_mem[PC+3];
+        INSTRUCTION[23:16] = instr_mem[PC+2];
+        INSTRUCTION[15:8] = instr_mem[PC+1];
+        INSTRUCTION[7:0] = instr_mem[PC];
     end
     
     initial

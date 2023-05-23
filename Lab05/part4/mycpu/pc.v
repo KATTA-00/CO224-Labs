@@ -14,7 +14,7 @@ module pc(PC_TO, RESET, CLK, PC, PC_NEXT);
     always @(posedge CLK) begin
 
         if (RESET)
-            #1 PC = 32'b00000000000000000000000000000100;
+            #1 PC = 32'b00000000000000000000000000000000;
         else
             #1 PC = PC_TO;
     end 
