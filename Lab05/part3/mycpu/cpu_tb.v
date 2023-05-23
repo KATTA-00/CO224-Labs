@@ -29,11 +29,13 @@ module cpu_tb;
     //       (make sure you include the delay for instruction fetching here)
 
     always @(PC) begin
-        #2
-        INSTRUCTION[31:24] = instr_mem[PC-1];
-        INSTRUCTION[23:16] = instr_mem[PC-2];
-        INSTRUCTION[15:8] = instr_mem[PC-3];
-        INSTRUCTION[7:0] = instr_mem[PC-4];
+        #2 // delay of instruction fetching
+
+        // load the instruction memory(instruction array) with the set of instructions provided according to little endian method
+        INSTRUCTION[31:24] = instr_mem[PC+3];
+        INSTRUCTION[23:16] = instr_mem[PC+2];
+        INSTRUCTION[15:8] = instr_mem[PC+1];
+        INSTRUCTION[7:0] = instr_mem[PC];
     end
     
     initial
