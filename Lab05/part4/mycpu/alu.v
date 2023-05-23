@@ -45,12 +45,25 @@ module alu(DATA1, DATA2, RESULT, SELECT, ZERO);
     ALU_AND alu_and(DATA1, DATA2, and_result);
     ALU_OR alu_or(DATA1, DATA2, or_result);
 
+    ZERO_SIGNAL zero_signal(add_result, ZERO);
     
 
     // instantiation of the mux
     // connect all the the module's output to the mux 
     // select a input as the selection
     MUX mux(forward_result, add_result, and_result, or_result, RESULT, SELECT);
+
+endmodule
+
+// Module to get to ZERO signal
+module ZERO_SIGNAL(add_result, ZERO);
+
+    // initailize input ports
+    input [7:0] add_result;
+    // output port
+    output ZERO;
+
+    assign ZERO =  (add_result == 0)  ? 1'b1 : 1'b0;
 
 endmodule
 

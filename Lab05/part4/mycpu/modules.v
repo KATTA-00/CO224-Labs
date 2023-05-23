@@ -8,11 +8,28 @@ module two_comp(DATA, OUT);
 endmodule
 
 
-module mux(DATA1, DATA2, SELECT, OUTPUT);
+module mux_8(DATA1, DATA2, SELECT, OUTPUT);
 
     input [7:0] DATA1, DATA2;
     input SELECT;
     output reg [7:0] OUTPUT;
+
+    always @(DATA1, DATA2, SELECT) begin 
+
+        if (SELECT) 
+            OUTPUT = DATA2;
+        else
+            OUTPUT = DATA1;
+
+    end
+
+endmodule
+
+module mux_32(DATA1, DATA2, SELECT, OUTPUT);
+
+    input [31:0] DATA1, DATA2;
+    input SELECT;
+    output reg [31:0] OUTPUT;
 
     always @(DATA1, DATA2, SELECT) begin 
 
