@@ -9,6 +9,7 @@
 
 module cpu_tb;
 
+    // Clock and Reset
     reg CLK, RESET;
     wire [31:0] PC;
     // wire [31:0] INSTRUCTION;

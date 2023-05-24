@@ -1,12 +1,21 @@
 // CO224 - Lab05 PART-3
 // GROUP - 11
 
-// include modules
+// include modules 
 `include "alu.v"
 `include "reg_file.v"
 `include "pc.v"
 `include "control_unit.v"
 `include "modules.v"
+
+// cpu module 
+// that has the capacity to execute a give instruction from the instruction memory
+
+// Inputs :
+//          INSTRUCTION, CLK, RESET
+// Output :
+//          PC  
+
 
 
 module cpu(PC, INSTRUCTION, CLK, RESET);

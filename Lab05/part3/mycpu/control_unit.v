@@ -11,8 +11,10 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, ALUOP);
     output reg WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT; //control signal
     output reg [2:0] ALUOP; // control signal for ALU (2 bit signal)
 
+    // alway block for Opcodes
     always @(OPCODE) begin 
 
+        // delay of the dedcoding
         #1
         //enabling the control signals according to the OPCODE
         case (OPCODE)
