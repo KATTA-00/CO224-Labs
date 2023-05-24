@@ -1,4 +1,5 @@
 
+
 // program counter module
 module pc(RESET, CLK, PC);
 
@@ -29,9 +30,11 @@ endmodule
 //pc adder module (adder_out = PC+4(because word size is 4 bytes))
 module pc_add(PC, adder_out);
 
+    // declare ports
     input [31:0] PC;
     output [31:0] adder_out;
 
+    // Incremtn the value by 4 and assing it the output with a delay of 1
     assign #1 adder_out = PC + 4 ;
 
 endmodule

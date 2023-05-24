@@ -80,9 +80,9 @@ module cpu_tb;
     always
     #4 CLK = ~CLK;
 
-    // initial begin
-    //     $monitor($time, " %b %b", PC, INSTRUCTION);
-    // end
+    initial begin
+        $monitor($time, " %b %b", PC, INSTRUCTION);
+    end
         
 
 endmodule
