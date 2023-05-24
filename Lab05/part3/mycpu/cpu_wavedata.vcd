@@ -1,5 +1,5 @@
 $date
-	Wed May 24 09:33:22 2023
+	Wed May 24 09:41:17 2023
 $end
 $version
 	Icarus Verilog
@@ -21,11 +21,11 @@ $var wire 8 ' REGOUT2 [7:0] $end
 $var wire 8 ( REGOUT1 [7:0] $end
 $var wire 32 ) PC [31:0] $end
 $var wire 8 * OPCODE [7:0] $end
-$var wire 8 + MUXOUT2 [7:0] $end
-$var wire 8 , MUXOUT1 [7:0] $end
-$var wire 1 - IMMEDIATESELECT $end
-$var wire 8 . IMMEDIATE [7:0] $end
-$var wire 1 / COMPSELECT $end
+$var wire 1 + MUXSELECT2 $end
+$var wire 1 , MUXSELECT1 $end
+$var wire 8 - MUXOUT2 [7:0] $end
+$var wire 8 . MUXOUT1 [7:0] $end
+$var wire 8 / IMMEDIATE [7:0] $end
 $var wire 8 0 COMPOUT [7:0] $end
 $var wire 8 1 ALURESULT [7:0] $end
 $var wire 3 2 ALUOP [2:0] $end
@@ -42,12 +42,12 @@ $upscope $end
 $scope module Control_Unit $end
 $var wire 8 ; OPCODE [7:0] $end
 $var reg 3 < ALUOP [2:0] $end
-$var reg 1 / COMP_SELECT $end
-$var reg 1 - IMMEDIATE_SELECT $end
+$var reg 1 , COMP_SELECT $end
+$var reg 1 + IMMEDIATE_SELECT $end
 $var reg 1 & WRITEENABLE $end
 $upscope $end
 $scope module Mux1 $end
-$var wire 1 / SELECT $end
+$var wire 1 , SELECT $end
 $var wire 8 = DATA2 [7:0] $end
 $var wire 8 > DATA1 [7:0] $end
 $var reg 8 ? OUTPUT [7:0] $end
@@ -55,7 +55,7 @@ $upscope $end
 $scope module Mux2 $end
 $var wire 8 @ DATA1 [7:0] $end
 $var wire 8 A DATA2 [7:0] $end
-$var wire 1 - SELECT $end
+$var wire 1 + SELECT $end
 $var reg 8 B OUTPUT [7:0] $end
 $upscope $end
 $scope module Pc $end
@@ -182,11 +182,11 @@ bx 3
 bx 2
 bx 1
 bx 0
-x/
+bx /
 bx .
-x-
-bx ,
-bx +
+bx -
+x,
+x+
 bx *
 bx )
 bx (
@@ -217,7 +217,7 @@ b0 N
 b100 E
 b100 C
 #7
-b101 .
+b101 /
 b101 A
 b101 K
 b0 I
@@ -227,21 +227,21 @@ b0 ;
 b101 #
 b101 %
 #8
-b101 +
+b101 -
 b101 9
 b101 B
 b0 2
 b0 7
 b0 <
-1-
-0/
+1+
+0,
 1&
 0"
 #9
 b101 1
 b101 8
 b101 F
-b0 ,
+b0 .
 b0 ?
 b0 @
 bx1x1 3
@@ -273,10 +273,10 @@ b100 D
 b1000 E
 b1000 C
 #15
-b1001 +
+b1001 -
 b1001 9
 b1001 B
-b1001 .
+b1001 /
 b1001 A
 b1 K
 b1 G
@@ -306,15 +306,15 @@ b1001 O
 b1100 E
 b1100 C
 #23
-b1 +
+b1 -
 b1 9
 b1 B
-b1 .
+b1 /
 b1 A
 b10 G
 b1 *
 b1 ;
-b1001 ,
+b1001 .
 b1001 ?
 b1001 @
 b1000000100000000000000001 #
@@ -324,14 +324,14 @@ b1001 >
 b1001 J
 b1001 L
 #24
-b1001 +
+b1001 -
 b1001 9
 b1001 B
 b1 1
 b1 8
 b1 F
 b101 3
-0-
+0+
 b1 4
 b11110111 0
 b11110111 =
@@ -354,7 +354,7 @@ b1100 D
 b10000 E
 b10000 C
 #31
-b0 .
+b0 /
 b0 A
 b0 K
 b10 I
@@ -372,10 +372,10 @@ b1 7
 b1 <
 0"
 #33
-b101 +
+b101 -
 b101 9
 b101 B
-b101 ,
+b101 .
 b101 ?
 b101 @
 b101 '
@@ -401,7 +401,7 @@ b1110 Q
 b10100 E
 b10100 C
 #39
-b1 .
+b1 /
 b1 A
 b1 K
 b11 I
@@ -411,13 +411,13 @@ b11 ;
 b11000001000000001100000001 #
 b11000001000000001100000001 %
 #40
-b11111011 +
+b11111011 -
 b11111011 9
 b11111011 B
-b11111011 ,
+b11111011 .
 b11111011 ?
 b11111011 @
-1/
+1,
 0"
 #41
 b11111011 3
@@ -431,10 +431,10 @@ b1110 (
 b1110 :
 b1110 H
 #42
-b11110111 +
+b11110111 -
 b11110111 9
 b11110111 B
-b11110111 ,
+b11110111 .
 b11110111 ?
 b11110111 @
 b11110111 0
@@ -460,7 +460,7 @@ b10100 D
 b11000 E
 b11000 C
 #47
-b1110101 .
+b1110101 /
 b1110101 A
 b101 K
 b0 I
@@ -473,23 +473,23 @@ b1110101 %
 b11110111 1
 b11110111 8
 b11110111 F
-b1110101 +
+b1110101 -
 b1110101 9
 b1110101 B
-b1001 ,
+b1001 .
 b1001 ?
 b1001 @
 b0 2
 b0 7
 b0 <
-1-
-0/
+1+
+0,
 0"
 #49
 b1110101 1
 b1110101 8
 b1110101 F
-b0 ,
+b0 .
 b0 ?
 b0 @
 b1111111 3
@@ -521,10 +521,10 @@ b1110101 N
 b11100 E
 b11100 C
 #55
-b10010010 +
+b10010010 -
 b10010010 9
 b10010010 B
-b10010010 .
+b10010010 /
 b10010010 A
 b10 K
 b1 G
@@ -542,7 +542,7 @@ b10010010 4
 b10000 5
 0"
 #57
-b1001 ,
+b1001 .
 b1001 ?
 b1001 @
 b1001 '
@@ -565,10 +565,10 @@ b11100 D
 b100000 E
 b100000 C
 #63
-b0 +
+b0 -
 b0 9
 b0 B
-b0 .
+b0 /
 b0 A
 b0 K
 b1 I
@@ -581,7 +581,7 @@ b100000001010000000100000000 %
 b0 1
 b0 8
 b0 F
-b1001 +
+b1001 -
 b1001 9
 b1001 B
 b1110101 3
@@ -590,16 +590,16 @@ b0 4
 b10 2
 b10 7
 b10 <
-0-
+0+
 0"
 #65
-b1110101 +
+b1110101 -
 b1110101 9
 b1110101 B
 b1 1
 b1 8
 b1 F
-b1110101 ,
+b1110101 .
 b1110101 ?
 b1110101 @
 b1111101 3
@@ -633,7 +633,7 @@ b10000 S
 b100100 E
 b100100 C
 #71
-b10 .
+b10 /
 b10 A
 b10 K
 b101 I
@@ -651,10 +651,10 @@ b11 7
 b11 <
 0"
 #73
-b1001 +
+b1001 -
 b1001 9
 b1001 B
-b1001 ,
+b1001 .
 b1001 ?
 b1001 @
 b1001 '
@@ -687,7 +687,7 @@ b100100 D
 b101000 E
 b101000 C
 #79
-bx .
+bx /
 bx A
 bx K
 bx I
@@ -699,10 +699,10 @@ bx %
 #80
 0"
 #81
-bx +
+bx -
 bx 9
 bx B
-bx ,
+bx .
 bx ?
 bx @
 bx '

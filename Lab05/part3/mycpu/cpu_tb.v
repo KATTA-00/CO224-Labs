@@ -3,8 +3,9 @@
 
 // Computer Architecture (CO224) - Lab 05
 // Design: Testbench of Integrated CPU of Simple Processor
-// Author: Isuru Nawinne
+// Author: Kanishka Gunawardana and Sanduni Ubayasiri
 
+// include cpu
 `include "cpu.v"
 
 module cpu_tb;
@@ -80,6 +81,7 @@ module cpu_tb;
     always
     #4 CLK = ~CLK;
 
+    // monitor to visualize 
     initial begin
         $monitor($time, " %b %b", PC, INSTRUCTION);
     end

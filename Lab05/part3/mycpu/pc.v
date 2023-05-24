@@ -1,4 +1,5 @@
-
+// CO224 - Lab05 PART-3
+// GROUP - 11
 
 // program counter module
 module pc(RESET, CLK, PC);

@@ -1,4 +1,4 @@
-// CO224 - Lab05 PART-1
+// CO224 - Lab05 PART-3
 // GROUP - 11
 
 // REGISTER FILE module
