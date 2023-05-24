@@ -3,7 +3,7 @@
 module pc(RESET, CLK, PC);
 
     input RESET, CLK;
-    output reg [31:0] PC; // reg to hold current executiing instruction
+    output reg [31:0] PC; // reg to hold the address of the current executing instruction
     
     reg [31:0] PC_NEXT; // next instruction to be executed
     wire [31:0] adder_out; // address of the next instruction to be executed
