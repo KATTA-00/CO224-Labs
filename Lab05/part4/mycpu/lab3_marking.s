@@ -1,6 +1,6 @@
 loadi 0 0x09   // r4 = 5
 loadi 1 0x09   // r1 = 9
-beq 0x03 0 1
+beq 0x02 0 1
 mov 2 1        // r2 = r1
 add 3 2 0      // r3 = r2 + r0
 sub 4 3 1      // r4 = r3 + r1
