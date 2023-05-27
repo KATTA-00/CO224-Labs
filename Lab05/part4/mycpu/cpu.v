@@ -53,11 +53,12 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
     // declare the alu unit
     alu Alu(REGOUT1, MUXOUT2, ALURESULT, ALUOP, ZERO);
 
-    // 
+    // to get the selection bit between pc+4 or branch target
     wire WIRE1;
     and(WIRE1, BRANCH, ZERO);
     or(PCSELECT, JUMP, WIRE1);
 
+    // mux to choose between pc+4 and branch target
     mux_32 Mux3(PC_4, PC_TARGET, PCSELECT, PC_NEXT);
 
 

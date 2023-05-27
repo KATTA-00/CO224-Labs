@@ -23,8 +23,8 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 COMP_SELECT = 1'b0;
                 IMMEDIATE_SELECT = 1'b1;// immediate number select
                 ALUOP = 3'b000;// select forward result from ALU
-                JUMP = 1'b0;
-                BRANCH = 1'b0;
+                JUMP = 1'b0; // jump
+                BRANCH = 1'b0; // branch
             end
 
             //mov - copy a value in a register to another register
@@ -83,8 +83,8 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 COMP_SELECT = 1'b0;
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b000;
-                JUMP = 1'b1;
-                BRANCH = 1'b0;
+                JUMP = 1'b1; // jump is enable
+                BRANCH = 1'b0; // branch is disable
             end
             
             // beq - jump instruction
@@ -93,8 +93,8 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 COMP_SELECT = 1'b1;
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b001;
-                JUMP = 1'b0;
-                BRANCH = 1'b1;
+                JUMP = 1'b0; // jump is disable
+                BRANCH = 1'b1; // branch is enable
             end
             
         endcase
