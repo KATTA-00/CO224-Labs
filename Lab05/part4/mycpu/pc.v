@@ -4,6 +4,7 @@
 // program counter module
 module pc(PC_TO, RESET, CLK, PC, PC_NEXT);
 
+    // declare ports
     input RESET, CLK;
     input [31:0] PC_TO;
     output reg [31:0] PC;// reg to hold the address of the current executing instruction

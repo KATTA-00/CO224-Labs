@@ -77,7 +77,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 BRANCH = 1'b0;
             end
 
-            // j - jump instruction
+            // j - jump instruction relative to the next instruction to execute
             8'b0000_0110: begin
                 WRITEENABLE = 1'b0;
                 COMP_SELECT = 1'b0;
@@ -87,7 +87,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 BRANCH = 1'b0; // branch is disable
             end
             
-            // beq - jump instruction
+            // beq - branch if reg values are eqaul
             8'b0000_0111: begin
                 WRITEENABLE = 1'b0;
                 COMP_SELECT = 1'b1;
