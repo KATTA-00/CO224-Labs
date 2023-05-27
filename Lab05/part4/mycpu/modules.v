@@ -3,7 +3,9 @@
 
 // this file contains two's compliment unit and mux unit
 // two_comp - get a 8 bit data and output its 2's compliment
-// mux - used to select two 8 bit data with a selection bit
+// mux8 - used to select two 8 bit data with a selection bit
+// mux32 - used to select two 32 bit data with a selection bit
+// pc_adder - used to add the offset in jump/branch instruction
 
 // module for get the 2's complwment required for sub instruction
 module two_comp(DATA, OUT);

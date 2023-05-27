@@ -22,6 +22,7 @@ module pc(PC_TO, RESET, CLK, PC, PC_NEXT);
         if (RESET)
             #1 PC = 32'b00000000000000000000000000000000;
         else
+            // write the next instruction address
             #1 PC = PC_TO;
     end 
 
