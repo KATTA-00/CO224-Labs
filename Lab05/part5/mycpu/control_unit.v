@@ -47,6 +47,16 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 BRANCH = 1'b0;
             end
 
+            // mult - mult 2 register values and write the result to another register
+            8'b0000_1100: begin
+                WRITEENABLE = 1'b1;
+                COMP_SELECT = 1'b0;
+                IMMEDIATE_SELECT = 1'b0;
+                ALUOP = 3'b100; // select mult result from alu
+                JUMP = 1'b0;
+                BRANCH = 1'b0;
+            end
+
             // sub - subtract 2 reg values and write the result to another register
             8'b0000_0011: begin
                 WRITEENABLE = 1'b1;
@@ -73,6 +83,16 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 COMP_SELECT = 1'b0; 
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b011;// select or result from ALU
+                JUMP = 1'b0;
+                BRANCH = 1'b0;
+            end
+
+            // sra - arithmetic shift right a reg velue
+            8'b0000_1111: begin
+                WRITEENABLE = 1'b1;
+                COMP_SELECT = 1'b0; 
+                IMMEDIATE_SELECT = 1'b1;
+                ALUOP = 3'b110;     // select or result from ALU
                 JUMP = 1'b0;
                 BRANCH = 1'b0;
             end

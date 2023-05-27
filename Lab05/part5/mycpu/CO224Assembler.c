@@ -53,6 +53,9 @@ int main(int argc, char *argv[])
 	char *op_swd = "00001010";
 	char *op_swi = "00001011";
 	char *op_mult = "00001100";
+	char *op_sll = "00001101";
+	char *op_slr = "00001110";
+	char *op_sra = "00001111";
 	/************************************************************************/
 
 	const char delim[] = " ";
@@ -89,7 +92,7 @@ int main(int argc, char *argv[])
 		in_token = strtok(tline, delim); // Read the first token	(if this is an instruction, first token is the operation)
 		// Only for valid instructions with two or three tokens (ignored bits 15-8 and/or bits 7-0 fields)
 		if (strcasecmp(in_token, "mov") == 0 || strcasecmp(in_token, "loadi") == 0 || strcasecmp(in_token, "lwd") == 0 || strcasecmp(in_token, "lwi") == 0 ||
-			strcasecmp(in_token, "swd") == 0 || strcasecmp(in_token, "swi") == 0 || strcasecmp(in_token, "j") == 0 || strcasecmp(in_token, "mult") == 0)
+			strcasecmp(in_token, "swd") == 0 || strcasecmp(in_token, "swi") == 0 || strcasecmp(in_token, "j") == 0)
 		{
 			int j = (strcasecmp(in_token, "j") == 0) ? 1 : 0;											// Flag if this is a 'j' (j is the only instruction ignoring bits 7-0)
 			int store = (strcasecmp(in_token, "swd") == 0 || strcasecmp(in_token, "swi") == 0) ? 1 : 0; // Flag if this is a store instruction
@@ -173,6 +176,8 @@ int main(int argc, char *argv[])
 				strcpy(out_token, op_swi);
 			else if (strcasecmp(in_token, "mult") == 0)
 				strcpy(out_token, op_mult);
+			else if (strcasecmp(in_token, "sra") == 0)
+				strcpy(out_token, op_sra);
 
 			// Encoding register numbers
 			else if (strcmp(in_token, "0") == 0 || strcmp(in_token, "0\n") == 0)
