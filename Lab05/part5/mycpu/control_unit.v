@@ -87,12 +87,43 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 BRANCH = 1'b0;
             end
 
+
+            // sll - logical shift left a reg velue
+            8'b0000_1101: begin
+                WRITEENABLE = 1'b1;
+                COMP_SELECT = 1'b0; 
+                IMMEDIATE_SELECT = 1'b1;
+                ALUOP = 3'b101;     // select or result from ALU
+                JUMP = 1'b0;
+                BRANCH = 1'b0;
+            end
+
+            // srl - logical shift left a reg velue
+            8'b0000_1110: begin
+                WRITEENABLE = 1'b1;
+                COMP_SELECT = 1'b0; 
+                IMMEDIATE_SELECT = 1'b1;
+                ALUOP = 3'b101;     // select or result from ALU
+                JUMP = 1'b0;
+                BRANCH = 1'b0;
+            end
+
             // sra - arithmetic shift right a reg velue
             8'b0000_1111: begin
                 WRITEENABLE = 1'b1;
                 COMP_SELECT = 1'b0; 
                 IMMEDIATE_SELECT = 1'b1;
                 ALUOP = 3'b110;     // select or result from ALU
+                JUMP = 1'b0;
+                BRANCH = 1'b0;
+            end
+
+            // ror - arithmetic shift right a reg velue
+            8'b0001_0000: begin
+                WRITEENABLE = 1'b1;
+                COMP_SELECT = 1'b0; 
+                IMMEDIATE_SELECT = 1'b1;
+                ALUOP = 3'b111;     // select or result from ALU
                 JUMP = 1'b0;
                 BRANCH = 1'b0;
             end
@@ -109,6 +140,16 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
             
             // beq - branch if reg values are eqaul
             8'b0000_0111: begin
+                WRITEENABLE = 1'b0;
+                COMP_SELECT = 1'b1;
+                IMMEDIATE_SELECT = 1'b0;
+                ALUOP = 3'b001;
+                JUMP = 1'b0; // jump is disable
+                BRANCH = 1'b1; // branch is enable
+            end
+
+            // bne - branch if reg values are eqaul
+            8'b0001_0001: begin
                 WRITEENABLE = 1'b0;
                 COMP_SELECT = 1'b1;
                 IMMEDIATE_SELECT = 1'b0;

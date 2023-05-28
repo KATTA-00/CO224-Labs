@@ -54,8 +54,10 @@ int main(int argc, char *argv[])
 	char *op_swi = "00001011";
 	char *op_mult = "00001100";
 	char *op_sll = "00001101";
-	char *op_slr = "00001110";
+	char *op_srl = "00001110";
 	char *op_sra = "00001111";
+	char *op_ror = "00010000";
+	char *op_bne = "00010001";
 	/************************************************************************/
 
 	const char delim[] = " ";
@@ -176,8 +178,16 @@ int main(int argc, char *argv[])
 				strcpy(out_token, op_swi);
 			else if (strcasecmp(in_token, "mult") == 0)
 				strcpy(out_token, op_mult);
+			else if (strcasecmp(in_token, "sll") == 0)
+				strcpy(out_token, op_sll);
+			else if (strcasecmp(in_token, "srl") == 0)
+				strcpy(out_token, op_srl);
 			else if (strcasecmp(in_token, "sra") == 0)
 				strcpy(out_token, op_sra);
+			else if (strcasecmp(in_token, "ror") == 0)
+				strcpy(out_token, op_ror);
+			else if (strcasecmp(in_token, "bne") == 0)
+				strcpy(out_token, op_bne);
 
 			// Encoding register numbers
 			else if (strcmp(in_token, "0") == 0 || strcmp(in_token, "0\n") == 0)

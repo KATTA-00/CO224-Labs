@@ -32,7 +32,7 @@ module alu(DATA1, DATA2, RESULT, SELECT, ZERO);
     output ZERO;
 
     // make wires for connect each module's outputs to the mux
-    wire [7:0] forward_result, add_result, and_result, or_result, mult_result, sra_result;
+    wire [7:0] forward_result, add_result, and_result, or_result, mult_result, sra_result, sl_result, ror_result;
 
     // make instances of for each module
     // FORWARD - alu_forward
@@ -46,6 +46,8 @@ module alu(DATA1, DATA2, RESULT, SELECT, ZERO);
     ALU_OR alu_or(DATA1, DATA2, or_result);
     ALU_MULT alu_mult(DATA1, DATA2, mult_result);
     ALU_SRA alu_sra(DATA1, DATA2, sra_result);
+    ALU_SL alu_sl(DATA1, DATA2, sl_result);
+    ALU_ROR alu_ror(DATA1, DATA2, ror_result);
 
     // get the zero signal
     ZERO_SIGNAL zero_signal(add_result, ZERO);
@@ -54,7 +56,7 @@ module alu(DATA1, DATA2, RESULT, SELECT, ZERO);
     // instantiation of the mux
     // connect all the the module's output to the mux 
     // select a input as the selection
-    MUX mux(forward_result, add_result, and_result, or_result, mult_result, sra_result, RESULT, SELECT);
+    MUX mux(forward_result, add_result, and_result, or_result, mult_result, sra_result, sl_result, ror_result, RESULT, SELECT);
 
 endmodule
 
@@ -160,9 +162,35 @@ endmodule
 
 // SRA module
 // Arithmetic Shift Right the give two 8 bit numbers and output a 8 bit number
-// Inout  - DATA1
+// Inout  - DATA1, DATA2
 // Output - RESULT
 module ALU_SRA(DATA1, DATA2, RESULT);
+
+    // initailize input ports
+    input [7:0] DATA1, DATA2;
+    // initailize output ports
+    output reg [7:0] RESULT;
+
+    // get the rortate
+    always @(DATA1, DATA2) begin
+
+        // assign the value
+        #1 RESULT = DATA1;
+
+        // loop time that should rotate
+        for (integer i=0; i<DATA2; i=i+1) begin
+            RESULT = {DATA1[7], RESULT[7:1]};
+        end
+
+    end
+
+endmodule
+
+// SL module
+// logical Shift left and right the give two 8 bit numbers and output a 8 bit number
+// Inout  - DATA1, DATA2
+// Output - RESULT
+module ALU_SL(DATA1, DATA2, RESULT);
 
     // initailize input ports
     input [7:0] DATA1, DATA2;
@@ -170,7 +198,34 @@ module ALU_SRA(DATA1, DATA2, RESULT);
     output [7:0] RESULT;
 
     // get the arithmetic shift
-    assign #1 RESULT = 2;
+    assign #1 RESULT = DATA1 << DATA2;
+
+endmodule
+
+// ROR module
+// rortate right the give two 8 bit numbers and output a 8 bit number
+// Inout  - DATA1, DATA2
+// Output - RESULT
+module ALU_ROR(DATA1, DATA2, RESULT);
+
+    // initailize input ports
+    input [7:0] DATA1, DATA2;
+    // initailize output ports
+    output reg [7:0] RESULT;
+
+    // get the rortate
+    always @(DATA1, DATA2) begin
+
+        // assign the value
+        #1 RESULT = DATA1;
+
+        // loop time that should rotate
+        for (integer i=0; i<DATA2; i=i+1) begin
+            RESULT = {RESULT[0], RESULT[7:1]};
+        end
+
+    end
+
 
 endmodule
 
@@ -180,10 +235,10 @@ endmodule
 // map it to the ouput reference to the selection bits
 // Inputs  - forward_result, add_result, and_result, or_result, SELECT
 // Outputs - RESULT
-module MUX(forward_result, add_result, and_result, or_result, mult_result, sra_result, RESULT, SELECT);
+module MUX(forward_result, add_result, and_result, or_result, mult_result, sra_result, sl_result, ror_result, RESULT, SELECT);
 
     // initailize input ports
-    input [7:0] forward_result, add_result, and_result, or_result, mult_result, sra_result;
+    input [7:0] forward_result, add_result, and_result, or_result, mult_result, sra_result, sl_result, ror_result;
     input [2:0] SELECT;
     // initailize output ports
     output reg [7:0] RESULT;
@@ -191,7 +246,7 @@ module MUX(forward_result, add_result, and_result, or_result, mult_result, sra_r
     // set a always block to trigger when changing 
     // forward_result, add_result, and_result, or_result, SELECT
     // thus, if these inputs are change the output is change reference to selection bits
-    always @(forward_result, add_result, and_result, or_result, mult_result, sra_result, SELECT) begin
+    always @(forward_result, add_result, and_result, or_result, mult_result, sra_result, sl_result, ror_result, SELECT) begin
         
         // case block to check the select bit
         // give the result value 
@@ -207,9 +262,12 @@ module MUX(forward_result, add_result, and_result, or_result, mult_result, sra_r
             3'b011 : RESULT = or_result;
             // selection for MULT
             3'b100 : RESULT = mult_result;
-
+            // selection of logical shift
+            3'b101 : RESULT = sl_result;
             // selection of SRA
             3'b110 : RESULT = sra_result;
+            // selection of ROR
+            3'b111 : RESULT = ror_result;
 
             // deafult routing
             default : RESULT = 0;

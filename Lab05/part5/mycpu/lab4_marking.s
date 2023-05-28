@@ -1,7 +1,11 @@
-loadi 0 0x09   // r4 = 5
+loadi 0 0xF0   // r4 = 5
 loadi 1 0x09   // r1 = 9
 mult 2 1 0
 sra 3 0 0x02
+srl 4 1 0x01
+sll 4 1 0x03
+ror 4 1 0x02
+bne 0x02 1 3
 mov 2 1        // r2 = r1
 add 3 2 0      // r3 = r2 + r0
 sub 4 3 1      // r4 = r3 + r1
