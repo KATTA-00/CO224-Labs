@@ -21,6 +21,10 @@
 //      ADD     - 001
 //      AND     - 010   
 //      OR      - 011
+//      MULT    - 100
+//      SL      - 101
+//      SRA     - 110
+//      ROR     - 111
 
 module alu(DATA1, DATA2, RESULT, SELECT, ZERO);
 
@@ -39,6 +43,10 @@ module alu(DATA1, DATA2, RESULT, SELECT, ZERO);
     // ADD     - alu_add
     // AND     - alu_and
     // OR      - alu_or
+    // MULT    - alu_mult
+    // SL      - alu_sl
+    // SRA     - alu_sra
+    // ROR     - alu_ror
     // connect each module's relevant input and output
     ALU_FORWARD alu_forward(DATA2, forward_result);
     ALU_ADD alu_add(DATA1, DATA2, add_result);
@@ -68,6 +76,7 @@ module ZERO_SIGNAL(add_result, ZERO);
     // output port
     output ZERO;
 
+    // assign the zero value
     assign ZERO =  (add_result == 0)  ? 1'b1 : 1'b0;
 
 endmodule
@@ -171,13 +180,13 @@ module ALU_SRA(DATA1, DATA2, RESULT);
     // initailize output ports
     output reg [7:0] RESULT;
 
-    // get the rortate
+    // get the arithmetic shift right
     always @(DATA1, DATA2) begin
 
         // assign the value
         #1 RESULT = DATA1;
 
-        // loop time that should rotate
+        // loop time that should shift
         for (integer i=0; i<DATA2; i=i+1) begin
             RESULT = {DATA1[7], RESULT[7:1]};
         end
@@ -225,7 +234,6 @@ module ALU_ROR(DATA1, DATA2, RESULT);
         end
 
     end
-
 
 endmodule
 

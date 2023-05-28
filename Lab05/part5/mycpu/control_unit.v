@@ -8,7 +8,8 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
 
     // declaration of input output retisters
     input [7:0] OPCODE;
-    output reg WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BRANCH;//control signal
+    output reg WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP;//control signal
+    output reg [1:0] BRANCH;
     output reg [2:0] ALUOP;// control signal for ALU (2 bit signal)
 
     always @(OPCODE) begin 
@@ -24,7 +25,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b1;// immediate number select
                 ALUOP = 3'b000;// select forward result from ALU
                 JUMP = 1'b0; // jump
-                BRANCH = 1'b0; // branch
+                BRANCH = 2'b00; // branch
             end
 
             //mov - copy a value in a register to another register
@@ -34,7 +35,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b000;
                 JUMP = 1'b0;
-                BRANCH = 1'b0;
+                BRANCH = 2'b00; // branch
             end
 
             // add - add 2 register values and write the result to another register
@@ -44,7 +45,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b001;//select add result from alu
                 JUMP = 1'b0;
-                BRANCH = 1'b0;
+                BRANCH = 2'b00; // branch
             end
 
             // mult - mult 2 register values and write the result to another register
@@ -54,7 +55,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b100; // select mult result from alu
                 JUMP = 1'b0;
-                BRANCH = 1'b0;
+                BRANCH = 2'b00; // branch
             end
 
             // sub - subtract 2 reg values and write the result to another register
@@ -64,7 +65,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b0;// 2s complement enables(input for aku module is 2's complemented)
                 ALUOP = 3'b001;// select add from ALU
                 JUMP = 1'b0;
-                BRANCH = 1'b0;
+                BRANCH = 2'b00; // branch
             end
 
             // and - bitwise AND of 2 reg values
@@ -74,7 +75,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b010;// select and result form alu
                 JUMP = 1'b0;
-                BRANCH = 1'b0;
+                BRANCH = 2'b00; // branch
             end
 
             // or - bitwise OR of 2 reg values
@@ -84,7 +85,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b011;// select or result from ALU
                 JUMP = 1'b0;
-                BRANCH = 1'b0;
+                BRANCH = 2'b00; // branch
             end
 
 
@@ -95,7 +96,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b1;
                 ALUOP = 3'b101;     // select or result from ALU
                 JUMP = 1'b0;
-                BRANCH = 1'b0;
+                BRANCH = 2'b00; // branch
             end
 
             // srl - logical shift left a reg velue
@@ -105,7 +106,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b1;
                 ALUOP = 3'b101;     // select or result from ALU
                 JUMP = 1'b0;
-                BRANCH = 1'b0;
+                BRANCH = 2'b00; // branch
             end
 
             // sra - arithmetic shift right a reg velue
@@ -115,7 +116,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b1;
                 ALUOP = 3'b110;     // select or result from ALU
                 JUMP = 1'b0;
-                BRANCH = 1'b0;
+                BRANCH = 2'b00; // branch
             end
 
             // ror - arithmetic shift right a reg velue
@@ -125,7 +126,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b1;
                 ALUOP = 3'b111;     // select or result from ALU
                 JUMP = 1'b0;
-                BRANCH = 1'b0;
+                BRANCH = 2'b00; // branch
             end
 
             // j - jump instruction relative to the next instruction to execute
@@ -135,7 +136,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b000;
                 JUMP = 1'b1; // jump is enable
-                BRANCH = 1'b0; // branch is disable
+                BRANCH = 2'b00; // branch
             end
             
             // beq - branch if reg values are eqaul
@@ -145,7 +146,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b001;
                 JUMP = 1'b0; // jump is disable
-                BRANCH = 1'b1; // branch is enable
+                BRANCH = 2'b01; // branch
             end
 
             // bne - branch if reg values are eqaul
@@ -155,7 +156,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 IMMEDIATE_SELECT = 1'b0;
                 ALUOP = 3'b001;
                 JUMP = 1'b0; // jump is disable
-                BRANCH = 1'b1; // branch is enable
+                BRANCH = 2'b10; // branch
             end
             
         endcase

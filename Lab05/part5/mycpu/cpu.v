@@ -28,7 +28,8 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
     wire ZERO;
     wire [31:0] PC_NEXT, PC_TARGET, PC_4;
     wire [2:0] ALUOP;//select bit of ALU
-    wire WRITEENABLE, MUXSELECT1, MUXSELECT2, JUMP, BRANCH, PCSELECT;// control signals
+    wire WRITEENABLE, MUXSELECT1, MUXSELECT2, JUMP, PCSELECT;// control signals
+    wire [1:0] BRANCH;
     wire [7:0] ALURESULT, REGOUT2, REGOUT1, COMPOUT, MUXOUT1, MUXOUT2,  IMMEDIATE, OPCODE;// declare the weires
 
     // extrate the immediate from the instruction
@@ -53,9 +54,11 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
     // declare the alu unit
     alu Alu(REGOUT1, MUXOUT2, ALURESULT, ALUOP, ZERO);
 
-    // to get the selection bit between pc+4 or branch target
-    wire WIRE1;
-    and(WIRE1, BRANCH, ZERO);
+    // to get the selection bit for branch
+    wire NOTZERO, WIRE1;
+    not(NOTZERO, ZERO);
+    mux_branch MuxBranch(ZERO, NOTZERO, BRANCH, WIRE1);
+    // Select pc + offset when both jump and branch
     or(PCSELECT, JUMP, WIRE1);
 
     // mux to choose between pc+4 and branch target

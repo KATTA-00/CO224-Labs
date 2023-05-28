@@ -18,6 +18,31 @@ module two_comp(DATA, OUT);
 
 endmodule
 
+//2x1 1-bit mux module for get the branch signal
+module mux_branch(DATA1, DATA2, SELECT, OUTPUT);
+
+    input DATA1, DATA2; // input data to the mux
+    input [1:0] SELECT; // selector bit
+    output reg OUTPUT; // output from the mux
+
+    // select 
+    // 
+    always @(DATA1, DATA2, SELECT) begin 
+
+        case(SELECT)
+
+            2'b00: OUTPUT = 1'b0;
+
+            2'b01: OUTPUT = DATA1;
+
+            2'b10: OUTPUT = DATA2;
+
+        endcase
+
+    end
+
+endmodule
+
 //2x1 8-bit mux module for transfer data
 module mux_8(DATA1, DATA2, SELECT, OUTPUT);
 
