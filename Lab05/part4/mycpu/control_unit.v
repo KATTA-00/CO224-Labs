@@ -6,7 +6,7 @@
 
 module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BRANCH, ALUOP);
 
-    // declaration of input output retisters
+    // declaration of input output registers
     input [7:0] OPCODE;
     output reg WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BRANCH;//control signal
     output reg [2:0] ALUOP;// control signal for ALU (2 bit signal)
@@ -77,7 +77,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 BRANCH = 1'b0;
             end
 
-            // j - jump instruction relative to the next instruction to execute
+            // j - jump to a instruction relative to the next instruction to be executed
             8'b0000_0110: begin
                 WRITEENABLE = 1'b0;
                 COMP_SELECT = 1'b0;

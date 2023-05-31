@@ -10,7 +10,7 @@ module two_comp(DATA, OUT);
 
     input [7:0] DATA;
     output [7:0] OUT;
-    //assign 2's complement of the data to thw output
+    //assign 2's complement of the data to the output
     assign #1 OUT = ~DATA + 1;
 
 endmodule

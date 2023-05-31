@@ -29,9 +29,9 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
     wire WRITEENABLE, MUXSELECT1, MUXSELECT2; // control signals
     wire [7:0] ALURESULT, REGOUT2, REGOUT1, COMPOUT, MUXOUT1, MUXOUT2, IMMEDIATE, OPCODE; // declare the weires
 
-    // extrate the immediate from the instruction
+    // extract the immediate from the instruction
     assign IMMEDIATE = INSTRUCTION[7:0];
-    // extrate the opcode from the instruction
+    // extract the opcode from the instruction
     assign OPCODE = INSTRUCTION[31:24];
 
     //initialization of sub modules
