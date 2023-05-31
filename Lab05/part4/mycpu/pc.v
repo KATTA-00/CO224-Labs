@@ -36,7 +36,7 @@ module pc_add(PC, adder_out);
     input [31:0] PC;
     output [31:0] adder_out;
 
-    // Incremtn the value by 4 and assing it the output with a delay of 1
+    // Increment the value by 4 and assing it the output with a delay of 1
     assign #1 adder_out = PC + 4 ;
 
 endmodule
