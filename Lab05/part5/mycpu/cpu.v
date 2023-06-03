@@ -28,7 +28,7 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
     wire ZERO;
     wire [31:0] PC_NEXT, PC_TARGET, PC_4;
     wire [2:0] ALUOP;//select bit of ALU
-    wire WRITEENABLE, MUXSELECT1, MUXSELECT2, JUMP, PCSELECT;// control signals
+    wire WRITEENABLE, MUXSELECT1, MUXSELECT2, JUMP, PCSELECT, SHIFT;// control signals
     wire [1:0] BRANCH;
     wire [7:0] ALURESULT, REGOUT2, REGOUT1, COMPOUT, MUXOUT1, MUXOUT2,  IMMEDIATE, OPCODE;// declare the weires
 
@@ -39,7 +39,7 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
 
     //initialization of sub modules
     pc Pc(PC_NEXT, RESET, CLK, PC, PC_4);// initialization of Pc
-    control_unit Control_Unit(OPCODE, WRITEENABLE, MUXSELECT1, MUXSELECT2,JUMP, BRANCH, ALUOP);// initialization of Control Unit
+    control_unit Control_Unit(OPCODE, WRITEENABLE, MUXSELECT1, MUXSELECT2, JUMP, BRANCH, ALUOP, SHIFT);// initialization of Control Unit
     reg_file Reg_File(ALURESULT, REGOUT1, REGOUT2, INSTRUCTION[18:16], INSTRUCTION[10:8], INSTRUCTION[2:0], WRITEENABLE, CLK,RESET);// initialization of register files
     two_comp Two_Com(REGOUT2, COMPOUT);// initialization of the twos compliment circuit
 
@@ -52,7 +52,7 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
     mux_8 Mux2(MUXOUT1, IMMEDIATE, MUXSELECT2, MUXOUT2);
     
     // declare the alu unit
-    alu Alu(REGOUT1, MUXOUT2, ALURESULT, ALUOP, ZERO);
+    alu Alu(REGOUT1, MUXOUT2, ALURESULT, ALUOP, ZERO, SHIFT);
 
     // to get the selection bit for branch
     wire NOTZERO, WIRE1;
