@@ -19,15 +19,17 @@ module two_comp(DATA, OUT);
 endmodule
 
 //2x1 1-bit mux module for get the branch signal
-module mux_branch(DATA1, DATA2, SELECT, OUTPUT);
+module mux_branch(DATA1, SELECT, OUTPUT);
 
-    input DATA1, DATA2; // input data to the mux
+    input DATA1; // input data to the mux
     input [1:0] SELECT; // selector bit
     output reg OUTPUT; // output from the mux
 
-    // select 
-    // 
-    always @(DATA1, DATA2, SELECT) begin 
+    // select whether to branch or not
+    // if the branch equal signal is on the pass the zero signal 
+    // if the branch not equal signal is on the pass the not zero signal 
+    // if branch is zero the output 1'b0
+    always @(DATA1, SELECT) begin 
 
         case(SELECT)
 
@@ -35,7 +37,7 @@ module mux_branch(DATA1, DATA2, SELECT, OUTPUT);
 
             2'b01: OUTPUT = DATA1;
 
-            2'b10: OUTPUT = DATA2;
+            2'b10: OUTPUT = ~DATA1;
 
         endcase
 

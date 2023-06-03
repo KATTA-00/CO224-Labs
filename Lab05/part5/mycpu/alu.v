@@ -15,6 +15,11 @@
 //      ADD     - add DATA1 and DATA2, give the addiction to RESULT
 //      AND     - and DATA1 and DATA2, give the result to RESULT     
 //      OR      - or DATA1 and DATA2, give the result to RESULT  
+//      MULT    - multiply DATA1 and DATA2, give the result to RESULT  
+//      SLL     - logical left shift DATA1, give the result to RESULT  
+//      SRL     - logical right shoft DATA1, give the result to RESULT  
+//      SRA     - Arithmetic shoft right DATA1, give the result to RESULT  
+//      ROR     - Rotate right DATA1, give the result to RESULT  
 
 // SELECTION CODE:
 //      FOEWARD - 000   
@@ -209,8 +214,8 @@ module ALU_SL(DATA1, DATA2, SHIFT, RESULT);
     // initailize output ports
     output reg [7:0] RESULT;
 
-    // get the arithmetic shift
-    // get the rortate
+    // get the logical shift
+    // get the shift
     always @(DATA1, DATA2, SHIFT) begin
 
         // assign the value
@@ -222,7 +227,7 @@ module ALU_SL(DATA1, DATA2, SHIFT, RESULT);
                 RESULT = {RESULT[6:0], 1'b0};
             end
         end else begin
-            // loop time that should shoft right
+            // loop time that should shift right
             for (integer i=0; i<DATA2; i=i+1) begin
                 RESULT = {1'b0, RESULT[7:1]};
             end

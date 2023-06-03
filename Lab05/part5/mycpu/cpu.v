@@ -55,9 +55,8 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
     alu Alu(REGOUT1, MUXOUT2, ALURESULT, ALUOP, ZERO, SHIFT);
 
     // to get the selection bit for branch
-    wire NOTZERO, WIRE1;
-    not(NOTZERO, ZERO);
-    mux_branch MuxBranch(ZERO, NOTZERO, BRANCH, WIRE1);
+    wire WIRE1;
+    mux_branch MuxBranch(ZERO, BRANCH, WIRE1);
     // Select pc + offset when both jump and branch
     or(PCSELECT, JUMP, WIRE1);
 
