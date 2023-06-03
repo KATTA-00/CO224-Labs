@@ -78,7 +78,7 @@ module cpu_tb;
     #4 CLK = ~CLK;
 
     initial begin
-        $monitor($time, " %b %b", PC, INSTRUCTION);
+        $monitor($time, " %d %b", PC, INSTRUCTION);
     end
         
 

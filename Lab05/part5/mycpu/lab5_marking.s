@@ -1,10 +1,11 @@
 loadi 0 0x02   // r4 = 5
-loadi 1 0x08   // r1 = 9
-bne 0x04 1 0
+loadi 1 0x01   // r1 = 9
+bne 0x01 1 0
 loadi 2 0x01   // r1 = 9
+beq 0x08 1 2
 sll 3 2 0x03
 srl 4 1 0x02
-j 0x02
+j 0x03
 beq 0x02 1 2
 mult 2 1 0
 mov 2 1        // r2 = r1
