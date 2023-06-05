@@ -134,7 +134,39 @@ module ALU_MULT(DATA1, DATA2, RESULT);
 
     // get the addition of DATA1 and DATA2 
     // assign the value to RESULT with a 2 time units delay
-    assign #2 RESULT = DATA1 * DATA2;
+
+    // declare the wires
+    wire [6:0] wire0, wire1, wire2, wire3, wire4, wire5, wire6;
+    wire [6:0] adderout1, adderout2, adderout3, adderout4, adderout5, adderout6;
+    wire c1, c2, c3, c4, c5, c6;
+
+    // instance the adders and add gates
+
+    and7Bit and7bit0(DATA1[6:0], wire0, DATA2[0]);
+
+    and7Bit and7bit1(DATA1[6:0], wire1, DATA2[1]);
+    sevenBitAdder sevenbitadder1(wire1, {1'b0, wire0[6:1]}, 1'b0, adderout1, c1);
+
+    and7Bit and7bit2(DATA1[6:0], wire2, DATA2[2]);
+    sevenBitAdder sevenbitadder2(wire2, {c1, adderout1[6:1]}, 1'b0, adderout2, c2);
+
+    and7Bit and7bit3(DATA1[6:0], wire3, DATA2[3]);
+    sevenBitAdder sevenbitadder3(wire3, {c2, adderout2[6:1]}, 1'b0, adderout3, c3);
+
+    and7Bit and7bit4(DATA1[6:0], wire4, DATA2[4]);
+    sevenBitAdder sevenbitadder4(wire4, {c3, adderout3[6:1]}, 1'b0, adderout4, c4);
+
+    and7Bit and7bit5(DATA1[6:0], wire5, DATA2[5]);
+    sevenBitAdder sevenbitadder5(wire5, {c4, adderout4[6:1]}, 1'b0, adderout5, c5);
+
+    and7Bit and7bit6(DATA1[6:0], wire6, DATA2[6]);
+    sevenBitAdder sevenbitadder6(wire6, {c5, adderout5[6:1]}, 1'b0, adderout6, c6);
+
+    // get the sign of the result
+    and (RESULT[7], DATA1[7], DATA2[7]);
+
+    // assign the values
+    assign #2  RESULT[0] = wire0[0], RESULT[1] = adderout1[0], RESULT[2] = adderout2[0], RESULT[3] = adderout3[0], RESULT[4] = adderout4[0], RESULT[5] = adderout5[0], RESULT[6] = adderout6[0];
 
 endmodule
 
@@ -297,6 +329,78 @@ module MUX(forward_result, add_result, and_result, or_result, mult_result, sra_r
         endcase
 
     end
+
+endmodule
+
+
+// for multiply module, additional modules
+// half adder 
+module HalfAdder(a, b, s, cout);
+
+    // declare input and output
+    input a,b;
+    output s, cout;
+
+    // make the half adder circuit
+    xor (s, a, b);
+    and (cout, a, b);
+
+endmodule
+
+// full adder
+module FullAdder(a, b, cin, s, cout);
+
+    // declare input and output
+    input a, b, cin;
+    output s, cout;
+    // make the wires
+    wire w1, w2, w3;
+
+    // make two half adders to abtain the full adder
+    HalfAdder H0(a,b, w1, w2);
+    HalfAdder H1(w1, cin, s, w3);
+    xor (cout, w2, w3);
+
+endmodule
+
+// 7 bit full adder
+module sevenBitAdder( a, b, cin, s, cout);
+    
+    // declare input and output
+    input [6:0] a, b;
+    input cin;
+    output [6:0] s;
+    output cout;
+    // make the wires
+    wire c1, c2, c3, c4, c5, c6;
+
+    // make four full adders to add the four bit number
+    FullAdder F0(a[0], b[0], cin, s[0], c1);
+    FullAdder F1(a[1], b[1], c1, s[1], c2);
+    FullAdder F2(a[2], b[2], c2, s[2], c3);
+    FullAdder F3(a[3], b[3], c3, s[3], c4);
+    FullAdder F4(a[4], b[4], c4, s[4], c5);
+    FullAdder F5(a[5], b[5], c5, s[5], c6);
+    FullAdder F6(a[6], b[6], c6, s[6], cout);
+
+endmodule
+
+// module to amd with 7-bit number
+module and7Bit(DATA, OUTPUT, BIT);
+
+    // declare ports
+    input [6:0] DATA;
+    input BIT;
+    output [6:0] OUTPUT;
+
+    // declare gates
+    and (OUTPUT[0], DATA[0], BIT);
+    and (OUTPUT[1], DATA[1], BIT);
+    and (OUTPUT[2], DATA[2], BIT);
+    and (OUTPUT[3], DATA[3], BIT);
+    and (OUTPUT[4], DATA[4], BIT);
+    and (OUTPUT[5], DATA[5], BIT);
+    and (OUTPUT[6], DATA[6], BIT);
 
 endmodule
 

@@ -1,5 +1,7 @@
-loadi 0 0x20   // r4 = 5
-loadi 1 0x01   // r1 = 9
+loadi 0 0x05   // r4 = 5
+loadi 1 0x03   // r1 = 9
+mult 2 1 0
+mult 3 2 1
 sll 2 1 0x05
 srl 3 0 0x02
 bne 0x01 1 0
@@ -7,7 +9,6 @@ loadi 2 0x01   // r1 = 9
 beq 0x08 1 2
 j 0x03
 beq 0x02 1 2
-mult 2 1 0
 mov 2 1        // r2 = r1
 add 3 2 0      // r3 = r2 + r0
 sub 4 3 1      // r4 = r3 + r1
