@@ -185,8 +185,7 @@ module ALU_MULT(DATA1, DATA2, OUTPUT);
         if ((DATA1[7] == 1'b1 && DATA2[7] != 1'b1) || (DATA1[7] != 1'b1 && DATA2[7] == 1'b1))
             OUTPUT = ~RESULT + 1;
         else
-            OUTPUT = RESULT;
-            
+            OUTPUT = RESULT;   
     end
 
 endmodule
