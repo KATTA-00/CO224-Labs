@@ -182,6 +182,7 @@ module ALU_MULT(DATA1, DATA2, OUTPUT);
         RESULT[6] = adderout6[0];
         RESULT[7] = 1'b0;
 
+        // assgin the complement using the first bit of operands
         if ((DATA1[7] == 1'b1 && DATA2[7] != 1'b1) || (DATA1[7] != 1'b1 && DATA2[7] == 1'b1))
             OUTPUT = ~RESULT + 1;
         else
