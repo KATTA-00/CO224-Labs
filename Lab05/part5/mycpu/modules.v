@@ -93,3 +93,25 @@ module pc_adder(DATA1, DATA2, RESULT);
     assign #2 RESULT = DATA1 + DATA2 * 4;
 
 endmodule
+
+// module to revers a 8-bit bit stream
+// if SELECT  = 1, the reverse or not
+module mux_revers(DATA, OUTPUT, SELECT);
+
+    // declare ports
+    input SELECT;
+    input [7:0] DATA;
+    output reg [7:0] OUTPUT;
+
+    // if SELECT = 1, give the reversed data
+    // if SELECT = 0, give the data
+    always @(DATA, SELECT) begin 
+        if (SELECT) begin //select = 1, data revers
+            for (integer i=0; i<8; i++)
+                OUTPUT[i] = DATA[7-i];
+        end
+        else // else data is selected
+            OUTPUT = DATA;
+    end
+
+endmodule

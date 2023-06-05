@@ -31,12 +31,10 @@
 //      SRA     - 110
 //      ROR     - 111
 
-module alu(DATA1, DATA2, RESULT, SELECT, ZERO, SHIFT);
+module alu(DATA1, DATA2, RESULT, SELECT, ZERO);
 
     // initailize input ports
     input [7:0] DATA1, DATA2;
-    // input the shift left signal
-    input SHIFT;
     input [0:2] SELECT;
     // initailize output ports
     output [7:0] RESULT;
@@ -61,7 +59,7 @@ module alu(DATA1, DATA2, RESULT, SELECT, ZERO, SHIFT);
     ALU_OR alu_or(DATA1, DATA2, or_result);
     ALU_MULT alu_mult(DATA1, DATA2, mult_result);
     ALU_SRA alu_sra(DATA1, DATA2, sra_result);
-    ALU_SL alu_sl(DATA1, DATA2, SHIFT, sl_result);
+    ALU_SL alu_sl(DATA1, DATA2, sl_result);
     ALU_ROR alu_ror(DATA1, DATA2, ror_result);
 
     // get the zero signal
@@ -203,34 +201,25 @@ module ALU_SRA(DATA1, DATA2, RESULT);
 endmodule
 
 // SL module
-// logical Shift left and right the give two 8 bit numbers and output a 8 bit number
+// logical Shift left the give two 8 bit numbers and output a 8 bit number
 // Inout  - DATA1, DATA2
 // Output - RESULT
-module ALU_SL(DATA1, DATA2, SHIFT, RESULT);
+module ALU_SL(DATA1, DATA2, RESULT);
 
     // initailize input ports
     input [7:0] DATA1, DATA2;
-    input SHIFT;
     // initailize output ports
     output reg [7:0] RESULT;
 
     // get the logical shift
-    // get the shift
-    always @(DATA1, DATA2, SHIFT) begin
+    always @(DATA1, DATA2) begin
 
         // assign the value
         #1 RESULT = DATA1;
 
-        if (SHIFT) begin
-            // loop time that should shift left
-            for (integer i=0; i<DATA2; i=i+1) begin
-                RESULT = {RESULT[6:0], 1'b0};
-            end
-        end else begin
-            // loop time that should shift right
-            for (integer i=0; i<DATA2; i=i+1) begin
-                RESULT = {1'b0, RESULT[7:1]};
-            end
+        // loop time that should shift left
+        for (integer i=0; i<DATA2; i=i+1) begin
+            RESULT = {RESULT[6:0], 1'b0};
         end
 
     end
