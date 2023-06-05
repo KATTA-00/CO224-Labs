@@ -70,7 +70,8 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
     end
 
     always @(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET, registers[0], registers[1], registers[2], registers[3], registers[4], registers[5], registers[6], registers[7])
-    $display($time, " %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d",IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET, registers[0], registers[1], registers[2], registers[3], registers[4], registers[5], registers[6], registers[7]);
+    // $display($time, " %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d",IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET, registers[0], registers[1], registers[2], registers[3], registers[4], registers[5], registers[6], registers[7]);
+    $display($time, " %b %b %b %b %b %b %b %b %b %b %b %b %b %b %b %b %b",IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK, RESET, registers[0], registers[1], registers[2], registers[3], registers[4], registers[5], registers[6], registers[7]);
 
 
 endmodule

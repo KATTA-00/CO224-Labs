@@ -1,7 +1,10 @@
-loadi 0 0x05   // r4 = 5
+loadi 0 0xff   // r4 = 5
 loadi 1 0x03   // r1 = 9
 mult 2 1 0
 mult 3 2 1
+mult 4 1 1
+mult 5 0 0
+mult 5 0 1
 sll 2 1 0x05
 srl 3 0 0x02
 bne 0x01 1 0

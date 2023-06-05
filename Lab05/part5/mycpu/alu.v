@@ -125,12 +125,20 @@ endmodule
 // 8 bit multipler for mult two 8 bit number and give a 8 bit result
 // Inputs - DATA1, DATA2
 // Output - RESULT
-module ALU_MULT(DATA1, DATA2, RESULT);
+module ALU_MULT(DATA1, DATA2, OUTPUT);
 
     // initailize input ports
     input [7:0] DATA1, DATA2;
+    reg [7:0] DATA1_, DATA2_;
     // initailize output ports
-    output [7:0] RESULT;
+    output reg [7:0] RESULT;
+    output reg [7:0] OUTPUT;
+
+    // check the sign
+    always @(DATA1, DATA2)begin
+        DATA1_ = (DATA1[7] == 1'b1) ? (~DATA1 + 1) : DATA1;
+        DATA2_ = (DATA2[7] == 1'b1) ? (~DATA2 + 1) : DATA2;
+    end
 
     // get the addition of DATA1 and DATA2 
     // assign the value to RESULT with a 2 time units delay
@@ -142,31 +150,44 @@ module ALU_MULT(DATA1, DATA2, RESULT);
 
     // instance the adders and add gates
 
-    and7Bit and7bit0(DATA1[6:0], wire0, DATA2[0]);
+    and7Bit and7bit0(DATA1_[6:0], wire0, DATA2_[0]);
 
-    and7Bit and7bit1(DATA1[6:0], wire1, DATA2[1]);
+    and7Bit and7bit1(DATA1_[6:0], wire1, DATA2_[1]);
     sevenBitAdder sevenbitadder1(wire1, {1'b0, wire0[6:1]}, 1'b0, adderout1, c1);
 
-    and7Bit and7bit2(DATA1[6:0], wire2, DATA2[2]);
+    and7Bit and7bit2(DATA1_[6:0], wire2, DATA2_[2]);
     sevenBitAdder sevenbitadder2(wire2, {c1, adderout1[6:1]}, 1'b0, adderout2, c2);
 
-    and7Bit and7bit3(DATA1[6:0], wire3, DATA2[3]);
+    and7Bit and7bit3(DATA1_[6:0], wire3, DATA2_[3]);
     sevenBitAdder sevenbitadder3(wire3, {c2, adderout2[6:1]}, 1'b0, adderout3, c3);
 
-    and7Bit and7bit4(DATA1[6:0], wire4, DATA2[4]);
+    and7Bit and7bit4(DATA1_[6:0], wire4, DATA2_[4]);
     sevenBitAdder sevenbitadder4(wire4, {c3, adderout3[6:1]}, 1'b0, adderout4, c4);
 
-    and7Bit and7bit5(DATA1[6:0], wire5, DATA2[5]);
+    and7Bit and7bit5(DATA1_[6:0], wire5, DATA2_[5]);
     sevenBitAdder sevenbitadder5(wire5, {c4, adderout4[6:1]}, 1'b0, adderout5, c5);
 
-    and7Bit and7bit6(DATA1[6:0], wire6, DATA2[6]);
+    and7Bit and7bit6(DATA1_[6:0], wire6, DATA2_[6]);
     sevenBitAdder sevenbitadder6(wire6, {c5, adderout5[6:1]}, 1'b0, adderout6, c6);
 
-    // get the sign of the result
-    and (RESULT[7], DATA1[7], DATA2[7]);
-
     // assign the values
-    assign #2  RESULT[0] = wire0[0], RESULT[1] = adderout1[0], RESULT[2] = adderout2[0], RESULT[3] = adderout3[0], RESULT[4] = adderout4[0], RESULT[5] = adderout5[0], RESULT[6] = adderout6[0];
+    always @(DATA1, DATA2) begin
+        #2  
+        RESULT[0] = wire0[0];
+        RESULT[1] = adderout1[0];
+        RESULT[2] = adderout2[0];
+        RESULT[3] = adderout3[0];
+        RESULT[4] = adderout4[0];
+        RESULT[5] = adderout5[0];
+        RESULT[6] = adderout6[0];
+        RESULT[7] = 1'b0;
+
+        if ((DATA1[7] == 1'b1 && DATA2[7] != 1'b1) || (DATA1[7] != 1'b1 && DATA2[7] == 1'b1))
+            OUTPUT = ~RESULT + 1;
+        else
+            OUTPUT = RESULT;
+            
+    end
 
 endmodule
 
