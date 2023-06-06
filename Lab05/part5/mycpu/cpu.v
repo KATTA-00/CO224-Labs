@@ -54,11 +54,11 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
     // wire that give input to alu
     wire [7:0] ALUIN1, ALUOUT;
     // initialization of reverse mux before alu
-    mux_revers Mux_Revers1(REGOUT1, ALUIN1, SHIFT);
+    revers Revers1(REGOUT1, ALUIN1, SHIFT);
     // declare the alu unit
     alu Alu(ALUIN1, MUXOUT2, ALUOUT, ALUOP, ZERO);
     // initialization of reverse mux after alu
-    mux_revers Mux_Revers2(ALUOUT, ALURESULT, SHIFT);
+    revers Revers2(ALUOUT, ALURESULT, SHIFT);
 
     // to get the selection bit for branch
     wire WIRE1;

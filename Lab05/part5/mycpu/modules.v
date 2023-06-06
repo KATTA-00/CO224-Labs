@@ -96,7 +96,7 @@ endmodule
 
 // module to revers a 8-bit bit stream
 // if SELECT  = 1, the reverse or not
-module mux_revers(DATA, OUTPUT, SELECT);
+module revers(DATA, OUTPUT, SELECT);
 
     // declare ports
     input SELECT;
