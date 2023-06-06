@@ -435,6 +435,3 @@ module and7Bit(DATA, OUTPUT, BIT);
     and (OUTPUT[6], DATA[6], BIT);
 
 endmodule
-
-
-

@@ -6,7 +6,6 @@
 `include "reg_file.v"
 `include "pc.v"
 `include "control_unit.v"
-// `include "modules.v"
 
 // cpu module 
 // that has the capacity to execute a give instruction from the instruction memory
@@ -69,8 +68,5 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
 
     // mux to choose between pc+4 and branch target
     mux_32 Mux3(PC_4, PC_TARGET, PCSELECT, PC_NEXT);
-
-    always @(INSTRUCTION, MUXOUT2, MUXSELECT2)
-    $display($time, " %d %d %d", INSTRUCTION[7:0], MUXOUT2, MUXSELECT2);
 
 endmodule
