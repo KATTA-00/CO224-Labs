@@ -134,12 +134,6 @@ module ALU_MULT(DATA1, DATA2, OUTPUT);
     output reg [7:0] RESULT;
     output reg [7:0] OUTPUT;
 
-    // check the sign
-    always @(DATA1, DATA2)begin
-        DATA1_ = (DATA1[7] == 1'b1) ? (~DATA1 + 1) : DATA1;
-        DATA2_ = (DATA2[7] == 1'b1) ? (~DATA2 + 1) : DATA2;
-    end
-
     // get the addition of DATA1 and DATA2 
     // assign the value to RESULT with a 2 time units delay
 
@@ -170,8 +164,15 @@ module ALU_MULT(DATA1, DATA2, OUTPUT);
     and7Bit and7bit6(DATA1_[6:0], wire6, DATA2_[6]);
     sevenBitAdder sevenbitadder6(wire6, {c5, adderout5[6:1]}, 1'b0, adderout6, c6);
 
+    // check the sign
+    always @(DATA1, DATA2)begin
+        DATA1_ = (DATA1[7] == 1'b1) ? (~DATA1 + 1) : DATA1;
+        DATA2_ = (DATA2[7] == 1'b1) ? (~DATA2 + 1) : DATA2;
+    end
+
     // assign the values
     always @(DATA1, DATA2) begin
+        // delay for this module
         #2  
         RESULT[0] = wire0[0];
         RESULT[1] = adderout1[0];
