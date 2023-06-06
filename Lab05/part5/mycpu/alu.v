@@ -1,6 +1,9 @@
 // CO224 - Lab05 PART-1
 // GROUP - 11
 
+// import modules
+`include "modules.v"
+
 // ALU module 
 // 8-bit ALU unit, that can operate with two 8-bit numbers to generate the result
 // give the relevant output to RESULT respect to SELECT 
@@ -15,7 +18,7 @@
 //      ADD     - add DATA1 and DATA2, give the addiction to RESULT
 //      AND     - and DATA1 and DATA2, give the result to RESULT     
 //      OR      - or DATA1 and DATA2, give the result to RESULT  
-//      MULT    - multiply DATA1 and DATA2, give the result to RESULT  
+//      MULT    - multiply sign DATA1 and DATA2, give the result to RESULT  
 //      SLL     - logical left shift DATA1, give the result to RESULT  
 //      SRL     - logical right shoft DATA1, give the result to RESULT  
 //      SRA     - Arithmetic shoft right DATA1, give the result to RESULT  
@@ -130,17 +133,22 @@ module ALU_MULT(DATA1, DATA2, OUTPUT);
     // initailize input ports
     input [7:0] DATA1, DATA2;
     reg [7:0] DATA1_, DATA2_;
+    wire [7:0] DATA1COMP, DATA2COMP;
     // initailize output ports
-    output reg [7:0] RESULT;
+    reg [7:0] RESULT;
     output reg [7:0] OUTPUT;
 
     // get the addition of DATA1 and DATA2 
-    // assign the value to RESULT with a 2 time units delay
+    // assign the value to OUTPUT with a 2 time units delay
 
     // declare the wires
     wire [6:0] wire0, wire1, wire2, wire3, wire4, wire5, wire6;
     wire [6:0] adderout1, adderout2, adderout3, adderout4, adderout5, adderout6;
     wire c1, c2, c3, c4, c5, c6;
+
+    // module to get the compliment
+    two_comp comp1(DATA1, DATA1COMP);
+    two_comp comp2(DATA2, DATA2COMP);
 
     // instance the adders and add gates
 
@@ -165,15 +173,17 @@ module ALU_MULT(DATA1, DATA2, OUTPUT);
     sevenBitAdder sevenbitadder6(wire6, {c5, adderout5[6:1]}, 1'b0, adderout6, c6);
 
     // check the sign
-    always @(DATA1, DATA2)begin
-        DATA1_ = (DATA1[7] == 1'b1) ? (~DATA1 + 1) : DATA1;
-        DATA2_ = (DATA2[7] == 1'b1) ? (~DATA2 + 1) : DATA2;
+    always @(DATA1, DATA2, DATA1COMP, DATA2COMP)begin
+        DATA1_ = (DATA1[7] == 1'b1) ? DATA1COMP : DATA1;
+        DATA2_ = (DATA2[7] == 1'b1) ? DATA2COMP : DATA2;
     end
 
     // assign the values
     always @(DATA1, DATA2) begin
         // delay for this module
         #2  
+
+        // assign the result from adder outputs
         RESULT[0] = wire0[0];
         RESULT[1] = adderout1[0];
         RESULT[2] = adderout2[0];
@@ -354,8 +364,8 @@ module MUX(forward_result, add_result, and_result, or_result, mult_result, sra_r
 
 endmodule
 
-
-// for multiply module, additional modules
+//////////////////////////////////////////////////////////////////////////////////
+// additional modules - for multiplier module 
 // half adder 
 module HalfAdder(a, b, s, cout);
 
