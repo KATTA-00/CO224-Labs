@@ -106,12 +106,16 @@ module revers(DATA, OUTPUT, SELECT);
     // if SELECT = 1, give the reversed data
     // if SELECT = 0, give the data
     always @(DATA, SELECT) begin 
+
         if (SELECT) begin //select = 1, data revers
+            // delay for reverse
+            #1
             for (integer i=0; i<8; i++)
                 OUTPUT[i] = DATA[7-i];
         end
         else // else data is selected
             OUTPUT = DATA;
+
     end
 
 endmodule
