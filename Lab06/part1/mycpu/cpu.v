@@ -17,20 +17,24 @@
 
 //cpu module
 
-module cpu(PC, INSTRUCTION, CLK, RESET);
+module cpu(PC, INSTRUCTION, CLK, RESET, WRITEDATA, READDATA, ADDRESS, WRITE, READ, BUSYWAIT);
 
-    input CLK, RESET;// Clock and Reset
+    input CLK, RESET, BUSYWAIT;// Clock and Reset
     input [31:0] INSTRUCTION;// instruction array
+    input [7:0] READDATA; // read data values
 
     output [31:0] PC;// address of the current executing instruction
+    output [7:0] WRITEDATA, ADDRESS; // writting data values and address
+    output READ, WRITE; // controll signal to memory
+
 
     // declare the wires
     wire ZERO;
     wire [31:0] PC_NEXT, PC_TARGET, PC_4;
     wire [2:0] ALUOP;//select bit of ALU
-    wire WRITEENABLE, MUXSELECT1, MUXSELECT2, JUMP, PCSELECT, REVERSE;// control signals
+    wire WRITEENABLE, MUXSELECT1, MUXSELECT2, JUMP, PCSELECT, REVERSE, HOLD, MUXSELECT3;// control signals
     wire [1:0] BRANCH;
-    wire [7:0] ALURESULT, REGOUT2, REGOUT1, COMPOUT, MUXOUT1, MUXOUT2,  IMMEDIATE, OPCODE;// declare the weires
+    wire [7:0] ALURESULT, REGOUT2, REGOUT1, COMPOUT, MUXOUT1, MUXOUT2,  IMMEDIATE, OPCODE, IN;// declare the weires
 
     // extrate the immediate from the instruction
     assign IMMEDIATE = INSTRUCTION[7:0];
@@ -38,9 +42,15 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
     assign OPCODE = INSTRUCTION[31:24];
 
     //initialization of sub modules
-    pc Pc(PC_NEXT, RESET, CLK, PC, PC_4);// initialization of Pc
-    control_unit Control_Unit(OPCODE, WRITEENABLE, MUXSELECT1, MUXSELECT2, JUMP, BRANCH, ALUOP, REVERSE);// initialization of Control Unit
-    reg_file Reg_File(ALURESULT, REGOUT1, REGOUT2, INSTRUCTION[18:16], INSTRUCTION[10:8], INSTRUCTION[2:0], WRITEENABLE, CLK,RESET);// initialization of register files
+    pc Pc(PC_NEXT, RESET, CLK, PC, PC_4, HOLD);// initialization of Pc
+    control_unit Control_Unit(OPCODE, WRITEENABLE, MUXSELECT1, MUXSELECT2, JUMP, BRANCH, ALUOP, REVERSE, READ, WRITE, BUSYWAIT, HOLD, MUXSELECT3);// initialization of Control Unit
+
+    // mux to select between alu resulat and memory read data
+    mux_8 MUX3(ALURESULT, READDATA, MUXSELECT3, IN);
+    reg_file Reg_File(IN, REGOUT1, REGOUT2, INSTRUCTION[18:16], INSTRUCTION[10:8], INSTRUCTION[2:0], WRITEENABLE, CLK,RESET);// initialization of register files
+    // assign the writting data values
+    assign WRITEDATA = REGOUT1;
+    
     two_comp Two_Com(REGOUT2, COMPOUT);// initialization of the twos compliment circuit
 
     // add the jump offset
@@ -59,6 +69,8 @@ module cpu(PC, INSTRUCTION, CLK, RESET);
     alu Alu(ALUIN1, MUXOUT2, ALUOUT, ALUOP, ZERO);
     // initialization of reverse mux after alu
     revers Revers2(ALUOUT, ALURESULT, REVERSE);
+    // get the address from alu result
+    assign ADDRESS = ALURESULT;
 
     // to get the selection bit for branch
     wire WIRE1;

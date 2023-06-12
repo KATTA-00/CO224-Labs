@@ -4,13 +4,18 @@
 // Control Unit
 // To decode the OpCode and make the control signals
 
-module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BRANCH, ALUOP, REVERSE);
+module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BRANCH, ALUOP, REVERSE, READ, WRITE, BUSYWAIT, HOLD, MEM_SELECT);
 
     // declaration of input output retisters
     input [7:0] OPCODE;
-    output reg WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, REVERSE;//control signal
+    input BUSYWAIT;
+    output reg WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, REVERSE, READ, WRITE, MEM_SELECT;    //control signal
+    output HOLD;
     output reg [1:0] BRANCH;
     output reg [2:0] ALUOP;// control signal for ALU (2 bit signal)
+
+    // busywait signal
+    assign HOLD = BUSYWAIT;
 
     always @(OPCODE) begin 
 
@@ -27,6 +32,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0; // jump
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             //mov - copy a value in a register to another register
@@ -38,6 +46,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0;
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             // add - add 2 register values and write the result to another register
@@ -49,6 +60,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0;
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             // mult - mult 2 register values and write the result to another register
@@ -60,6 +74,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0;
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             // sub - subtract 2 reg values and write the result to another register
@@ -71,6 +88,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0;
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             // and - bitwise AND of 2 reg values
@@ -82,6 +102,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0;
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             // or - bitwise OR of 2 reg values
@@ -93,6 +116,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0;
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
 
@@ -105,6 +131,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0;
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             // srl - logical shift left a reg velue
@@ -116,6 +145,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0;
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b1; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             // sra - arithmetic shift right a reg velue
@@ -127,6 +159,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0;
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             // ror - arithmetic shift right a reg velue
@@ -138,6 +173,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0;
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             // j - jump instruction relative to the next instruction to execute
@@ -149,6 +187,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b1; // jump is enable
                 BRANCH = 2'b00; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
             
             // beq - branch if reg values are eqaul
@@ -160,6 +201,9 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0; // jump is disable
                 BRANCH = 2'b01; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
             end
 
             // bne - branch if reg values are eqaul
@@ -171,6 +215,65 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
                 JUMP = 1'b0; // jump is disable
                 BRANCH = 2'b10; // branch
                 REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b0;
+            end
+
+            // lwd - load word, address and value are in registers
+            8'b0000_1000: begin
+                WRITEENABLE = 1'b1;
+                COMP_SELECT = 1'b0;
+                IMMEDIATE_SELECT = 1'b0;
+                ALUOP = 3'b000;
+                JUMP = 1'b0; // jump is disable
+                BRANCH = 2'b00; // branch
+                REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b1;    // read from memory
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b1;
+            end
+
+            // lwi - load word, address is give as immediate
+            8'b0000_1001: begin
+                WRITEENABLE = 1'b1;
+                COMP_SELECT = 1'b0;
+                IMMEDIATE_SELECT = 1'b1;
+                ALUOP = 3'b000;
+                JUMP = 1'b0; // jump is disable
+                BRANCH = 2'b00; // branch
+                REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b1;    // read from memory
+                WRITE = 1'b0;
+                MEM_SELECT = 1'b1;
+            end
+
+            // swd - store word, address and value are in registers
+            8'b0000_1010: begin
+                WRITEENABLE = 1'b0;
+                COMP_SELECT = 1'b0;
+                IMMEDIATE_SELECT = 1'b0;
+                ALUOP = 3'b000;
+                JUMP = 1'b0; // jump is disable
+                BRANCH = 2'b00; // branch
+                REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b1;   // write to memory
+                MEM_SELECT = 1'b0;
+            end
+
+            // swi - address is give as immediate
+            8'b0000_1011: begin
+                WRITEENABLE = 1'b0;
+                COMP_SELECT = 1'b0;
+                IMMEDIATE_SELECT = 1'b1;
+                ALUOP = 3'b000;
+                JUMP = 1'b0; // jump is disable
+                BRANCH = 2'b00; // branch
+                REVERSE = 1'b0; // shift right signal(reverse signal)
+                READ = 1'b0;
+                WRITE = 1'b1;   // write to memory
+                MEM_SELECT = 1'b0;
             end
             
         endcase

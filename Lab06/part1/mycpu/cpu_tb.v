@@ -5,7 +5,8 @@
 // Design: Testbench of Integrated CPU of Simple Processor
 // Author: Isuru Nawinne
 
-`include "cpu.v"
+`include "cpu.v"    
+`include "dmem.v"
 
 module cpu_tb;
 
@@ -44,13 +45,24 @@ module cpu_tb;
         $readmemb("instr_mem.mem", instr_mem);
 
     end
+
+    // declare wires
+    wire WRITE, READ, BUSYWAIT;
+    wire [7:0] WRITEDATA, READDATA, ADDRESS;
     
     /* 
     -----
      CPU
     -----
     */
-    cpu mycpu(PC, INSTRUCTION, CLK, RESET);
+    cpu mycpu(PC, INSTRUCTION, CLK, RESET, WRITEDATA, READDATA, ADDRESS, WRITE, READ, BUSYWAIT);
+
+    /* 
+    -----
+     DATA MEMORY
+    -----
+    */
+    data_memory mydata_memory(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
 
     initial
     begin
@@ -68,7 +80,7 @@ module cpu_tb;
         RESET = 1'b0;
         
         // finish simulation after some time
-        #150
+        #300
         $finish;
         
     end

@@ -2,10 +2,10 @@
 // GROUP - 11
 
 // program counter module
-module pc(PC_TO, RESET, CLK, PC, PC_NEXT);
+module pc(PC_TO, RESET, CLK, PC, PC_NEXT, HOLD);
 
     // declare ports
-    input RESET, CLK;
+    input RESET, CLK, HOLD;
     input [31:0] PC_TO;
     output reg [31:0] PC;// reg to hold the address of the current executing instruction
     
@@ -21,7 +21,7 @@ module pc(PC_TO, RESET, CLK, PC, PC_NEXT);
         // else Next address is written to PC 
         if (RESET)
             #1 PC = 32'b00000000000000000000000000000000;
-        else
+        else if(~HOLD)
             // write the next instruction address
             #1 PC = PC_TO;
     end 
