@@ -3,7 +3,7 @@ Module  : 256x8-bit data memory
 Author  : Isuru Nawinne, Kisaru Liyanage
 Date    : 25/05/2020
 
-Description	: Group 11
+Description	:
 
 This file presents a primitive data memory module for CO224 Lab 6 - Part 1
 This memory allows data to be read and written as 1-Byte words
@@ -33,8 +33,7 @@ reg [7:0] memory_array [255:0];
 
 //Detecting an incoming memory access
 reg readaccess, writeaccess;
-// read, write, address, writedata, 
-always @(negedge clock)
+always @(read, write)
 begin
 	busywait = (read || write)? 1 : 0;
 	readaccess = (read && !write)? 1 : 0;
@@ -73,8 +72,5 @@ begin
 		writeaccess = 0;
     end
 end
-
-always @(reset, read, write, address, writedata, readdata, busywait, memory_array[0], memory_array[1], memory_array[2])
-$display($time, " | %d %d %d || %d %d %d || %d | %d %d %d",reset, read, write, address, writedata, readdata, busywait ,memory_array[0], memory_array[1], memory_array[2]);
 
 endmodule

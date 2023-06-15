@@ -33,8 +33,7 @@ reg [7:0] memory_array [255:0];
 
 //Detecting an incoming memory access
 reg readaccess, writeaccess;
-// read, write, address, writedata, 
-always @(negedge clock)
+always @(read, write)
 begin
 	busywait = (read || write)? 1 : 0;
 	readaccess = (read && !write)? 1 : 0;

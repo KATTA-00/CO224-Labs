@@ -1,19 +1,12 @@
-// CO224 - Lab05 PART-3
-// GROUP - 11
-
 // Computer Architecture (CO224) - Lab 05
 // Design: Testbench of Integrated CPU of Simple Processor
 // Author: Isuru Nawinne
-
-`include "cpu.v"    
-`include "dmem.v"
 
 module cpu_tb;
 
     reg CLK, RESET;
     wire [31:0] PC;
-    // wire [31:0] INSTRUCTION;
-    reg [31:0] INSTRUCTION;
+    wire [31:0] INSTRUCTION;
     
     /* 
     ------------------------
@@ -30,54 +23,45 @@ module cpu_tb;
     //       (make sure you include the delay for instruction fetching here)
 
     always @(PC) begin
-        #2
-        INSTRUCTION[31:24] = instr_mem[PC+3];
-        INSTRUCTION[23:16] = instr_mem[PC+2];
-        INSTRUCTION[15:8] = instr_mem[PC+1];
-        INSTRUCTION[7:0] = instr_mem[PC];
+
+        INSTRUCTION[31:24] = instr_mem[PC-1];
+        INSTRUCTION[23:16] = instr_mem[PC-2];
+        INSTRUCTION[15:8] = instr_mem[PC-3];
+        INSTRUCTION[7:0] = instr_mem[PC-4];
+
     end
     
     initial
     begin
         // Initialize instruction memory with the set of instructions you need execute on CPU
         
-        // loading instr_mem content from instr_mem.mem file
+        // METHOD 1: manually loading instructions to instr_mem
+        //{instr_mem[10'd3], instr_mem[10'd2], instr_mem[10'd1], instr_mem[10'd0]} = 32'b00000000000001000000000000000101;
+        //{instr_mem[10'd7], instr_mem[10'd6], instr_mem[10'd5], instr_mem[10'd4]} = 32'b00000000000000100000000000001001;
+        //{instr_mem[10'd11], instr_mem[10'd10], instr_mem[10'd9], instr_mem[10'd8]} = 32'b00000010000001100000010000000010;
+        
+        // METHOD 2: loading instr_mem content from instr_mem.mem file
         $readmemb("instr_mem.mem", instr_mem);
-
     end
-
-    // declare wires
-    wire WRITE, READ, BUSYWAIT;
-    wire [7:0] WRITEDATA, READDATA, ADDRESS;
     
     /* 
     -----
      CPU
     -----
     */
-    cpu mycpu(PC, INSTRUCTION, CLK, RESET, WRITEDATA, READDATA, ADDRESS, WRITE, READ, BUSYWAIT);
-
-    /* 
-    -----
-     DATA MEMORY
-    -----
-    */
-    data_memory mydata_memory(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
+    cpu mycpu(PC, INSTRUCTION, CLK, RESET);
 
     initial
     begin
     
         // generate files needed to plot the waveform using GTKWave
         $dumpfile("cpu_wavedata.vcd");
-		$dumpvars(3, cpu_tb,  cpu_tb.mycpu.Reg_File.registers[0], cpu_tb.mycpu.Reg_File.registers[1], cpu_tb.mycpu.Reg_File.registers[2], cpu_tb.mycpu.Reg_File.registers[3], cpu_tb.mycpu.Reg_File.registers[4], cpu_tb.mycpu.Reg_File.registers[5], cpu_tb.mycpu.Reg_File.registers[6], cpu_tb.mycpu.Reg_File.registers[7]);
+		$dumpvars(0, cpu_tb);
         
         CLK = 1'b0;
         RESET = 1'b0;
         
         // TODO: Reset the CPU (by giving a pulse to RESET signal) to start the program execution
-        RESET = 1'b1;
-        #5
-        RESET = 1'b0;
         
         // finish simulation after some time
         #500
@@ -87,11 +71,8 @@ module cpu_tb;
     
     // clock signal generation
     always
-    #4 CLK = ~CLK;
+        #4 CLK = ~CLK;
 
-    initial begin
-        $monitor($time, " %d %b", PC, INSTRUCTION);
-    end
         
 
 endmodule
