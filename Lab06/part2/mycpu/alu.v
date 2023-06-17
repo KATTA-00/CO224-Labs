@@ -3,6 +3,7 @@
 
 // import modules
 `include "modules.v"
+`timescale 1ns/100ps
 
 // ALU module 
 // 8-bit ALU unit, that can operate with two 8-bit numbers to generate the result

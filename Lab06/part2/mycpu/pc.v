@@ -1,5 +1,6 @@
 // CO224 - Lab05 PART-3
 // GROUP - 11
+`timescale 1ns/100ps
 
 // program counter module
 module pc(PC_TO, RESET, CLK, PC, PC_NEXT, HOLD);
@@ -21,9 +22,12 @@ module pc(PC_TO, RESET, CLK, PC, PC_NEXT, HOLD);
         // else Next address is written to PC 
         if (RESET)
             #1 PC = 32'b00000000000000000000000000000000;
-        else if(~HOLD)
+        else if(~HOLD) begin
             // write the next instruction address
             #1 PC = PC_TO;
+        end
+
+        $display($time, " %d", HOLD);
     end 
 
 endmodule

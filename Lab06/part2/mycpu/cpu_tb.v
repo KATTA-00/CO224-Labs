@@ -7,6 +7,9 @@
 
 `include "cpu.v"    
 `include "dmem.v"
+`include "dcache.v"
+`timescale 1ns/100ps
+
 
 module cpu_tb;
 
@@ -49,6 +52,9 @@ module cpu_tb;
     // declare wires
     wire WRITE, READ, BUSYWAIT;
     wire [7:0] WRITEDATA, READDATA, ADDRESS;
+    wire MEM_BUSYWAIT, MEM_READ, MEM_WRITE;
+    wire [31:0] MEM_WRITEDATA, MEM_READATA;
+    wire [5:0] MEM_ADDRESS;
     
     /* 
     -----
@@ -59,10 +65,17 @@ module cpu_tb;
 
     /* 
     -----
+     CASHE
+    -----
+    */
+    dcache mydcashe(CLK, RESET, BUSYWAIT, READ, WRITE, WRITEDATA, READDATA, ADDRESS, MEM_BUSYWAIT, MEM_READ, MEM_WRITE, MEM_WRITEDATA, MEM_READATA, MEM_ADDRESS);
+
+    /* 
+    -----
      DATA MEMORY
     -----
     */
-    data_memory mydata_memory(CLK, RESET, READ, WRITE, ADDRESS, WRITEDATA, READDATA, BUSYWAIT);
+    data_memory mydata_memory(CLK, RESET, MEM_READ, MEM_WRITE, MEM_ADDRESS, MEM_WRITEDATA, MEM_READATA, MEM_BUSYWAIT);
 
     initial
     begin
@@ -80,7 +93,7 @@ module cpu_tb;
         RESET = 1'b0;
         
         // finish simulation after some time
-        #300
+        #600
         $finish;
         
     end

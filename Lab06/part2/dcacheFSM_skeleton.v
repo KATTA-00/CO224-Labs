@@ -7,6 +7,7 @@ Description	:
 
 This file presents a skeleton implementation of the cache controller using a Finite State Machine model. Note that this code is not complete.
 */
+`timescale 1ns/100ps
 
 module dcache (...);
     

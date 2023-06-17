@@ -3,6 +3,7 @@
 
 // Control Unit
 // To decode the OpCode and make the control signals
+`timescale 1ns/100ps
 
 module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BRANCH, ALUOP, REVERSE, READ, WRITE, BUSYWAIT, HOLD, MEM_SELECT);
 
