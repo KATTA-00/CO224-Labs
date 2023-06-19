@@ -2,8 +2,8 @@
 // GROUP - 11
 
 // import modules
-`include "modules.v"
 `timescale 1ns/100ps
+`include "modules.v"
 
 // ALU module 
 // 8-bit ALU unit, that can operate with two 8-bit numbers to generate the result

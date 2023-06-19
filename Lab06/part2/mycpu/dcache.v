@@ -35,30 +35,28 @@ module dcache (
     output reg [5:0] mem_address;
     output reg [31:0] mem_writedata;
 
+    // cashe files
     reg [36:0] cache [7:0];
 
-
+    // registers
     reg dirty, hit, valid;
     reg [7:0] dataword;
     reg [2:0] tag;
-    reg [1:0] index;
+    wire [1:0] index;
     reg [36:0] cache_entry;
 
-    always @(address)
-    index = address[4:2];
-
-    /*
-    Combinational part for indexing, tag comparison for hit deciding, etc.
-    */
+    // get the index value
+    assign index = address[4:2];
 
     // indexing base on index
     always @(address, cache[index]) begin
         // get the data block
         #1 cache_entry = cache[index];
+
     end
 
     // Tag comparison and validation 
-    always @(cache_entry) begin
+    always @(cache_entry, read, write, negedge clock) begin
 
         // delay for Tag comparison and validation 
         #0.9
@@ -78,7 +76,7 @@ module dcache (
     end
 
     // data word selection
-    always @(cache_entry) begin
+    always @(cache_entry, read, write, negedge clock) begin
 
         // delay for selecting the data word 
         #1
@@ -107,16 +105,18 @@ module dcache (
         if(hit && write) begin
             // delay to writing the cashe
             #1
+
             case(address[1:0])
             2'b00: cache[index] = {1'b1, 1'b1,address[7:5], cache[index][31:8], writedata };
             2'b01: cache[index] = {1'b1, 1'b1,address[7:5], cache[index][31:16], writedata, cache[address[4:2]][7:0] };
             2'b10: cache[index] = {1'b1, 1'b1,address[7:5], cache[index][31:24], writedata , cache[address[4:2]][15:0]};
             2'b11: cache[index] = {1'b1, 1'b1,address[7:5], writedata, cache[index][23:0] };
             endcase 
-        end else if(!mem_busywait && !hit && (read || write) && mem_read) begin
+
+        end 
+        else if(!mem_busywait && !hit && (read || write) && mem_read) begin
             // delay to writing the cashe
-            #1
-            cache[index] = {1'b1, 1'b0, address[7:5], mem_readdata};
+            #1 cache[index] = {1'b1, 1'b0, address[7:5], mem_readdata};
         end else if(!mem_busywait && !hit && (read || write) && mem_write) begin
             cache[index][35] = 1'b0;
         end
@@ -178,14 +178,13 @@ module dcache (
                 mem_write = 0;
                 mem_address = 5'dx;
                 mem_writedata = 32'dx;
-                // busywait = 0;
             end
          
             MEM_READ: 
             begin
                 mem_read = 1;
                 mem_write = 0;
-                mem_address = {tag, index};
+                mem_address = {address[7:5], index};
                 mem_writedata = 32'dx;
                 busywait = 1;
             end

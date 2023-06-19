@@ -20,14 +20,15 @@ module pc(PC_TO, RESET, CLK, PC, PC_NEXT, HOLD);
         // at every positive edge of the clock
         // if reset is enabled, 0 is written to PC
         // else Next address is written to PC 
+
+        // adding the delay
+        #0.001
         if (RESET)
-            #1 PC = 32'b00000000000000000000000000000000;
+            #0.999 PC = 32'b00000000000000000000000000000000;
         else if(~HOLD) begin
             // write the next instruction address
-            #1 PC = PC_TO;
+            #0.999 PC = PC_TO;
         end
-
-        $display($time, " %d", HOLD);
     end 
 
 endmodule

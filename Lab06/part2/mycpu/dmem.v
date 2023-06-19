@@ -44,9 +44,10 @@ end
 //Reading & writing
 always @(posedge clock)
 begin
+	#0.0001
 	if(readaccess)
 	begin
-		readdata[7:0]   = #40 memory_array[{address,2'b00}];
+		readdata[7:0]   = #39.9999 memory_array[{address,2'b00}];
 		readdata[15:8]  = #40 memory_array[{address,2'b01}];
 		readdata[23:16] = #40 memory_array[{address,2'b10}];
 		readdata[31:24] = #40 memory_array[{address,2'b11}];
@@ -55,7 +56,7 @@ begin
 	end
 	if(writeaccess)
 	begin
-		memory_array[{address,2'b00}] = #40 writedata[7:0];
+		memory_array[{address,2'b00}] = #39.9999 writedata[7:0];
 		memory_array[{address,2'b01}] = #40 writedata[15:8];
 		memory_array[{address,2'b10}] = #40 writedata[23:16];
 		memory_array[{address,2'b11}] = #40 writedata[31:24];

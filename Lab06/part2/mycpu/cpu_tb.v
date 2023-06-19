@@ -5,10 +5,10 @@
 // Design: Testbench of Integrated CPU of Simple Processor
 // Author: Isuru Nawinne
 
+`timescale 1ns/100ps
 `include "cpu.v"    
 `include "dmem.v"
 `include "dcache.v"
-`timescale 1ns/100ps
 
 
 module cpu_tb;
@@ -63,12 +63,6 @@ module cpu_tb;
     */
     cpu mycpu(PC, INSTRUCTION, CLK, RESET, WRITEDATA, READDATA, ADDRESS, WRITE, READ, BUSYWAIT);
 
-    /* 
-    -----
-     CASHE
-    -----
-    */
-    dcache mydcashe(CLK, RESET, BUSYWAIT, READ, WRITE, WRITEDATA, READDATA, ADDRESS, MEM_BUSYWAIT, MEM_READ, MEM_WRITE, MEM_WRITEDATA, MEM_READATA, MEM_ADDRESS);
 
     /* 
     -----
@@ -76,6 +70,12 @@ module cpu_tb;
     -----
     */
     data_memory mydata_memory(CLK, RESET, MEM_READ, MEM_WRITE, MEM_ADDRESS, MEM_WRITEDATA, MEM_READATA, MEM_BUSYWAIT);
+    /* 
+    -----
+     CASHE
+    -----
+    */
+    dcache mydcashe(CLK, RESET, BUSYWAIT, READ, WRITE, WRITEDATA, READDATA, ADDRESS, MEM_BUSYWAIT, MEM_READ, MEM_WRITE, MEM_WRITEDATA, MEM_READATA, MEM_ADDRESS);
 
     initial
     begin
@@ -93,7 +93,7 @@ module cpu_tb;
         RESET = 1'b0;
         
         // finish simulation after some time
-        #600
+        #1500
         $finish;
         
     end

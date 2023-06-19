@@ -2,11 +2,11 @@
 // GROUP - 11
 
 // include modules
+`timescale 1ns/100ps
 `include "alu.v"
 `include "reg_file.v"
 `include "pc.v"
 `include "control_unit.v"
-`timescale 1ns/100ps
 
 // cpu module 
 // that has the capacity to execute a give instruction from the instruction memory
