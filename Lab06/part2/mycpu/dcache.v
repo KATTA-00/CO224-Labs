@@ -106,17 +106,22 @@ module dcache (
             // delay to writing the cashe
             #1
 
+            // write the data to the cache
             case(address[1:0])
             2'b00: cache[index] = {1'b1, 1'b1,address[7:5], cache[index][31:8], writedata };
             2'b01: cache[index] = {1'b1, 1'b1,address[7:5], cache[index][31:16], writedata, cache[address[4:2]][7:0] };
             2'b10: cache[index] = {1'b1, 1'b1,address[7:5], cache[index][31:24], writedata , cache[address[4:2]][15:0]};
             2'b11: cache[index] = {1'b1, 1'b1,address[7:5], writedata, cache[index][23:0] };
             endcase 
-
         end 
+        // when the reading from main mem is done
+        // cache should write the read data from the main mem
+        // the block should valid and not dirty
         else if(!mem_busywait && !hit && (read || write) && mem_read) begin
             // delay to writing the cashe
             #1 cache[index] = {1'b1, 1'b0, address[7:5], mem_readdata};
+        // when the writting to the main mem is done
+        // the dirty bit should be 0, since that block is written to the mem
         end else if(!mem_busywait && !hit && (read || write) && mem_write) begin
             cache[index][35] = 1'b0;
         end
@@ -212,7 +217,7 @@ module dcache (
 
     /* Cache Controller FSM End */
 
-    //Reset memory
+    //Reset cache memory
     always @(posedge reset)
     begin
         if (reset)
