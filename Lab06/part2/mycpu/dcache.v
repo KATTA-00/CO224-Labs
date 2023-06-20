@@ -26,7 +26,7 @@ module dcache (
     mem_address
 );
 
-    // declare ports
+    // declare ports for input and output
     input read, write, mem_busywait, clock, reset;
     input [7:0] writedata, address;
     input [31:0] mem_readdata;
@@ -38,7 +38,7 @@ module dcache (
     // cashe files
     reg [36:0] cache [7:0];
 
-    // registers
+    // registers for store intermediate values
     reg dirty, hit, valid;
     reg [7:0] dataword;
     reg [2:0] tag;
@@ -66,10 +66,13 @@ module dcache (
         tag = cache_entry[34:32];
 
         // check the block is valid and tags are matching
+        // if there are a read validation and tag comparison can detemine a hit
         if (read && valid && tag == address[7:5])
             hit = 1'b1;
+        // if there are write validation, dirty and tag comparison can detemine a hit
         else if (write && valid && !dirty && tag == address[7:5])
             hit = 1'b1;
+        // else miss
         else 
             hit = 1'b0;
 
@@ -93,6 +96,7 @@ module dcache (
     // in a read-hit
     always @(*) begin
         
+        // check whether it is a hit and going to read from cache
         if (hit && read)
             readdata = dataword;
 
@@ -105,7 +109,6 @@ module dcache (
         if(hit && write) begin
             // delay to writing the cashe
             #1
-
             // write the data to the cache
             case(address[1:0])
             2'b00: cache[index] = {1'b1, 1'b1,address[7:5], cache[index][31:8], writedata };
