@@ -5,7 +5,6 @@ Date    : 25/05/2020
 
 Description	: Group - 11
 
-This file presents a skeleton implementation of the cache controller using a Finite State Machine model. Note that this code is not complete.
 */
 `timescale 1ns/100ps
 
@@ -56,6 +55,7 @@ module dcache (
     end
 
     // Tag comparison and validation 
+    // check whether the access is a hit or miss
     always @(cache_entry, read, write, negedge clock) begin
 
         // delay for Tag comparison and validation 
@@ -83,7 +83,7 @@ module dcache (
 
         // delay for selecting the data word 
         #1
-        // getting the dataword
+        // getting the dataword from the data block
         case(address[1:0])
             2'b00: dataword = cache_entry[7:0];
             2'b01: dataword = cache_entry[15:8];
