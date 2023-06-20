@@ -1,0 +1,1362 @@
+$date
+	Wed Jun 21 02:09:25 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	100ps
+$end
+$scope module cpu_tb $end
+$var wire 1 ! BUSYWAIT $end
+$var wire 8 " WRITEDATA [7:0] $end
+$var wire 1 # WRITE $end
+$var wire 128 $ READINST [127:0] $end
+$var wire 8 % READDATA [7:0] $end
+$var wire 1 & READ $end
+$var wire 32 ' PC [31:0] $end
+$var wire 32 ( MEM_WRITEDATA [31:0] $end
+$var wire 1 ) MEM_WRITE $end
+$var wire 32 * MEM_READATA [31:0] $end
+$var wire 1 + MEM_READ $end
+$var wire 1 , MEM_BUSYWAIT $end
+$var wire 6 - MEM_ADDRESS [5:0] $end
+$var wire 32 . INSTRUCTION [31:0] $end
+$var wire 1 / IMEM_READ $end
+$var wire 1 0 IMEM_BUSYWAIT $end
+$var wire 6 1 IADDRESS [5:0] $end
+$var wire 8 2 ADDRESS [7:0] $end
+$var reg 1 3 CLK $end
+$var reg 1 4 RESET $end
+$scope module mycpu $end
+$var wire 8 5 ADDRESS [7:0] $end
+$var wire 1 ! BUSYWAIT $end
+$var wire 1 3 CLK $end
+$var wire 1 6 PCSELECT $end
+$var wire 1 4 RESET $end
+$var wire 8 7 WRITEDATA [7:0] $end
+$var wire 1 8 ZERO $end
+$var wire 1 9 WRITEENABLE $end
+$var wire 1 # WRITE $end
+$var wire 1 : WIRE1 $end
+$var wire 1 ; REVERSE $end
+$var wire 8 < REGOUT2 [7:0] $end
+$var wire 8 = REGOUT1 [7:0] $end
+$var wire 8 > READDATA [7:0] $end
+$var wire 1 & READ $end
+$var wire 32 ? PC_TARGET [31:0] $end
+$var wire 32 @ PC_NEXT [31:0] $end
+$var wire 32 A PC_4 [31:0] $end
+$var wire 32 B PC [31:0] $end
+$var wire 8 C OPCODE [7:0] $end
+$var wire 1 D MUXSELECT3 $end
+$var wire 1 E MUXSELECT2 $end
+$var wire 1 F MUXSELECT1 $end
+$var wire 8 G MUXOUT2 [7:0] $end
+$var wire 8 H MUXOUT1 [7:0] $end
+$var wire 1 I JUMP $end
+$var wire 32 J INSTRUCTION [31:0] $end
+$var wire 8 K IN [7:0] $end
+$var wire 8 L IMMEDIATE [7:0] $end
+$var wire 1 M HOLD $end
+$var wire 8 N COMPOUT [7:0] $end
+$var wire 2 O BRANCH [1:0] $end
+$var wire 8 P ALURESULT [7:0] $end
+$var wire 8 Q ALUOUT [7:0] $end
+$var wire 3 R ALUOP [2:0] $end
+$var wire 8 S ALUIN1 [7:0] $end
+$scope module Alu $end
+$var wire 8 T sra_result [7:0] $end
+$var wire 8 U sl_result [7:0] $end
+$var wire 8 V ror_result [7:0] $end
+$var wire 8 W or_result [7:0] $end
+$var wire 8 X mult_result [7:0] $end
+$var wire 8 Y forward_result [7:0] $end
+$var wire 8 Z and_result [7:0] $end
+$var wire 8 [ add_result [7:0] $end
+$var wire 1 8 ZERO $end
+$var wire 3 \ SELECT [0:2] $end
+$var wire 8 ] RESULT [7:0] $end
+$var wire 8 ^ DATA2 [7:0] $end
+$var wire 8 _ DATA1 [7:0] $end
+$upscope $end
+$scope module Control_Unit $end
+$var wire 1 ! BUSYWAIT $end
+$var wire 1 M HOLD $end
+$var wire 8 ` OPCODE [7:0] $end
+$var reg 3 a ALUOP [2:0] $end
+$var reg 2 b BRANCH [1:0] $end
+$var reg 1 F COMP_SELECT $end
+$var reg 1 E IMMEDIATE_SELECT $end
+$var reg 1 I JUMP $end
+$var reg 1 D MEM_SELECT $end
+$var reg 1 & READ $end
+$var reg 1 ; REVERSE $end
+$var reg 1 # WRITE $end
+$var reg 1 9 WRITEENABLE $end
+$upscope $end
+$scope module MUX3 $end
+$var wire 1 D SELECT $end
+$var wire 8 c DATA2 [7:0] $end
+$var wire 8 d DATA1 [7:0] $end
+$var reg 8 e OUTPUT [7:0] $end
+$upscope $end
+$scope module Mux1 $end
+$var wire 1 F SELECT $end
+$var wire 8 f DATA2 [7:0] $end
+$var wire 8 g DATA1 [7:0] $end
+$var reg 8 h OUTPUT [7:0] $end
+$upscope $end
+$scope module Mux2 $end
+$var wire 8 i DATA1 [7:0] $end
+$var wire 8 j DATA2 [7:0] $end
+$var wire 1 E SELECT $end
+$var reg 8 k OUTPUT [7:0] $end
+$upscope $end
+$scope module Mux3 $end
+$var wire 1 6 SELECT $end
+$var wire 32 l DATA2 [31:0] $end
+$var wire 32 m DATA1 [31:0] $end
+$var reg 32 n OUTPUT [31:0] $end
+$upscope $end
+$scope module MuxBranch $end
+$var wire 1 8 DATA1 $end
+$var wire 2 o SELECT [1:0] $end
+$var reg 1 : OUTPUT $end
+$upscope $end
+$scope module Pc $end
+$var wire 1 3 CLK $end
+$var wire 1 M HOLD $end
+$var wire 32 p PC_TO [31:0] $end
+$var wire 1 4 RESET $end
+$var wire 32 q PC_NEXT [31:0] $end
+$var reg 32 r PC [31:0] $end
+$upscope $end
+$scope module Pc_Adder $end
+$var wire 32 s DATA1 [31:0] $end
+$var wire 8 t DATA2 [7:0] $end
+$var wire 32 u RESULT [31:0] $end
+$upscope $end
+$scope module Reg_File $end
+$var wire 1 3 CLK $end
+$var wire 8 v IN [7:0] $end
+$var wire 3 w INADDRESS [2:0] $end
+$var wire 8 x OUT1 [7:0] $end
+$var wire 3 y OUT1ADDRESS [2:0] $end
+$var wire 8 z OUT2 [7:0] $end
+$var wire 3 { OUT2ADDRESS [2:0] $end
+$var wire 1 4 RESET $end
+$var wire 1 9 WRITE $end
+$upscope $end
+$scope module Revers1 $end
+$var wire 8 | DATA [7:0] $end
+$var wire 1 ; SELECT $end
+$var reg 8 } OUTPUT [7:0] $end
+$upscope $end
+$scope module Revers2 $end
+$var wire 8 ~ DATA [7:0] $end
+$var wire 1 ; SELECT $end
+$var reg 8 !" OUTPUT [7:0] $end
+$upscope $end
+$scope module Two_Com $end
+$var wire 8 "" DATA [7:0] $end
+$var wire 8 #" OUT [7:0] $end
+$upscope $end
+$upscope $end
+$scope module mydata_memory $end
+$var wire 1 3 clock $end
+$var wire 1 4 reset $end
+$var wire 32 $" writedata [31:0] $end
+$var wire 1 ) write $end
+$var wire 1 + read $end
+$var wire 6 %" address [5:0] $end
+$var reg 1 , busywait $end
+$var reg 1 &" readaccess $end
+$var reg 32 '" readdata [31:0] $end
+$var reg 1 (" writeaccess $end
+$scope begin $ivl_for_loop5 $end
+$var integer 32 )" i [31:0] $end
+$upscope $end
+$upscope $end
+$scope module mydcashe $end
+$var wire 8 *" address [7:0] $end
+$var wire 1 3 clock $end
+$var wire 1 , mem_busywait $end
+$var wire 32 +" mem_readdata [31:0] $end
+$var wire 1 & read $end
+$var wire 1 4 reset $end
+$var wire 1 # write $end
+$var wire 8 ," writedata [7:0] $end
+$var wire 2 -" index [1:0] $end
+$var parameter 3 ." IDLE $end
+$var parameter 3 /" MEM_READ $end
+$var parameter 3 0" MEM_WRITE $end
+$var reg 1 1" busywait $end
+$var reg 37 2" cache_entry [36:0] $end
+$var reg 8 3" dataword [7:0] $end
+$var reg 1 4" dirty $end
+$var reg 1 5" hit $end
+$var reg 6 6" mem_address [5:0] $end
+$var reg 1 + mem_read $end
+$var reg 1 ) mem_write $end
+$var reg 32 7" mem_writedata [31:0] $end
+$var reg 3 8" next_state [2:0] $end
+$var reg 8 9" readdata [7:0] $end
+$var reg 3 :" state [2:0] $end
+$var reg 3 ;" tag [2:0] $end
+$var reg 1 <" valid $end
+$scope begin $ivl_for_loop6 $end
+$var integer 32 =" i [31:0] $end
+$upscope $end
+$upscope $end
+$scope module myicache $end
+$var wire 10 >" address [9:0] $end
+$var wire 1 3 clock $end
+$var wire 1 4 reset $end
+$var wire 128 ?" mem_readdata [127:0] $end
+$var wire 1 0 mem_busywait $end
+$var wire 2 @" index [1:0] $end
+$var parameter 3 A" IDLE $end
+$var parameter 3 B" MEM_READ $end
+$var reg 1 C" busywait $end
+$var reg 132 D" cache_entry [131:0] $end
+$var reg 32 E" dataword [31:0] $end
+$var reg 1 F" hit $end
+$var reg 6 G" mem_address [5:0] $end
+$var reg 1 / mem_read $end
+$var reg 3 H" next_state [2:0] $end
+$var reg 32 I" readdata [31:0] $end
+$var reg 3 J" state [2:0] $end
+$var reg 3 K" tag [2:0] $end
+$var reg 1 L" valid $end
+$scope begin $ivl_for_loop7 $end
+$var integer 32 M" i [31:0] $end
+$upscope $end
+$upscope $end
+$scope module myinstruction_memory $end
+$var wire 6 N" address [5:0] $end
+$var wire 1 3 clock $end
+$var wire 1 / read $end
+$var reg 1 0 busywait $end
+$var reg 1 O" readaccess $end
+$var reg 128 P" readinst [127:0] $end
+$upscope $end
+$upscope $end
+$scope module cpu_tb $end
+$scope module mycpu $end
+$scope module Reg_File $end
+$var reg 8 Q" \registers[0] [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module cpu_tb $end
+$scope module mycpu $end
+$scope module Reg_File $end
+$var reg 8 R" \registers[1] [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module cpu_tb $end
+$scope module mycpu $end
+$scope module Reg_File $end
+$var reg 8 S" \registers[2] [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module cpu_tb $end
+$scope module mycpu $end
+$scope module Reg_File $end
+$var reg 8 T" \registers[3] [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module cpu_tb $end
+$scope module mycpu $end
+$scope module Reg_File $end
+$var reg 8 U" \registers[4] [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module cpu_tb $end
+$scope module mycpu $end
+$scope module Reg_File $end
+$var reg 8 V" \registers[5] [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module cpu_tb $end
+$scope module mycpu $end
+$scope module Reg_File $end
+$var reg 8 W" \registers[6] [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$scope module cpu_tb $end
+$scope module mycpu $end
+$scope module Reg_File $end
+$var reg 8 X" \registers[7] [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+b1 B"
+b0 A"
+b10 0"
+b1 /"
+b0 ."
+$end
+#0
+$dumpvars
+bx X"
+bx W"
+bx V"
+bx U"
+bx T"
+bx S"
+bx R"
+bx Q"
+bx P"
+0O"
+b0xxxxx N"
+b1000 M"
+xL"
+bx K"
+b0 J"
+bx I"
+b0 H"
+b0xxxxx G"
+xF"
+bx E"
+bx D"
+0C"
+bx @"
+bx ?"
+bx >"
+b1000 ="
+x<"
+bx ;"
+b0 :"
+bx 9"
+b0 8"
+bx 7"
+b0xxxxx 6"
+x5"
+x4"
+bx 3"
+bx 2"
+01"
+bx -"
+bx ,"
+bx +"
+bx *"
+b100000000 )"
+0("
+bx '"
+0&"
+b0xxxxx %"
+bx $"
+bx #"
+bx ""
+bx !"
+bx ~
+bx }
+bx |
+bx {
+bx z
+bx y
+bx x
+bx w
+bx v
+bx u
+bx t
+bx s
+bx r
+bx q
+bx p
+bx o
+bx n
+bx m
+bx l
+bx k
+bx j
+bx i
+bx h
+bx g
+bx f
+bx e
+bx d
+bx c
+bx b
+bx a
+bx `
+bx _
+bx ^
+bx ]
+bx \
+bx [
+bx Z
+bx Y
+bx X
+bx W
+bx V
+bx U
+bx T
+bx S
+bx R
+bx Q
+bx P
+bx O
+bx N
+0M
+bx L
+bx K
+bx J
+xI
+bx H
+bx G
+xF
+xE
+xD
+bx C
+bx B
+bx A
+bx @
+bx ?
+bx >
+bx =
+bx <
+x;
+x:
+x9
+x8
+bx 7
+x6
+bx 5
+14
+03
+bx 2
+b0xxxxx 1
+00
+0/
+bx .
+b0xxxxx -
+0,
+0+
+bx *
+0)
+bx (
+bx '
+x&
+bx %
+bx $
+x#
+bx "
+0!
+$end
+#9
+05"
+#40
+13
+#50
+b0 @"
+b0 >"
+b0 '
+b0 B
+b0 r
+b0 X"
+b0 W"
+b0 V"
+b0 U"
+b0 T"
+b0 S"
+b0 R"
+b0 Q"
+04
+#60
+b100 @
+b100 n
+b100 p
+b0 D"
+b100 A
+b100 m
+b100 q
+b100 s
+#69
+xM
+x!
+1C"
+b1 H"
+0F"
+b0 K"
+0L"
+#70
+b0 E"
+#80
+03
+#120
+1O"
+10
+b0 1
+b0 G"
+b0 N"
+1/
+xM
+x!
+1C"
+b1 H"
+b1 J"
+13
+#160
+03
+#200
+13
+#240
+03
+#280
+13
+#320
+03
+#360
+13
+#400
+03
+#440
+13
+#480
+03
+#520
+13
+bx00011001 $
+bx00011001 ?"
+bx00011001 P"
+#560
+03
+#600
+13
+#640
+03
+#680
+13
+#720
+03
+#760
+13
+#800
+03
+#840
+13
+#880
+03
+#920
+13
+bx0000000000011001 $
+bx0000000000011001 ?"
+bx0000000000011001 P"
+#960
+03
+#1000
+13
+#1040
+03
+#1080
+13
+#1120
+03
+#1160
+13
+#1200
+03
+#1240
+13
+#1280
+03
+#1320
+13
+bx000001000000000000011001 $
+bx000001000000000000011001 ?"
+bx000001000000000000011001 P"
+#1360
+03
+#1400
+13
+#1440
+03
+#1480
+13
+#1520
+03
+#1560
+13
+#1600
+03
+#1640
+13
+#1680
+03
+#1720
+13
+bx00000000000001000000000000011001 $
+bx00000000000001000000000000011001 ?"
+bx00000000000001000000000000011001 P"
+#1760
+03
+#1800
+13
+#1840
+03
+#1880
+13
+#1920
+03
+#1960
+13
+#2000
+03
+#2040
+13
+#2080
+03
+#2120
+13
+bx0010001100000000000001000000000000011001 $
+bx0010001100000000000001000000000000011001 ?"
+bx0010001100000000000001000000000000011001 P"
+#2160
+03
+#2200
+13
+#2240
+03
+#2280
+13
+#2320
+03
+#2360
+13
+#2400
+03
+#2440
+13
+#2480
+03
+#2520
+13
+bx000000000010001100000000000001000000000000011001 $
+bx000000000010001100000000000001000000000000011001 ?"
+bx000000000010001100000000000001000000000000011001 P"
+#2560
+03
+#2600
+13
+#2640
+03
+#2680
+13
+#2720
+03
+#2760
+13
+#2800
+03
+#2840
+13
+#2880
+03
+#2920
+13
+bx00000101000000000010001100000000000001000000000000011001 $
+bx00000101000000000010001100000000000001000000000000011001 ?"
+bx00000101000000000010001100000000000001000000000000011001 P"
+#2960
+03
+#3000
+13
+#3040
+03
+#3080
+13
+#3120
+03
+#3160
+13
+#3200
+03
+#3240
+13
+#3280
+03
+#3320
+13
+bx0000000000000101000000000010001100000000000001000000000000011001 $
+bx0000000000000101000000000010001100000000000001000000000000011001 ?"
+bx0000000000000101000000000010001100000000000001000000000000011001 P"
+#3360
+03
+#3400
+13
+#3440
+03
+#3480
+13
+#3520
+03
+#3560
+13
+#3600
+03
+#3640
+13
+#3680
+03
+#3720
+13
+bx000001010000000000000101000000000010001100000000000001000000000000011001 $
+bx000001010000000000000101000000000010001100000000000001000000000000011001 ?"
+bx000001010000000000000101000000000010001100000000000001000000000000011001 P"
+#3760
+03
+#3800
+13
+#3840
+03
+#3880
+13
+#3920
+03
+#3960
+13
+#4000
+03
+#4040
+13
+#4080
+03
+#4120
+13
+bx00000100000001010000000000000101000000000010001100000000000001000000000000011001 $
+bx00000100000001010000000000000101000000000010001100000000000001000000000000011001 ?"
+bx00000100000001010000000000000101000000000010001100000000000001000000000000011001 P"
+#4160
+03
+#4200
+13
+#4240
+03
+#4280
+13
+#4320
+03
+#4360
+13
+#4400
+03
+#4440
+13
+#4480
+03
+#4520
+13
+bx0000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 $
+bx0000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 ?"
+bx0000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 P"
+#4560
+03
+#4600
+13
+#4640
+03
+#4680
+13
+#4720
+03
+#4760
+13
+#4800
+03
+#4840
+13
+#4880
+03
+#4920
+13
+bx000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 $
+bx000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 ?"
+bx000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 P"
+#4960
+03
+#5000
+13
+#5040
+03
+#5080
+13
+#5120
+03
+#5160
+13
+#5200
+03
+#5240
+13
+#5280
+03
+#5320
+13
+bx01011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 $
+bx01011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 ?"
+bx01011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 P"
+#5360
+03
+#5400
+13
+#5440
+03
+#5480
+13
+#5520
+03
+#5560
+13
+#5600
+03
+#5640
+13
+#5680
+03
+#5720
+13
+bx0000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 $
+bx0000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 ?"
+bx0000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 P"
+#5760
+03
+#5800
+13
+#5840
+03
+#5880
+13
+#5920
+03
+#5960
+13
+#6000
+03
+#6040
+13
+#6080
+03
+#6120
+13
+bx000000010000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 $
+bx000000010000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 ?"
+bx000000010000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 P"
+#6160
+03
+#6200
+13
+#6240
+03
+#6280
+13
+#6320
+03
+#6360
+13
+#6400
+03
+#6440
+13
+#6480
+03
+#6520
+b0xxxxx 1
+b0xxxxx G"
+b0xxxxx N"
+0/
+b0 J"
+xM
+x!
+1C"
+b1 H"
+13
+0O"
+00
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 $
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 ?"
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 P"
+#6540
+b100000000000000000010000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000011001 D"
+#6549
+b0 t
+b0 {
+b0 y
+b0 w
+b0 C
+b0 `
+b0 L
+b0 j
+0M
+0!
+0C"
+b0 H"
+b0 .
+b0 J
+b0 I"
+1F"
+1L"
+#6550
+b100 t
+b1 {
+b100 w
+b11001 L
+b11001 j
+b1000000000000011001 .
+b1000000000000011001 J
+b1000000000000011001 I"
+b1000000000000011001 E"
+#6559
+06
+0:
+b11001 G
+b11001 ^
+b11001 k
+0D
+0#
+0&
+0;
+b0 O
+b0 b
+b0 o
+0I
+b0 R
+b0 \
+b0 a
+1E
+0F
+19
+#6560
+03
+#6569
+b10 -"
+b11001 K
+b11001 e
+b11001 v
+b11001 2
+b11001 5
+b11001 *"
+b11001 P
+b11001 d
+b11001 !"
+b11001 Q
+b11001 ]
+b11001 ~
+b0 H
+b0 h
+b0 i
+b0 S
+b0 _
+b0 }
+bx11xx1 W
+b0xx00x Z
+b0 U
+b11001 Y
+b0 <
+b0 g
+b0 z
+b0 ""
+b0 "
+b0 7
+b0 ,"
+b0 =
+b0 x
+b0 |
+#6570
+b10100 ?
+b10100 l
+b10100 u
+#6579
+b0 2"
+b11001 W
+b0 Z
+b0 T
+b0 V
+b0 N
+b0 f
+b0 #"
+b0 X
+#6588
+b0 ;"
+04"
+0<"
+#6589
+08
+b0 3"
+b11001 [
+#6600
+13
+#6610
+b100 >"
+b100 '
+b100 B
+b100 r
+b11001 U"
+#6620
+b1000 @
+b1000 n
+b1000 p
+b1000 A
+b1000 m
+b1000 q
+b1000 s
+#6640
+b11000 ?
+b11000 l
+b11000 u
+03
+#6680
+13
+#6690
+b1000 >"
+b1000 '
+b1000 B
+b1000 r
+b11001 U"
+#6700
+b1100 @
+b1100 n
+b1100 p
+b1100 A
+b1100 m
+b1100 q
+b1100 s
+#6720
+b11100 ?
+b11100 l
+b11100 u
+03
+#6760
+13
+#6770
+b1100 >"
+b1100 '
+b1100 B
+b1100 r
+b11001 U"
+#6780
+b10000 @
+b10000 n
+b10000 p
+b10000 A
+b10000 m
+b10000 q
+b10000 s
+#6800
+b100000 ?
+b100000 l
+b100000 u
+03
+#6840
+13
+#6850
+b1 @"
+b10000 >"
+b10000 '
+b10000 B
+b10000 r
+b11001 U"
+#6860
+b10100 @
+b10100 n
+b10100 p
+b0 D"
+b10100 A
+b10100 m
+b10100 q
+b10100 s
+#6869
+xM
+x!
+1C"
+b1 H"
+0F"
+0L"
+#6870
+b0 E"
+#6880
+b100100 ?
+b100100 l
+b100100 u
+03
+#6920
+1O"
+10
+b1 1
+b1 G"
+b1 N"
+1/
+xM
+x!
+1C"
+b1 H"
+b1 J"
+13
+#6930
+b11001 U"
+#6960
+03
+#7000
+13
+#7010
+b11001 U"
+#7040
+03
+#7080
+13
+#7090
+b11001 U"
+#7120
+03
+#7160
+13
+#7170
+b11001 U"
+#7200
+03
+#7240
+13
+#7250
+b11001 U"
+#7280
+03
+#7320
+13
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000000100 $
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000000100 ?"
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000000000100 P"
+#7330
+b11001 U"
+#7360
+03
+#7400
+13
+#7410
+b11001 U"
+#7440
+03
+#7480
+13
+#7490
+b11001 U"
+#7520
+03
+#7560
+13
+#7570
+b11001 U"
+#7600
+03
+#7640
+13
+#7650
+b11001 U"
+#7680
+03
+#7720
+13
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000100000100 $
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000100000100 ?"
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000001000000000100000100 P"
+#7730
+b11001 U"
+#7760
+03
+#7800
+13
+#7810
+b11001 U"
+#7840
+03
+#7880
+13
+#7890
+b11001 U"
+#7920
+03
+#7960
+13
+#7970
+b11001 U"
+#8000
+03
+#8040
+13
+#8050
+b11001 U"
+#8080
+03
+#8120
+13
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000000010000000100000100 $
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000000010000000100000100 ?"
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000000000000010000000100000100 P"
+#8130
+b11001 U"
+#8160
+03
+#8200
+13
+#8210
+b11001 U"
+#8240
+03
+#8280
+13
+#8290
+b11001 U"
+#8320
+03
+#8360
+13
+#8370
+b11001 U"
+#8400
+03
+#8440
+13
+#8450
+b11001 U"
+#8480
+03
+#8520
+13
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000011000000010000000100000100 $
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000011000000010000000100000100 ?"
+b10000000001011010000000100000011000000100000001010000000000000101000000000010001100000011000000010000000100000100 P"
+#8530
+b11001 U"
+#8560
+03
+#8600
+13
+#8610
+b11001 U"
+#8640
+03
+#8680
+13
+#8690
+b11001 U"
+#8720
+03
+#8760
+13
+#8770
+b11001 U"
+#8800
+03
+#8840
+13
+#8850
+b11001 U"
+#8880
+03
+#8920
+13
+b1000000000101101000000010000001100000010000000101000000000000010100000000xxxxxxxx00000011000000010000000100000100 $
+b1000000000101101000000010000001100000010000000101000000000000010100000000xxxxxxxx00000011000000010000000100000100 ?"
+b1000000000101101000000010000001100000010000000101000000000000010100000000xxxxxxxx00000011000000010000000100000100 P"
+#8930
+b11001 U"
+#8960
+03
+#9000
+13
+#9010
+b11001 U"
+#9040
+03
+#9080
+13
+#9090
+b11001 U"
+#9120
+03
+#9160
+13
+#9170
+b11001 U"
+#9200
+03
+#9240
+13
+#9250
+b11001 U"
+#9280
+03
+#9320
+13
+b10000000001011010000000100000011000000100000001010000000000000101xxxxxxxxxxxxxxxx00000011000000010000000100000100 $
+b10000000001011010000000100000011000000100000001010000000000000101xxxxxxxxxxxxxxxx00000011000000010000000100000100 ?"
+b10000000001011010000000100000011000000100000001010000000000000101xxxxxxxxxxxxxxxx00000011000000010000000100000100 P"
+#9330
+b11001 U"
+#9360
+03
+#9400
+13
+#9410
+b11001 U"
+#9440
+03
+#9480
+13
+#9490
+b11001 U"
+#9520
+03
+#9560
+13
+#9570
+b11001 U"
+#9600
+03
+#9640
+13
+#9650
+b11001 U"
+#9680
+03
+#9720
+13
+b100000000010110100000001000000110000001000000010100000000xxxxxxxxxxxxxxxxxxxxxxxx00000011000000010000000100000100 $
+b100000000010110100000001000000110000001000000010100000000xxxxxxxxxxxxxxxxxxxxxxxx00000011000000010000000100000100 ?"
+b100000000010110100000001000000110000001000000010100000000xxxxxxxxxxxxxxxxxxxxxxxx00000011000000010000000100000100 P"
+#9730
+b11001 U"
+#9760
+03
+#9800
+13
+#9810
+b11001 U"
+#9840
+03
+#9880
+13
+#9890
+b11001 U"
+#9920
+03
+#9960
+13
+#9970
+b11001 U"
+#10000
+03
+#10040
+13
+#10050
+b11001 U"
