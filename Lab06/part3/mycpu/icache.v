@@ -47,20 +47,26 @@ module icache (
     flag = 1'b0;
 
     // indexing base on index
-    always @(posedge clock, cache[index]) begin
+    always @(posedge clock, cache[index], address) begin
 
+        hit = 0;
+        flag = 0;
         // get the data block
         // if(!busywait) begin
         #0.00001
         #0.99999 cache_entry = cache[index];
-        flag = ~flag;
         // end
 
     end
 
+    always @(address) begin
+        #1 flag = 1;
+        hit = 0;
+    end
+
     // Tag comparison and validation 
     // check whether the access is a hit or miss
-    always @(cache_entry, flag) begin
+    always @(posedge flag) begin
 
         // delay for Tag comparison and validation 
         #0.9
@@ -94,7 +100,7 @@ module icache (
     end
 
     // in a read-hit
-    always @(dataword) begin
+    always @(*) begin
         
         // check whether it is a hit and going to read from cache
         if (hit && !busywait)
