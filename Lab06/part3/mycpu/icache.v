@@ -49,12 +49,10 @@ module icache (
         flag = 0;
     end
     
-
     // indexing base on index
     always @(address, cache[index]) begin
 
-        #0.00001
-        #0.99999 cache_entry = cache[index];
+        #1 cache_entry = cache[index];
         flag = 1;
 
     end
@@ -128,20 +126,16 @@ module icache (
             IDLE:
                 if (!hit) begin 
                     next_state = MEM_READ;
-                    // busywait = 1;
                 end
                 else begin
                     next_state = IDLE;
-                    // busywait = 0;
                 end
             MEM_READ:
                 if (!mem_busywait)begin
                     next_state = IDLE;
-                    // busywait = 0;
                 end
                 else    begin
                     next_state = MEM_READ;
-                    // busywait = 1;
                 end
             
         endcase

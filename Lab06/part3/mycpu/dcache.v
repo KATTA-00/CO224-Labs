@@ -166,11 +166,11 @@ module dcache (
             MEM_WRITE:
                 if (!mem_busywait)begin
                     next_state = IDLE;
-                    busywait = 0;
+                    // busywait = 0;
                 end
                 else    begin
                     next_state = MEM_WRITE;
-                    busywait = 1;
+                    // busywait = 1;
                 end
             
         endcase
