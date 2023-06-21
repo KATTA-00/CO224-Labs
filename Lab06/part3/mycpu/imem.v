@@ -42,8 +42,8 @@ initial
 //Initialize instruction memory
 // initial
 // begin
-	// busywait = 0;
-	// readaccess = 0;
+// 	busywait = 0;
+// 	readaccess = 0;
 	
 //     // Sample program given below. You may hardcode your software program here, or load it from a file:
 //     {memory_array[10'd3],  memory_array[10'd2],  memory_array[10'd1],  memory_array[10'd0]}  = 32'b00000000000001000000000000011001; // loadi 4 #25

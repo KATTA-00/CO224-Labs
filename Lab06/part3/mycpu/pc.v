@@ -18,15 +18,14 @@ module pc(PC_TO, RESET, CLK, PC, PC_NEXT, HOLD);
     // output from the PC adder (adderout = PC+4)
     pc_add pc_adder(PC, PC_NEXT);
 
-    always @(PC_TO, CLK)
+    always @(PC_TO, posedge CLK)
         PC_DO = PC_TO;
 
     always @(negedge HOLD)
-        #0.000001 PC_DO = PC_HOLD;
+        PC_DO = PC_HOLD;
 
-    always @(posedge HOLD)begin
+    always @(posedge HOLD)
             PC_HOLD = PC;
-    end
 
     always @(posedge CLK) begin
         // at every positive edge of the clock
@@ -41,6 +40,7 @@ module pc(PC_TO, RESET, CLK, PC, PC_NEXT, HOLD);
             // write the next instruction address
             #0.999 PC = PC_DO;
         end
+        
     end 
 
 

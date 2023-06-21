@@ -20,19 +20,6 @@ module cpu_tb;
     // wire [31:0] INSTRUCTION;
     wire [31:0] INSTRUCTION;
     
-    /* 
-    ------------------------
-     SIMPLE INSTRUCTION MEM
-    ------------------------
-    */
-    wire IMEM_READ, IMEM_BUSYWAIT;
-    wire [127:0] READINST;
-    wire [5:0] IADDRESS;
-
-    instruction_memory myinstruction_memory(CLK, IMEM_READ, IADDRESS, READINST, IMEM_BUSYWAIT);
-
-    icache myicache(CLK, RESET, BUSYWAIT, INSTRUCTION, PC[9:0], IMEM_BUSYWAIT, IMEM_READ, READINST, IADDRESS);
-    
     // TODO: Initialize an array of registers (8x1024) named 'instr_mem' to be used as instruction memory
     // reg [7:0] instr_mem [1023:0];
 
@@ -64,6 +51,20 @@ module cpu_tb;
     wire MEM_BUSYWAIT, MEM_READ, MEM_WRITE;
     wire [31:0] MEM_WRITEDATA, MEM_READATA;
     wire [5:0] MEM_ADDRESS;
+
+    /* 
+    ------------------------
+     SIMPLE INSTRUCTION MEM
+    ------------------------
+    */
+    wire IMEM_READ, IMEM_BUSYWAIT;
+    wire [127:0] READINST;
+    wire [5:0] IADDRESS;
+
+    instruction_memory myinstruction_memory(CLK, IMEM_READ, IADDRESS, READINST, IMEM_BUSYWAIT);
+
+    icache myicache(CLK, RESET, BUSYWAIT, INSTRUCTION, PC[9:0], IMEM_BUSYWAIT, IMEM_READ, READINST, IADDRESS);
+    
     
     /* 
     -----
