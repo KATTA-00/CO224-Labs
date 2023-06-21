@@ -8,13 +8,25 @@ module pc(PC_TO, RESET, CLK, PC, PC_NEXT, HOLD);
     // declare ports
     input RESET, CLK, HOLD;
     input [31:0] PC_TO;
+    reg [31:0] PC_DO;
     output reg [31:0] PC;// reg to hold the address of the current executing instruction
     
     output [31:0] PC_NEXT;// next instruction to be executed
+    reg [31:0] PC_HOLD;
     wire [31:0] adder_out;// address of the next instruction to be executed
 
     // output from the PC adder (adderout = PC+4)
     pc_add pc_adder(PC, PC_NEXT);
+
+    always @(PC_TO, CLK)
+        PC_DO = PC_TO;
+
+    always @(negedge HOLD)
+        #0.000001 PC_DO = PC_HOLD;
+
+    always @(posedge HOLD)begin
+            PC_HOLD = PC;
+    end
 
     always @(posedge CLK) begin
         // at every positive edge of the clock
@@ -27,9 +39,10 @@ module pc(PC_TO, RESET, CLK, PC, PC_NEXT, HOLD);
             #0.999 PC = 32'b00000000000000000000000000000000;
         else if(~HOLD) begin
             // write the next instruction address
-            #0.999 PC = PC_TO;
+            #0.999 PC = PC_DO;
         end
     end 
+
 
 endmodule
 

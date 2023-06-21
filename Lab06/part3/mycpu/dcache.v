@@ -143,24 +143,24 @@ module dcache (
             IDLE:
                 if ((read || write) && !dirty && !hit) begin 
                     next_state = MEM_READ;
-                    busywait = 1;
+                    // busywait = 1;
                 end
                 else if ((read || write) && dirty && !hit)begin
                     next_state = MEM_WRITE;
-                    busywait = 1;
+                    // busywait = 1;
                 end
                 else begin
                     next_state = IDLE;
-                    busywait = 0;
+                    // busywait = 0;
                 end
             MEM_READ:
                 if (!mem_busywait)begin
                     next_state = IDLE;
-                    busywait = 0;
+                    // busywait = 0;
                 end
                 else    begin
                     next_state = MEM_READ;
-                    busywait = 1;
+                    // busywait = 1;
                 end
 
             MEM_WRITE:
@@ -186,6 +186,7 @@ module dcache (
                 mem_write = 0;
                 mem_address = 5'dx;
                 mem_writedata = 32'dx;
+                busywait = 0;
             end
          
             MEM_READ: 

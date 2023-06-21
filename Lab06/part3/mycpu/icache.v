@@ -35,22 +35,32 @@ module icache (
     reg hit, valid;
     reg [31:0] dataword;
     reg [2:0] tag;
-    wire [1:0] index;
+    wire [2:0] index;
     reg [131:0] cache_entry;
 
     // get the index value
     assign index = address[6:4];
 
+    // use a trigger
+    reg flag;
+    initial
+    flag = 1'b0;
+
     // indexing base on index
-    always @(address, cache[index]) begin
+    always @(posedge clock, cache[index]) begin
+
         // get the data block
-        #1 cache_entry = cache[index];
+        // if(!busywait) begin
+        #0.00001
+        #0.99999 cache_entry = cache[index];
+        flag = ~flag;
+        // end
 
     end
 
     // Tag comparison and validation 
     // check whether the access is a hit or miss
-    always @(cache_entry) begin
+    always @(cache_entry, flag) begin
 
         // delay for Tag comparison and validation 
         #0.9
@@ -69,7 +79,7 @@ module icache (
     end
 
     // data word selection
-    always @(cache_entry) begin
+    always @(cache_entry, flag) begin
 
         // delay for selecting the data word 
         #1
@@ -84,24 +94,24 @@ module icache (
     end
 
     // in a read-hit
-    always @(*) begin
+    always @(dataword) begin
         
         // check whether it is a hit and going to read from cache
-        if (hit)
+        if (hit && !busywait)
             readdata = dataword;
 
     end
 
     // in a write-hit
-    always @(posedge clock) begin
+    always @( negedge mem_busywait ) begin
 
         // when the reading from main mem is done
         // cache should write the read data from the main mem
         // the block should valid and not dirty
-        if(!mem_busywait && !hit && mem_read) begin
-            // delay to writing the cashe
-            #1 cache[index] = {1'b1, address[9:7], mem_readdata};
-        end
+
+        // delay to writing the cashe
+        #1 cache[index] = {1'b1, address[9:7], mem_readdata};
+
     end
 
     /* Cache Controller FSM Start */
@@ -112,24 +122,25 @@ module icache (
     // combinational next state logic
     always @(*)
     begin
+        #0.00001
         case (state)
             IDLE:
                 if (!hit) begin 
                     next_state = MEM_READ;
-                    busywait = 1;
+                    // busywait = 1;
                 end
                 else begin
                     next_state = IDLE;
-                    busywait = 0;
+                    // busywait = 0;
                 end
             MEM_READ:
-                if (!mem_busywait)begin
+                if (!mem_busywait && hit)begin
                     next_state = IDLE;
-                    busywait = 0;
+                    // busywait = 0;
                 end
                 else    begin
                     next_state = MEM_READ;
-                    busywait = 1;
+                    // busywait = 1;
                 end
             
         endcase
@@ -143,6 +154,7 @@ module icache (
             begin
                 mem_read = 0;
                 mem_address = 5'dx;
+                busywait = 0;
             end
          
             MEM_READ: 

@@ -102,7 +102,7 @@ module cpu_tb;
         RESET = 1'b0;
         
         // finish simulation after some time
-        #1000
+        #4000
         $finish;
         
     end
