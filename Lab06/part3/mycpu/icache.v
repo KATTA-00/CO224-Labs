@@ -47,26 +47,19 @@ module icache (
     flag = 1'b0;
 
     // indexing base on index
-    always @(posedge clock, cache[index], address) begin
-
-        hit = 0;
-        flag = 0;
-        // get the data block
-        // if(!busywait) begin
-        #0.00001
-        #0.99999 cache_entry = cache[index];
-        // end
-
+    always @(address) begin
+        #0.0001
+        #0.9999 cache_entry = cache[index];
     end
 
-    always @(address) begin
+    always @(cache[index], address) begin
+        flag = 0;
         #1 flag = 1;
-        hit = 0;
     end
 
     // Tag comparison and validation 
     // check whether the access is a hit or miss
-    always @(posedge flag) begin
+    always @(cache_entry) begin
 
         // delay for Tag comparison and validation 
         #0.9
@@ -85,7 +78,7 @@ module icache (
     end
 
     // data word selection
-    always @(cache_entry, flag) begin
+    always @(cache_entry) begin
 
         // delay for selecting the data word 
         #1
@@ -109,7 +102,7 @@ module icache (
     end
 
     // in a write-hit
-    always @( negedge mem_busywait ) begin
+    always @(negedge mem_busywait ) begin
 
         // when the reading from main mem is done
         // cache should write the read data from the main mem
@@ -176,6 +169,7 @@ module icache (
     // sequential logic for state transitioning 
     always @(posedge clock, reset)
     begin
+        #0.00001
         if(reset)
             state = IDLE;
         else
