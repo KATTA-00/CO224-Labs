@@ -18,6 +18,7 @@ module control_unit(OPCODE, WRITEENABLE, COMP_SELECT, IMMEDIATE_SELECT, JUMP, BR
     // busywait signal
     assign HOLD = BUSYWAIT;
 
+
     always @(OPCODE) begin 
 
         // delay of the dedcoding
