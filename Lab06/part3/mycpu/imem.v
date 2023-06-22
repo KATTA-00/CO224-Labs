@@ -28,6 +28,7 @@ reg readaccess;
 //Declare memory array 1024x8-bits 
 reg [7:0] memory_array [1023:0];
 
+// load the instruction from a file
 initial
     begin
 		busywait = 0;

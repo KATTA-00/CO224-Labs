@@ -34,7 +34,7 @@ module dcache (
     output reg [5:0] mem_address;
     output reg [31:0] mem_writedata;
 
-    // cashe files
+    // cashe files for data
     reg [36:0] cache [7:0];
 
     // registers for store intermediate values

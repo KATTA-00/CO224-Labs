@@ -28,7 +28,8 @@ module icache (
     output reg [31:0] readdata;
     output reg [5:0] mem_address;
 
-    // cashe files
+    // cashe files for instruction
+    // valid - tag - data block
     reg [131:0] cache [7:0];
 
     // registers for store intermediate values
@@ -44,7 +45,7 @@ module icache (
     // use a trigger
     reg flag;
 
-    // indexing base on index
+    // set a flag 
     always @(address) begin
         flag = 0;
     end
@@ -52,7 +53,9 @@ module icache (
     // indexing base on index
     always @(address, cache[index]) begin
 
+        // read a entry from cache
         #1 cache_entry = cache[index];
+        // on the flag
         flag = 1;
 
     end
@@ -63,7 +66,7 @@ module icache (
 
         // delay for Tag comparison and validation 
         #0.9
-        // getting the valid, dirty bits and tag
+        // getting the valid bit and tag
         valid = cache_entry[131];
         tag = cache_entry[130:128];
 
@@ -106,7 +109,7 @@ module icache (
 
         // when the reading from main mem is done
         // cache should write the read data from the main mem
-        // the block should valid and not dirty
+        // the block should valid
 
         // delay to writing the cashe
         #1 cache[index] = {1'b1, address[9:7], mem_readdata};
@@ -121,6 +124,7 @@ module icache (
     // combinational next state logic
     always @(*)
     begin
+        // minimize the rapid changes effets
         #0.00001
         case (state)
             IDLE:
