@@ -11,22 +11,18 @@
 @ ---------------------	
 
 mypow:
-	sub sp, sp, #4
-	str r4, [sp, #0]
-	mov r4, #1
+	mov r12, #1
 
 	loop:
 		cmp r1, #1
 		blt exit
 
-		mul r4, r0, r4
+		mul r12, r0, r12
 		sub r1, r1, #1
 		b loop
 		
 	exit:
-		mov r0, r4
-		ldr r4, [sp, #0]
-		add sp, sp, #4
+		mov r0, r12
 		mov pc, lr
 
 @ ---------------------	

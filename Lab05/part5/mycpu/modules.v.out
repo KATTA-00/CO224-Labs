@@ -1,0 +1,112 @@
+#! /c/Source/iverilog-install/bin/vvp
+:ivl_version "12.0 (devel)" "(s20150603-1539-g2693dd32b)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "F:\iverilog\lib\ivl\system.vpi";
+:vpi_module "F:\iverilog\lib\ivl\vhdl_sys.vpi";
+:vpi_module "F:\iverilog\lib\ivl\vhdl_textio.vpi";
+:vpi_module "F:\iverilog\lib\ivl\v2005_math.vpi";
+:vpi_module "F:\iverilog\lib\ivl\va_math.vpi";
+S_000001ee4522ddf0 .scope module, "mux_32" "mux_32" 2 28;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "DATA1";
+    .port_info 1 /INPUT 32 "DATA2";
+    .port_info 2 /INPUT 1 "SELECT";
+    .port_info 3 /OUTPUT 32 "OUTPUT";
+o000001ee45279f98 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v000001ee45275b60_0 .net "DATA1", 31 0, o000001ee45279f98;  0 drivers
+o000001ee45279fc8 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v000001ee45275c00_0 .net "DATA2", 31 0, o000001ee45279fc8;  0 drivers
+v000001ee45242ce0_0 .var "OUTPUT", 31 0;
+o000001ee4527a028 .functor BUFZ 1, C4<z>; HiZ drive
+v000001ee45273d30_0 .net "SELECT", 0 0, o000001ee4527a028;  0 drivers
+E_000001ee45278250 .event anyedge, v000001ee45273d30_0, v000001ee45275c00_0, v000001ee45275b60_0;
+S_000001ee4522df80 .scope module, "mux_8" "mux_8" 2 11;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "DATA1";
+    .port_info 1 /INPUT 8 "DATA2";
+    .port_info 2 /INPUT 1 "SELECT";
+    .port_info 3 /OUTPUT 8 "OUTPUT";
+o000001ee4527a118 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v000001ee45273470_0 .net "DATA1", 7 0, o000001ee4527a118;  0 drivers
+o000001ee4527a148 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v000001ee45273790_0 .net "DATA2", 7 0, o000001ee4527a148;  0 drivers
+v000001ee452738d0_0 .var "OUTPUT", 7 0;
+o000001ee4527a1a8 .functor BUFZ 1, C4<z>; HiZ drive
+v000001ee45273650_0 .net "SELECT", 0 0, o000001ee4527a1a8;  0 drivers
+E_000001ee452782d0 .event anyedge, v000001ee45273650_0, v000001ee45273790_0, v000001ee45273470_0;
+S_000001ee45275840 .scope module, "pc_adder" "pc_adder" 2 45;
+ .timescale 0 0;
+    .port_info 0 /INPUT 32 "DATA1";
+    .port_info 1 /INPUT 8 "DATA2";
+    .port_info 2 /OUTPUT 32 "RESULT";
+o000001ee4527a298 .functor BUFZ 32, C4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v000001ee452742d0_0 .net "DATA1", 31 0, o000001ee4527a298;  0 drivers
+o000001ee4527a2c8 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+v000001ee45273970_0 .net "DATA2", 7 0, o000001ee4527a2c8;  0 drivers
+v000001ee45273a10_0 .net "RESULT", 31 0, L_000001ee45274050;  1 drivers
+v000001ee45273dd0_0 .net *"_ivl_0", 31 0, L_000001ee45273f10;  1 drivers
+L_000001ee452c7048 .functor BUFT 1, C4<000000000000000000000000>, C4<0>, C4<0>, C4<0>;
+v000001ee45273830_0 .net *"_ivl_3", 23 0, L_000001ee452c7048;  1 drivers
+L_000001ee452c7090 .functor BUFT 1, C4<00000000000000000000000000000100>, C4<0>, C4<0>, C4<0>;
+v000001ee45273ab0_0 .net/2u *"_ivl_4", 31 0, L_000001ee452c7090;  1 drivers
+v000001ee45273b50_0 .net *"_ivl_7", 31 0, L_000001ee45273fb0;  1 drivers
+E_000001ee45278310 .event anyedge, v000001ee45273a10_0, v000001ee45273970_0, v000001ee452742d0_0;
+L_000001ee45273f10 .concat [ 8 24 0 0], o000001ee4527a2c8, L_000001ee452c7048;
+L_000001ee45273fb0 .arith/mult 32, L_000001ee45273f10, L_000001ee452c7090;
+L_000001ee45274050 .delay 32 (2,2,2) L_000001ee45274050/d;
+L_000001ee45274050/d .arith/sum 32, o000001ee4527a298, L_000001ee45273fb0;
+S_000001ee452759d0 .scope module, "two_comp" "two_comp" 2 1;
+ .timescale 0 0;
+    .port_info 0 /INPUT 8 "DATA";
+    .port_info 1 /OUTPUT 8 "OUT";
+o000001ee4527a478 .functor BUFZ 8, C4<zzzzzzzz>; HiZ drive
+L_000001ee45267ad0 .functor NOT 8, o000001ee4527a478, C4<00000000>, C4<00000000>, C4<00000000>;
+v000001ee45273bf0_0 .net "DATA", 7 0, o000001ee4527a478;  0 drivers
+v000001ee45273c90_0 .net "OUT", 7 0, L_000001ee452740f0;  1 drivers
+v000001ee45273e70_0 .net *"_ivl_0", 7 0, L_000001ee45267ad0;  1 drivers
+L_000001ee452c70d8 .functor BUFT 1, C4<00000001>, C4<0>, C4<0>, C4<0>;
+v000001ee45274370_0 .net/2u *"_ivl_2", 7 0, L_000001ee452c70d8;  1 drivers
+L_000001ee452740f0 .delay 8 (1,1,1) L_000001ee452740f0/d;
+L_000001ee452740f0/d .arith/sum 8, L_000001ee45267ad0, L_000001ee452c70d8;
+    .scope S_000001ee4522ddf0;
+T_0 ;
+    %wait E_000001ee45278250;
+    %load/vec4 v000001ee45273d30_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_0.0, 8;
+    %load/vec4 v000001ee45275c00_0;
+    %store/vec4 v000001ee45242ce0_0, 0, 32;
+    %jmp T_0.1;
+T_0.0 ;
+    %load/vec4 v000001ee45275b60_0;
+    %store/vec4 v000001ee45242ce0_0, 0, 32;
+T_0.1 ;
+    %jmp T_0;
+    .thread T_0, $push;
+    .scope S_000001ee4522df80;
+T_1 ;
+    %wait E_000001ee452782d0;
+    %load/vec4 v000001ee45273650_0;
+    %flag_set/vec4 8;
+    %jmp/0xz  T_1.0, 8;
+    %load/vec4 v000001ee45273790_0;
+    %store/vec4 v000001ee452738d0_0, 0, 8;
+    %jmp T_1.1;
+T_1.0 ;
+    %load/vec4 v000001ee45273470_0;
+    %store/vec4 v000001ee452738d0_0, 0, 8;
+T_1.1 ;
+    %jmp T_1;
+    .thread T_1, $push;
+    .scope S_000001ee45275840;
+T_2 ;
+    %wait E_000001ee45278310;
+    %vpi_call 2 54 "$display", $time, ">> %b %b %b", v000001ee452742d0_0, v000001ee45273970_0, v000001ee45273a10_0 {0 0 0};
+    %jmp T_2;
+    .thread T_2, $push;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "modules.v";

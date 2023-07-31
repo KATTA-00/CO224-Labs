@@ -1,0 +1,310 @@
+$date
+	Wed May 10 10:36:32 2023
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1s
+$end
+$scope module alu_tb $end
+$var wire 8 ! RESULT [7:0] $end
+$var reg 8 " DATA1 [7:0] $end
+$var reg 8 # DATA2 [7:0] $end
+$var reg 3 $ SELECT [2:0] $end
+$scope module ALU $end
+$var wire 8 % DATA1 [7:0] $end
+$var wire 8 & DATA2 [7:0] $end
+$var wire 3 ' SELECT [0:2] $end
+$var wire 8 ( or_result [7:0] $end
+$var wire 8 ) forward_result [7:0] $end
+$var wire 8 * and_result [7:0] $end
+$var wire 8 + add_result [7:0] $end
+$var wire 8 , RESULT [7:0] $end
+$scope module alu_add $end
+$var wire 8 - DATA1 [7:0] $end
+$var wire 8 . DATA2 [7:0] $end
+$var wire 8 / RESULT [7:0] $end
+$upscope $end
+$scope module alu_and $end
+$var wire 8 0 DATA1 [7:0] $end
+$var wire 8 1 DATA2 [7:0] $end
+$var wire 8 2 RESULT [7:0] $end
+$upscope $end
+$scope module alu_forward $end
+$var wire 8 3 DATA2 [7:0] $end
+$var wire 8 4 RESULT [7:0] $end
+$upscope $end
+$scope module alu_or $end
+$var wire 8 5 DATA1 [7:0] $end
+$var wire 8 6 DATA2 [7:0] $end
+$var wire 8 7 RESULT [7:0] $end
+$upscope $end
+$scope module mux $end
+$var wire 3 8 SELECT [2:0] $end
+$var wire 8 9 add_result [7:0] $end
+$var wire 8 : and_result [7:0] $end
+$var wire 8 ; forward_result [7:0] $end
+$var wire 8 < or_result [7:0] $end
+$var reg 8 = RESULT [7:0] $end
+$upscope $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+$comment Show the parameter values. $end
+$dumpall
+$end
+#0
+$dumpvars
+bx =
+bx <
+bx ;
+bx :
+bx 9
+b0 8
+bx 7
+b0 6
+b0 5
+bx 4
+b0 3
+bx 2
+b0 1
+b0 0
+bx /
+b0 .
+b0 -
+bx ,
+bx +
+bx *
+bx )
+bx (
+b0 '
+b0 &
+b0 %
+b0 $
+b0 #
+b0 "
+bx !
+$end
+#1
+b0 !
+b0 ,
+b0 =
+b0 (
+b0 7
+b0 <
+b0 *
+b0 2
+b0 :
+b0 )
+b0 4
+b0 ;
+#2
+b0 +
+b0 /
+b0 9
+#5
+b1 #
+b1 &
+b1 .
+b1 1
+b1 3
+b1 6
+b10 "
+b10 %
+b10 -
+b10 0
+b10 5
+#6
+b1 !
+b1 ,
+b1 =
+b11 (
+b11 7
+b11 <
+b1 )
+b1 4
+b1 ;
+#7
+b11 +
+b11 /
+b11 9
+#10
+b11 !
+b11 ,
+b11 =
+b1 "
+b1 %
+b1 -
+b1 0
+b1 5
+b1 $
+b1 '
+b1 8
+#11
+b1 *
+b1 2
+b1 :
+b1 (
+b1 7
+b1 <
+#12
+b10 !
+b10 ,
+b10 =
+b10 +
+b10 /
+b10 9
+#15
+b1 !
+b1 ,
+b1 =
+b11 #
+b11 &
+b11 .
+b11 1
+b11 3
+b11 6
+b1111 "
+b1111 %
+b1111 -
+b1111 0
+b1111 5
+b10 $
+b10 '
+b10 8
+#16
+b11 !
+b11 ,
+b11 =
+b11 *
+b11 2
+b11 :
+b1111 (
+b1111 7
+b1111 <
+b11 )
+b11 4
+b11 ;
+#17
+b10010 +
+b10010 /
+b10010 9
+#20
+b1111 !
+b1111 ,
+b1111 =
+b1100 #
+b1100 &
+b1100 .
+b1100 1
+b1100 3
+b1100 6
+b1001 "
+b1001 %
+b1001 -
+b1001 0
+b1001 5
+b11 $
+b11 '
+b11 8
+#21
+b1101 !
+b1101 ,
+b1101 =
+b1000 *
+b1000 2
+b1000 :
+b1101 (
+b1101 7
+b1101 <
+b1100 )
+b1100 4
+b1100 ;
+#22
+b10101 +
+b10101 /
+b10101 9
+#25
+b10101 !
+b10101 ,
+b10101 =
+b1 $
+b1 '
+b1 8
+#30
+b101000 "
+b101000 %
+b101000 -
+b101000 0
+b101000 5
+#31
+b101100 (
+b101100 7
+b101100 <
+#32
+b110100 !
+b110100 ,
+b110100 =
+b110100 +
+b110100 /
+b110100 9
+#35
+b11 #
+b11 &
+b11 .
+b11 1
+b11 3
+b11 6
+#36
+b0 *
+b0 2
+b0 :
+b101011 (
+b101011 7
+b101011 <
+b11 )
+b11 4
+b11 ;
+#37
+b101011 !
+b101011 ,
+b101011 =
+b101011 +
+b101011 /
+b101011 9
+#40
+b0 !
+b0 ,
+b0 =
+b1100 #
+b1100 &
+b1100 .
+b1100 1
+b1100 3
+b1100 6
+b1001 "
+b1001 %
+b1001 -
+b1001 0
+b1001 5
+b10 $
+b10 '
+b10 8
+#41
+b1000 !
+b1000 ,
+b1000 =
+b1000 *
+b1000 2
+b1000 :
+b1101 (
+b1101 7
+b1101 <
+b1100 )
+b1100 4
+b1100 ;
+#42
+b10101 +
+b10101 /
+b10101 9
