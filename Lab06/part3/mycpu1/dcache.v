@@ -47,16 +47,26 @@ module dcache (
     // get the index value
     assign index = address[4:2];
 
+    // use a trigger
+    reg flag;
+    // set a flag 
+    always @(address) begin
+        flag = 0;
+    end
+    
     // indexing base on index
     always @(address, cache[index]) begin
-        // get the data block
+
+        // read a entry from cache
         #1 cache_entry = cache[index];
+        // on the flag
+        flag = 1;
 
     end
 
     // Tag comparison and validation 
     // check whether the access is a hit or miss
-    always @(cache_entry, read, write, negedge clock) begin
+    always @(cache_entry, read, write, negedge clock, posedge flag) begin
 
         // delay for Tag comparison and validation 
         #0.9
@@ -79,7 +89,7 @@ module dcache (
     end
 
     // data word selection
-    always @(cache_entry, read, write, negedge clock) begin
+    always @(cache_entry, read, write, negedge clock, posedge flag) begin
 
         // delay for selecting the data word 
         #1

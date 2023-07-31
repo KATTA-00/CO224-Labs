@@ -52,7 +52,7 @@ module reg_file(IN, OUT1, OUT2, INADDRESS, OUT1ADDRESS, OUT2ADDRESS, WRITE, CLK,
             
             // select the appropriate reg numbers
             // writting takes 1 time unit time
-            #1 registers[INADDRESS] = IN;
+            registers[INADDRESS] = #1 IN;
 
         end
 
